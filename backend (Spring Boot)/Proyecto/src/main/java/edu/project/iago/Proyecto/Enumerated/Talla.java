@@ -1,6 +1,7 @@
 package edu.project.iago.Proyecto.Enumerated;
 
 public enum Talla {
+    
     S,    // Talla pequeña (ropa)
     M,    // Talla mediana (ropa)
     L,    // Talla grande (ropa)

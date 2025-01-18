@@ -1,6 +1,10 @@
 package edu.project.iago.Proyecto.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import edu.project.iago.Proyecto.Enumerated.Talla;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -8,6 +12,9 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -41,11 +48,44 @@ public class Producto {
     @Enumerated(EnumType.STRING)
     private Talla talla;
 
+    // Relación muchos a uno con Categoria
+    @ManyToOne
+    @JoinColumn(name = "categoria_id", nullable = false)
+    private Categoria categoria;
+
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
+    private Set<CarritoProducto> carritoProductos = new HashSet<>();
+
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
+    private Set<PedidoProducto> pedidoProductos = new HashSet<>();
 
     // Constructores
     public Producto() {}
 
-
+    // Constructor completo
+    public Producto(Long id, String nombre, String descripcion, String imagenUrl, double precio, int cantidadStock,
+            String material, Talla talla) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.imagenUrl = imagenUrl;
+        this.precio = precio;
+        this.cantidadStock = cantidadStock;
+        this.material = material;
+        this.talla = talla;
+    }
+    
+    // Constructor sin imagen URL (por si no se tiene una) nos permite crear un producto sin imagen
+    public Producto(Long id, String nombre, String descripcion, double precio, int cantidadStock, String material,
+            Talla talla) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.cantidadStock = cantidadStock;
+        this.material = material;
+        this.talla = talla;
+    }
 
     // Getters y Setters
     public Long getId() {
@@ -112,13 +152,36 @@ public class Producto {
         this.talla = talla;
     }
 
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public Set<CarritoProducto> getCarritoProductos() {
+        return carritoProductos;
+    }
+
+    public void setCarritoProductos(Set<CarritoProducto> carritoProductos) {
+        this.carritoProductos = carritoProductos;
+    }
+
+    public Set<PedidoProducto> getPedidoProductos() {
+        return pedidoProductos;
+    }
+
+    public void setPedidoProductos(Set<PedidoProducto> pedidoProductos) {
+        this.pedidoProductos = pedidoProductos;
+    }
+
+    //toString
     @Override
     public String toString() {
-        return "Producto [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", imagenUrl=" + imagenUrl
-                + ", precio=" + precio + ", cantidadStock=" + cantidadStock + ", material=" + material + ", talla="
-                + talla + "]";
-    } 
-
-
+        return "Producto [cantidadStock=" + cantidadStock + ", categoria=" + categoria + ", descripcion=" + descripcion
+                + ", id=" + id + ", imagenUrl=" + imagenUrl + ", material=" + material + ", nombre=" + nombre
+                + ", precio=" + precio + ", talla=" + talla + "]";
+    }
 
 }

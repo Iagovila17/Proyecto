@@ -1,1 +1,85 @@
 I&Teck Nombre de la Web (Combina la Inicial de Iago I y el nombre de teckel Teck)
+
+1. Entidad Producto
+Representa los artículos que vendes (camisetas, sudaderas, zapatos, etc.).
+
+Campos:
+id: Identificador único.
+nombre: Nombre del producto.
+descripcion: Breve descripción del producto.
+precio: Precio del producto.
+stock: Cantidad disponible en el inventario.
+imagenUrl: URL de la imagen del producto.
+talla: 
+Material:
+categoria: Relación con la entidad Categoria.
+
+
+
+2. Entidad Categoria
+Agrupa los productos por categorías (Camisetas, Sudaderas, Zapatos, etc.).
+
+Campos:
+id: Identificador único.
+nombre: Nombre de la categoría.
+descripcion: Descripción de la categoría.
+
+2.1 Subcategoria (opciones )
+Camisetas
+Pantalones
+Chaquetas
+Vestidos
+Calzado
+Accesorios (gorras, bufandas, etc.)
+Ropa deportiva
+Ropa interior
+Abrigos
+Trajes
+Pijamas
+
+
+
+
+3. Entidad Usuario
+Representa a los clientes registrados o administradores.
+
+Campos:
+id: Identificador único.
+nombre: Nombre del usuario.
+contraseña: Contraseña encriptada.
+email: Correo electrónico
+Telefono: 
+Direccion
+rol: Rol del usuario (ADMIN,USER,Moderador,Soporte;).
+
+
+
+4. Entidad Carrito
+Gestiona los productos que un usuario quiere comprar antes de finalizar la compra.
+
+Campos:
+id: Identificador único.
+usuario: Relación con el usuario.
+productos: Lista de productos seleccionados (relación con Producto).
+cantidad: Cantidad de cada producto en el carrito.
+
+
+
+5. Entidad Pedido
+Representa una compra realizada por un usuario.
+
+Campos:
+id: Identificador único.
+usuario: Relación con el usuario que hizo el pedido.
+productos: Lista de productos comprados (relación con Producto).
+total: Monto total del pedido.
+fecha: Fecha de la compra.
+estado: Estado del pedido (PENDIENTE, ENVIADO, ENTREGADO, etc.)
+
+
+
+Relaciones entre entidades
+Producto y Categoria: Relación muchos a uno (un producto pertenece a una categoría, pero una categoría puede tener muchos productos).
+Usuario y Carrito: Relación uno a uno (cada usuario tiene un carrito).
+Carrito y Producto: Relación muchos a muchos (un carrito puede contener varios productos, y un producto puede estar en varios carritos).
+Pedido y Producto: Relación muchos a muchos (un pedido puede tener varios productos y viceversa).
