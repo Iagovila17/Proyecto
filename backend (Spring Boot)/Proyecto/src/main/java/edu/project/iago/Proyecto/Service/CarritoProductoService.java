@@ -9,7 +9,6 @@ import edu.project.iago.Proyecto.entities.CarritoProducto;
 @Service
 public class CarritoProductoService implements ICarritoProducto {
 
-    @Autowired
-    private CarritoProducto carritoProductoRepository;
+    
 
 }

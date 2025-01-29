@@ -26,13 +26,13 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nombre", nullable = false, length = 100)
+    @Column(name = "nombre", nullable = false, length = 250)
     private String nombre;
 
-    @Column(name = "descripcion", nullable = false, length = 100)
+    @Column(name = "descripcion", nullable = false, length = 250)
     private String descripcion;
 
-    @Column(name = "imagen_url", nullable = false, length = 100)    
+    @Column(name = "imagen_url", nullable = false, length = 250)    
     private String imagenUrl;
     
     @Column(name = "precio", nullable = false)
@@ -41,7 +41,7 @@ public class Producto {
     @Column(name = "cantidad_stock", nullable = false)
     private int cantidadStock;
 
-    @Column(name = "material", nullable = false, length = 100)
+    @Column(name = "material", nullable = false, length = 250)
     private String material;
 
     @Column(name = "talla", nullable = false)
