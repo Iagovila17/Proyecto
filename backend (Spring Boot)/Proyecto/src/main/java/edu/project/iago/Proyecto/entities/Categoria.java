@@ -1,11 +1,14 @@
 package edu.project.iago.Proyecto.entities;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,6 +26,9 @@ public class Categoria {
     @Column(name = "descripcion", nullable = false, length = 100)
     private String descripcion;
 
+    //relacion OnetoMany con subcategorias donde varias subcategorias perteneces a 1 categoria y 1 una categoria puede pertencecer varias subcateogiras
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Subcategoria> subcategorias;
 
     // Constructores
     public Categoria() {}

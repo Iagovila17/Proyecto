@@ -6,5 +6,5 @@ import edu.project.iago.Proyecto.entities.User;
 
 public interface IUser {
 
-    public List<User> getAllUsers();
+    public List<User> listausuarios();
 }

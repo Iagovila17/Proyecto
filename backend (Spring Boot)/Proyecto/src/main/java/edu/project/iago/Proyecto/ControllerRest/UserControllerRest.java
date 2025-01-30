@@ -8,17 +8,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.project.iago.Proyecto.Service.UserService;
 import edu.project.iago.Proyecto.entities.User;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("/user")
 public class UserControllerRest {
 
     @Autowired
     private UserService userService;
 
-    // @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
-    }
-
+    @GetMapping("/all")
+    public List<User> getUsers() {
+        return userService.listausuarios();
+    }  
 }

@@ -15,9 +15,11 @@ public class UserService implements IUser{
     private UserRepository userRepository;
 
     @Override
-    public List<User> getAllUsers() {
-        throw new UnsupportedOperationException("Unimplemented method 'getAllUsers'");
+    public List<User> listausuarios() {
+        return userRepository.findAll();
     }
+
+    
 
     
 }

@@ -44,14 +44,15 @@ public class Producto {
     @Column(name = "material", nullable = false, length = 250)
     private String material;
 
-    @Column(name = "talla", nullable = false)
+    @Column(name = "talla", nullable = true)
     @Enumerated(EnumType.STRING)
     private Talla talla;
 
-    // Relación muchos a uno con Categoria
-    @ManyToOne
-    @JoinColumn(name = "categoria_id", nullable = false)
-    private Categoria categoria;
+     // Relación con Subcategoria (Muchos a Uno)
+     @ManyToOne
+     @JoinColumn(name = "subcategoria_id", nullable = false)
+     private Subcategoria subcategoria;
+
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
     private Set<CarritoProducto> carritoProductos = new HashSet<>();
@@ -152,14 +153,6 @@ public class Producto {
         this.talla = talla;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
-
     public Set<CarritoProducto> getCarritoProductos() {
         return carritoProductos;
     }
@@ -179,7 +172,7 @@ public class Producto {
     //toString
     @Override
     public String toString() {
-        return "Producto [cantidadStock=" + cantidadStock + ", categoria=" + categoria + ", descripcion=" + descripcion
+        return "Producto [cantidadStock=" + cantidadStock + ", descripcion=" + descripcion
                 + ", id=" + id + ", imagenUrl=" + imagenUrl + ", material=" + material + ", nombre=" + nombre
                 + ", precio=" + precio + ", talla=" + talla + "]";
     }
