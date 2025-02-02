@@ -1,6 +1,7 @@
 INSERT INTO users (nombre, password, email, telefono, direccion, rol) VALUES 
 ('iago', '123456B', 'iagovila17@gmail.com', 607048866, 'Calle 123, A Coruña', 'ADMIN'),
-('Juan', '123456A', 'usuario2@email.com', 987654321, 'Avenida 456, Madrid', 'USER');
+('pablo', '654321C', 'pablito@gmail.com', 603248546, 'Calle fernandez 1, Barcelona', 'CLIENTE'),
+('Juan', '129856A', 'usuario2@email.com', 987654321, 'Avenida 456, Madrid', 'USER');
 
 -- Insertar categorias principales
 INSERT INTO categorias (descripcion, nombre) 
