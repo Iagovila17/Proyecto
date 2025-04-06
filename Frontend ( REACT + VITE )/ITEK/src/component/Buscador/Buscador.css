@@ -1,0 +1,36 @@
+.buscador-web {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .buscador-web input {
+    width: 410px; 
+    height: 10px;
+    border: 1px solid rgb(255, 255, 255); 
+  }
+  
+  .buscador-web input:focus {
+    border-color: #ffffff;
+
+    font-family: Helvetica, sans-serif;
+  }
+
+  .buscador-web input::placeholder { 
+    color: rgb(0, 0, 0); 
+    text-align: right; 
+    margin-left: 20px;
+    
+  }
+
+
+  @media (max-width: 480px) {
+
+
+    .buscador-web input{
+      width: 80px;
+      height: 10px;
+    }
+  }
+  
+  
+  

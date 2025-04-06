@@ -1,0 +1,166 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.Titulo-ayuda {  
+    margin-left: 9%;
+    margin-top: 2%;
+  }
+
+.Titulo-ayuda a{
+        
+      text-decoration: none;
+      color: rgb(0, 0, 0);
+      font-weight: bold;
+      font-family: "Didot", serif;
+      font-size: 6em;
+    }
+
+.header-tools-ayuda{
+      
+      width: 98%;
+      display: flex;
+      justify-content: right;
+      gap: 2%;  
+  }
+  .header-tools-ayuda a{
+      
+      margin-top: 2%;
+      text-decoration: none;
+      font-family: serif;
+      color: black;
+      font-size: 1em;
+  }
+  
+  .header-ayuda{
+      padding: 0%;
+      margin: 0%;
+      width: 100%;
+      height: 800px;
+      background-image: url("/Imagenes/fotoAyuda.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+  }
+
+#preguntas-ayuda{
+      margin-top: 3%;
+      margin-left: 2%;
+      font-size: 16px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: bold;
+  }
+  
+  .Consultas-container{
+      display: flex;
+      
+  }
+  .consultas{
+      text-align: center;
+      padding: 10px;
+      margin-left: 4%;
+      margin-top: 1%;
+      font-size: 11px;
+      border: 1px solid black;
+  }
+  
+  .Consultasvarias-container {
+      width: 70%;
+      margin-top: 2%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+      grid-template-rows: repeat(2, auto); /* 2 filas */
+  
+    }
+    .consulta-item {
+      
+      width: 80%;
+      height: 80px;
+      text-align: center;
+      padding: 10px;
+      margin-left: 20%;
+      margin-top: 5%;
+      font-size: 11px;
+      border: 1px solid black;
+    }
+  
+
+  @media (max-width: 768px){
+    .header-ayuda{
+        margin-right: 20px;
+        width: 100%;
+        height: 400px;
+    }
+    .Titulo-ayuda {  
+      margin-top: 5%;
+    }
+  
+  .Titulo-ayuda a{
+          
+        text-decoration: none;
+        color: rgb(0, 0, 0);
+        font-weight: bold;
+        font-family: "Didot", serif;
+        font-size: 6em;
+      }
+  
+  .header-tools-ayuda{
+        width: 97%;
+        display: flex;
+        justify-content: right;
+        gap: 2%;  
+    }
+    .header-tools-ayuda a{
+        
+        margin-top: 4%;
+        text-decoration: none;
+        font-family: serif;
+        color: black;
+        font-size: 1em;
+    }
+    
+    .header-ayuda{
+        
+        padding: 0%;
+        margin: 0%;
+        width: 100%;
+        height: 350px;
+        background-image: url("/Imagenes/fotoAyuda.jpg");    
+    }   
+    
+    .Consultas-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px; 
+        margin: 10px;
+    }
+    
+   
+    .consultas {
+        width: 90%; 
+        text-align: center;
+        padding: 12px;
+        font-size: 14px; 
+        border: 1px solid black;
+        border-radius: 5px; 
+        background-color: #ffffff;  
+    }
+    
+    /* Contenedor de preguntas adicionales */
+    .Consultasvarias-container {
+        display: flex;
+        flex-direction: column; 
+        margin: 10px;
+    }
+    
+    /* Estilos de cada pregunta */
+    .consulta-item {
+        width: 90%; 
+        text-align: center;
+        font-size: 14px; 
+        border: 1px solid black;
+        border-radius: 5px; 
+        background-color: #ffffff; 
+    }  
+}

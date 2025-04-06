@@ -1,0 +1,203 @@
+@media (min-width: 768px) {
+    .product-detail {
+        display: flex;
+        margin-left: 20%;
+        gap: 20px; /* Espacio entre la imagen principal y el contenido */
+    }
+    .product-detail img {
+        margin-top: 1%;
+        width: 50%; 
+        
+    }
+    .product-detail-name{
+        margin-top: 0%;
+        font-size: 24px;
+        font-weight: bold;
+        color: rgb(53, 53, 53);
+    }
+    .product-detail-price{
+        margin-top: 3%;
+        font-size: 17px;
+        color: rgb(53, 53, 53);
+    }
+    .lineaproduct{
+        margin-top: 5%;
+        width: 100%;
+        border-top: 1px solid #000000;
+        margin-bottom: 1rem; 
+    }
+    .info{
+        margin-top: 6%;
+        width: 40%;
+        margin-right: 20%;
+    }
+    .info-product {
+        display: flex;
+        flex-direction: column;
+    }
+    p{
+        margin-right: 2%;
+        margin-left: 5%;
+        font-size: 12px;
+        margin-top: 5%;
+        font-family: 'Neue-Helvetica', 'Helvetica', 'Arial', Sans-Serif;;
+    }
+    .referencia{
+        font-size: 12px;
+        margin-left: 5%;
+        margin-top: 4%;
+        color: rgb(63, 63, 63);
+    }
+    h3{
+        margin-top: 4%;
+        margin-left: 5%;
+        font-size: 16px;
+    }
+
+    .composicion{
+        margin-top: 2%;
+        margin-left: 5%;
+        font-size: 13px;
+        font-family: 'Neue-Helvetica', 'Helvetica', 'Arial', Sans-Serif;;
+    }
+    .cuidados{
+        margin-top: 2%;
+        margin-left: 5%;
+        font-size: 13px;
+        font-family: 'Neue-Helvetica', 'Helvetica', 'Arial', Sans-Serif;;
+    }
+
+
+
+    
+.Button-añadir{
+    margin-top: 5%;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+}
+#Button-Añadir{
+    width: 100%;
+    font-size: 16px;
+    padding: 2%;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: white;
+    border: 1px solid black;
+}
+
+    .imagen-detalle-estilo {
+        display: flex;
+        flex-direction: row;
+        margin-left: 20%;
+        gap: 10%;
+        width: 80%;
+        margin-top: 4%;
+    }
+    .imagen-detalle-estilo img {
+        width: 35%;
+        height: 30%;
+       
+    }
+}
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 480px){ 
+.product-detail{
+    display: flex;
+    flex-direction: column;
+    padding: 0%;
+    margin: 0%;
+   
+}
+.product-detail img{
+    max-width: 390px;
+    height: 600px;
+    max-height: 600px;
+    margin-left: 5%;
+}
+.product-detail-name{
+    margin-right: 0%;
+    margin-left: 5%;
+    font-size: 16px;
+    margin-top: 2%;
+    font-weight: bold;
+    color: rgb(53, 53, 53);
+}
+.product-detail-price{
+    margin-right: 0%;
+    margin-left: 5%;
+    font-size: 15px;
+    margin-top: 2%;
+    font-weight: bold;
+    color: rgb(53, 53, 53);
+}
+.imagen-detalle-estilo{
+    display: flex;
+    margin-left: 5%;
+    margin-top: 6%;
+    gap: 4%;
+}
+.imagen-detalle-estilo img{
+   width: 185px;
+   height: 280px;
+}
+p{
+    margin-right: 2%;
+    margin-left: 5%;
+    font-size: 12px;
+    margin-top: 5%;
+    font-family: 'Neue-Helvetica', 'Helvetica', 'Arial', Sans-Serif;;
+}
+.referencia{
+    font-size: 12px;
+    margin-left: 5%;
+    margin-top: 4%;
+    color: rgb(63, 63, 63);
+}
+h3{
+    margin-top: 4%;
+    margin-left: 5%;
+    font-size: 16px;
+}
+.composicion{
+    margin-top: 2%;
+    margin-left: 5%;
+    font-size: 12px;
+    font-family: 'Neue-Helvetica', 'Helvetica', 'Arial', Sans-Serif;;
+}
+.cuidados{
+    margin-top: 2%;
+    margin-left: 5%;
+    font-size: 12px;
+    font-family: 'Neue-Helvetica', 'Helvetica', 'Arial', Sans-Serif;;
+}
+
+.Button-añadir{
+    position: fixed;
+    top: 94%;        /* Distancia desde la parte superior */
+    padding: 2%;
+    width: 99%;
+    height: 40px;
+    background-color: rgb(255, 255, 255);
+}
+#Button-Añadir{
+    margin-left: 2%;
+    width: 30%;
+    font-size: 16px;
+    padding: 2%;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: white;
+    border: 1px solid black;
+}
+}
+
+
+
+

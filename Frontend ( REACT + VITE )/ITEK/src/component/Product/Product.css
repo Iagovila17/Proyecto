@@ -1,0 +1,203 @@
+@media (min-width: 768px) {
+  /* Controles */
+.controls {
+  display: flex;
+  justify-content: right;
+  margin-bottom: 2%;
+  margin-right: 2%;
+  gap: 5px; /* Espacio entre botones */
+}
+
+/* Botones de vista */
+.view-options {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+  gap: 10px;
+}
+
+.view-button {
+  padding: 8px 12px;
+  border: 1px solid #000;
+  background-color: #f5f5f5;
+  cursor: pointer;
+  transition: 1s;
+}
+
+.view-button:hover {
+  background-color: #ddd;
+}
+
+.view-button.active {
+  background-color: black;
+  color: #fff;
+}
+
+
+
+.product img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain; /* Asegura que la imagen se ajuste sin recortarse */
+}
+
+.product-info {
+  font-family: "Didot", serif;
+  font-size: 27px;
+  color: #000;
+  text-align: left;
+  margin: 10px;
+}
+
+/* Precio del producto */
+.product-price {
+  font-size: 12px;
+}
+
+/* Cuadro de color */
+.color-box {
+  display: inline-block;
+  width: 15px; /* Tamaño del cuadro de color */
+  height: 15px;
+  margin-left: 10px; /* Espacio entre el nombre y el color */
+  border: 1px solid #000;
+  margin-top: 3%;
+}
+
+/* Contenedor de la cuadrícula de productos */
+.grid {
+  display: grid;
+  margin-left: 1%;
+  width: 98%; /* Ocupar casi todo el ancho de la pantalla */
+  gap: 10px; /* Espacio entre productos */
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+  /* 🔹 Mínimo 150px, pero se expanden si hay espacio */
+}
+
+/* Contenedor del nombre */
+.name-wrapper {
+  display: flex;
+  font-size: 15px;
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Media Queries - Ajustes para pantallas pequeñas */
+@media (max-width: 480px) {
+  .controls {
+    display: flex;
+    justify-content: right;
+    margin-bottom: 2%;
+    margin-right: 2%;
+    gap: 5px; /* Espacio entre botones */
+  }
+  
+  /* Botones de vista */
+  .view-options {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    gap: 10px;
+  }
+  
+  .view-button {
+    padding: 8px 12px;
+    border: 1px solid #000;
+    background-color: #f5f5f5;
+    cursor: pointer;
+    transition: 1s;
+  }
+  
+  .view-button:hover {
+    background-color: #ddd;
+  }
+  
+  .view-button.active {
+    background-color: black;
+    color: #fff;
+  }
+
+  .product img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain; /* Asegura que la imagen se ajuste sin recortarse */
+  }
+  
+  .product-info {
+    font-family: "Didot", serif;
+    font-size: 27px;
+    color: #000;
+    text-align: left;
+    margin: 10px;
+  }
+  
+  /* Precio del producto */
+  .product-price {
+    font-size: 12px;
+  }
+  
+  /* Cuadro de color */
+  .color-box {
+    display: inline-block;
+    width: 15px; /* Tamaño del cuadro de color */
+    height: 15px;
+    margin-left: 10px; /* Espacio entre el nombre y el color */
+    border: 1px solid #000;
+    margin-top: 3%;
+  }
+  
+  /* Contenedor de la cuadrícula de productos */
+  .grid {
+    display: grid;
+    margin-left: 1%;
+    width: 98%; /* Ocupar casi todo el ancho de la pantalla */
+    gap: 10px; /* Espacio entre productos */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+    /* 🔹 Mínimo 150px, pero se expanden si hay espacio */
+  }
+  
+  /* Contenedor del nombre */
+  .name-wrapper {
+    display: flex;
+    font-size: 13px;
+  }
+  .product-price {
+      font-size: 10px;
+  }
+
+  /* Oculta el nombre y el precio en ciertas cuadrículas */
+  .grid.six-columns .product-info .name-wrapper,
+  .grid.eight-columns .product-info .name-wrapper,
+  .grid.six-columns .product-info .product-price,
+  .grid.eight-columns .product-info .product-price {
+      display: none;
+  }
+}
+
+
+
+
+
+
+
+
+
+
