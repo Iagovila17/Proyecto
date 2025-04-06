@@ -1,0 +1,55 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Dashboard</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+        
+    </head>
+    <body>
+        <div class="d-flex">
+            <nav class="sidebar bg-dark text-white p-3">
+                <img src="foto.png" alt="Logo">
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link text-white" href="#">Administración</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#">Ventas</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#">Inventarios</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#">Emisión DTE</a></li>
+                </ul>
+            </nav>
+            
+            <main class="main-content">
+                <h1 class="mt-4">Dashboard</h1>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card bg-danger text-white mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">37 Documentos emitidos</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-success text-white mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">$90,310 Venta del día</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-primary text-white mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">0 Documentos recibidos</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-success text-white mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Estado servidor: Disponible</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+    </html>

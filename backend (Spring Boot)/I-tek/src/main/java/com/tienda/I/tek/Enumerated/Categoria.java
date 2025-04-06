@@ -1,0 +1,14 @@
+package com.tienda.I.tek.Enumerated;
+
+public enum Categoria {
+    CAMISETAS_HOMBRE,
+    CAMISETAS_MUJER,
+    PANTALONES_HOMBRE,
+    PANTALONES_MUJER,
+    VESTIDOS_MUJER,
+    ABRIGOS_HOMBRE,
+    ABRIGOS_MUJER,
+    CALZADO_HOMBRE,
+    CALZADO_MUJER,
+    ACCESORIOS_UNISEX
+}
