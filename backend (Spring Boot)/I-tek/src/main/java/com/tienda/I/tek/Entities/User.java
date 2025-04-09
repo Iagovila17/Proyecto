@@ -31,7 +31,7 @@ public class User {
     private String email; 
 
     @Column(nullable = false)
-    private String contraseña; 
+    private String password; 
 
     @Column(nullable = true)
     private String direccion; 
@@ -48,12 +48,12 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String nombre, String email, String contraseña, String direccion, String telefono, Rol rol,
+    public User(Long id, String nombre, String email, String password, String direccion, String telefono, Rol rol,
             Date fechaRegistro) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
-        this.contraseña = contraseña;
+        this.password = password;
         this.direccion = direccion;
         this.telefono = telefono;
         this.rol = rol;
@@ -84,12 +84,12 @@ public class User {
         this.email = email;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getPassword() {
+        return password;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getDireccion() {
@@ -126,7 +126,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [id=" + id + ", nombre=" + nombre + ", email=" + email + ", contraseña=" + contraseña
+        return "User [id=" + id + ", nombre=" + nombre + ", email=" + email + ", password=" + password
                 + ", direccion=" + direccion + ", telefono=" + telefono + ", rol=" + rol + ", fechaRegistro="
                 + fechaRegistro + "]";
     } 
