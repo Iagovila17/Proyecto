@@ -12,6 +12,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -45,11 +46,14 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaRegistro;
 
+    @OneToOne(mappedBy = "usuario")
+    private Cart cart;
+
     public User() {
     }
 
     public User(Long id, String nombre, String email, String password, String direccion, String telefono, Rol rol,
-            Date fechaRegistro) {
+            Date fechaRegistro, Cart cart) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
@@ -58,6 +62,7 @@ public class User {
         this.telefono = telefono;
         this.rol = rol;
         this.fechaRegistro = fechaRegistro;
+        this.cart = cart;
     }
 
     public Long getId() {
@@ -124,13 +129,22 @@ public class User {
         this.fechaRegistro = fechaRegistro;
     }
 
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
     @Override
     public String toString() {
-        return "User [id=" + id + ", nombre=" + nombre + ", email=" + email + ", password=" + password
-                + ", direccion=" + direccion + ", telefono=" + telefono + ", rol=" + rol + ", fechaRegistro="
-                + fechaRegistro + "]";
-    } 
+        return "User [id=" + id + ", nombre=" + nombre + ", email=" + email + ", password=" + password + ", direccion="
+                + direccion + ", telefono=" + telefono + ", rol=" + rol + ", fechaRegistro=" + fechaRegistro + ", cart="
+                + cart + "]";
+    }
 
+    
 
     
 }

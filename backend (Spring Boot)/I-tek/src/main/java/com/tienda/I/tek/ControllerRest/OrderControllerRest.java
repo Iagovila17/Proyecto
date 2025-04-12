@@ -32,7 +32,7 @@ public class OrderControllerRest{
     @Autowired
     private UserService userService;
 
-    @GetMapping("/user/{userId}")  //  listar pedidos de un usuario
+    @GetMapping("/user/{userId}")  
     public ResponseEntity<?> getOrdersByUser(@PathVariable Long userId) {
         User user = userService.idUser(userId);  
     
@@ -53,22 +53,28 @@ public class OrderControllerRest{
             return ResponseEntity.ok(orderDTOs);
         }
     
-    @PostMapping("/save")  // guardar un pedido
+    @PostMapping("/save")  
     public void saveOrder(Order order) {
         orderService.saveOrder(order);
     }
     
 
-    @GetMapping("/{id}") // buscar pedido
-    public ResponseEntity<?> getOrderById(@PathVariable Long id) {
-    Optional<Order> orderOptional = orderService.getOrderById(id);
+    @GetMapping("/{id}") 
+        public ResponseEntity<?> getOrderById(@PathVariable Long id) {
+        Optional<Order> orderOptional = orderService.getOrderById(id);
 
-    if (orderOptional.isPresent()) {
-        Order order = orderOptional.get();
-        OrderDTO dto = new OrderDTO(order); // Se usa el Dto para no devolver el usuario entero
-        return ResponseEntity.ok(dto);
-    } else {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pedido no encontrado");
+        if (orderOptional.isPresent()) {
+            Order order = orderOptional.get();
+            OrderDTO dto = new OrderDTO(order); 
+            return ResponseEntity.ok(dto);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pedido no encontrado");
+        }
     }
-}
+
+
+   
+
+
+
 }

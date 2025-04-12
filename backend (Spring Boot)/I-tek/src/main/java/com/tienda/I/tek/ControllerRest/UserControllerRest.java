@@ -8,8 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tienda.I.tek.Entities.User;
 import com.tienda.I.tek.Service.UserService;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 
 @RestController
@@ -29,17 +33,17 @@ public class UserControllerRest {
         return userServi.idUser(id);
     }
     
-    @GetMapping("/save")
+    @PostMapping("/save")
     public void saveUser(User user) {
         userServi.saveUser(user);
     }
 
-    @GetMapping("/update")
+    @PutMapping("/update")
     public void updateUser(User user) {
         userServi.updateUser(user);
     }
 
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteUser(@PathVariable("id")Long id) {
         userServi.deleteUser(id);
     }

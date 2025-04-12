@@ -27,4 +27,51 @@ public class Category {
     @OneToMany(mappedBy = "categoria")
     private List<Product> productos;
 
+    public Category() {
+    }
+
+    public Category(Long id, String nombre, String descripcion, List<Product> productos) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.productos = productos;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public List<Product> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<Product> productos) {
+        this.productos = productos;
+    }
+
+    @Override
+    public String toString() {
+        return "Category [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", productos=" + productos
+                + "]";
+    }
 }

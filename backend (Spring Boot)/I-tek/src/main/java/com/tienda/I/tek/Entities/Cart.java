@@ -21,7 +21,7 @@ public class Cart {
     private Long id;
 
     @OneToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(name = "usuario_id", nullable = false) 
     private User usuario;
 
     @ManyToMany
@@ -31,5 +31,45 @@ public class Cart {
         inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     private List<Product> productos;
+    
 
+    public Cart() {
+    }
+
+    public Cart(Long id, User usuario, List<Product> productos) {
+        this.id = id;
+        this.usuario = usuario;
+        this.productos = productos;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(User usuario) {
+        this.usuario = usuario;
+    }
+
+    public List<Product> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<Product> productos) {
+        this.productos = productos;
+    }
+
+    @Override
+    public String toString() {
+        return "Cart [id=" + id + ", usuario=" + usuario + ", productos=" + productos + "]";
+    }
+
+    
 }
