@@ -1,10 +1,13 @@
 package com.tienda.I.tek.Secutiry;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import java.util.Collections;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import com.tienda.I.tek.Entities.User;
 import com.tienda.I.tek.Repository.UserRepository;
@@ -12,23 +15,18 @@ import com.tienda.I.tek.Repository.UserRepository;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
-
-    public CustomUserDetailsService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        // Busca el usuario por su correo electrónico
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
-        // Devolvemos un objeto UserDetails para que Spring Security lo use
-        return org.springframework.security.core.userdetails.User.builder()
-                .username(user.getEmail())
-                .password(user.getPassword())
-                .roles(user.getRol().toString())  // Convertimos el rol a String y lo asignamos
-                .build();
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+        
+        return new org.springframework.security.core.userdetails.User(
+                user.getEmail(),
+                user.getPassword(),
+                Collections.singletonList(new SimpleGrantedAuthority(user.getRol().name()))
+        );
     }
 }

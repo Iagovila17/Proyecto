@@ -1,7 +1,7 @@
 -- Insertar un usuario
 INSERT INTO users (nombre, email, password, direccion, telefono, rol, fechaRegistro) VALUES 
-('Iago Vila', 'iagovila17@gmail.com', '$2a$10$Y1SGQdD1a7ynMjblfvuP3eUOoezRrUS6GM6k3v2zHwL5Qbi1Z1t5K', 'Rua Boa Vista', '607048861', 'ADMIN', NOW()),
-('Juan Pérez', 'juan@example.com', '$2a$10$XJX6OQO7IuM5y2ZybF69reTbdGvWjX0bbz.C74RlF25ZaVtf9msqK', 'Calle Falsa 123', '123456789', 'USER', NOW());
+('Iago Vila', 'iagovila17@gmail.com', '$2a$10$OLFtHR1GqCSvZYtMHU2gv.9SYrBvlc6gKYD4eIZsPlPGenKzs9CNi', 'Rua Boa Vista', '607048861', 'ADMIN', NOW()),
+('Juan Pérez', 'juan@example.com', '$2a$10$OLFtHR1GqCSvZYtMHU2gv.9SYrBvlc6gKYD4eIZsPlPGenKzs9CNi', 'Calle Falsa 123', '123456789', 'USER', NOW());
 
 -- Insertar una categoría
 INSERT INTO categories (id, nombre, descripcion)
