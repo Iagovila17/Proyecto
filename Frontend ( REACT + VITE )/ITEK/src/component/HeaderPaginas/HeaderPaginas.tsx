@@ -1,20 +1,12 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { auth } from "../../firebase-config";
+import { useState } from "react";
+
 
 import Buscador from "../Buscador/Buscador";
 import "./HeaderPaginas.css";
 
 const Header = () => {
-  const [user, setUser] = useState<any>(null); // Asegúrate de definir correctamente el tipo del user
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
-      setUser(currentUser); // Se actualiza el estado cuando el usuario cambia
-    });
-
-    return () => unsubscribe(); // Limpiar el listener al desmontar el componente
-  }, []);
+  const [user] = useState<any>(null); 
 
 
   return (

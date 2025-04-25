@@ -1,13 +1,7 @@
 import React from "react";
 import "./RopaMujer.css"
-import ProductGrid from "../../Product/Product";
-import RopaMujerProduct from "./RopaMujerProduct";
 
 const RopaMujer: React.FC = () => {
-
-
-
-   // Función para cambiar el número de columnas en orden 4 → 6 → 8 
 
   return (
     <div>
@@ -22,9 +16,7 @@ const RopaMujer: React.FC = () => {
         <div className="secciones">ZAPATOS</div>
         <div className="secciones">ACCESORIOS</div>
         </div>
-      <ProductGrid products={RopaMujerProduct} />
       </div>
-    
       
   );
 }

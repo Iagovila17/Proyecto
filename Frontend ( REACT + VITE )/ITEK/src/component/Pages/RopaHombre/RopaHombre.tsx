@@ -1,11 +1,8 @@
 import React from "react";
-import ProductGrid from "../../Product/Product"; // Asegúrate de que la ruta sea correcta
 import "./RopaHombre.css";
-import ropaHombreProducts from "./RopaHombreProducts";
 
 const RopaHombre: React.FC = () => {
   
-
   return (
     <main>
       <div className="contenedor-secciones">
@@ -18,10 +15,7 @@ const RopaHombre: React.FC = () => {
         <div className="secciones">BOLSOS</div>
         <div className="secciones">ZAPATOS</div>
         <div className="secciones">ACCESORIOS</div>
-        
         </div>
-      {/* Pasa los productos como propiedad a ProductGrid */}
-      <ProductGrid products={ropaHombreProducts} />
     </main>
   );
 };

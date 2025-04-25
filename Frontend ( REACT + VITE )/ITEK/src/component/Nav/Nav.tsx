@@ -49,19 +49,6 @@ const Nav: React.FC = () => {
             <ul className="subfamilia">8 - 15 MESES</ul>
           </ul>
         </li>
-        <li className="menu-item">
-        <p id="nombre-menu-nav">HOME</p>
-          <ul className="dropdown">
-            <li><Link to="/Home">VER TODO</Link></li>
-            <li><Link to="/Home">DORMITORIO</Link></li>
-            <li><Link to="/Home">SALÓN</Link></li>
-            <li><Link to="/Home">COMEDOR</Link></li>
-            <li><Link to="/Home">COCINA</Link></li>
-            <li><Link to="/Home">BAÑO</Link></li>
-            <li><Link to="/Home">RECIBIDOR</Link></li>
-            <li><Link to="/Home">FRANGANCIA</Link></li>
-          </ul>
-        </li>
       </ul>
     </nav>
   );

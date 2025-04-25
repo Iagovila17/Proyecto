@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Product.css";
 
@@ -17,13 +17,24 @@ interface Product {
   cuidados?: string;
 }
 
-interface ProductGridProps {
-  products: Product[];
-}
-
-export default function Product({ products }: ProductGridProps) {
-  const [columns, setColumns] = useState(2); // Por defecto van a aparecer 2 productos
+export default function Product() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [columns, setColumns] = useState(2);
   const columnOptions = [4, 6, 8];
+
+  // Cargar los productos desde la API de Spring
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const response = await fetch("/api/products"); // Cambia esto por la URL correcta de tu API de Spring
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    }
+    fetchProducts();
+  }, []);
 
   return (
     <div>

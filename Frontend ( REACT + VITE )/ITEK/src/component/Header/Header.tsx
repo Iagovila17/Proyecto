@@ -1,22 +1,14 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { auth } from "../../firebase-config";
+import { useState } from "react";
 
 import Buscador from "../Buscador/Buscador";
 import Nav from "../Nav/Nav";
 import "./Header.css";
 
 const Header = () => {
-  const [user, setUser] = useState<any>(null); // Asegúrate de definir correctamente el tipo del user
+  const [user] = useState<any>(null); // Asegúrate de definir correctamente el tipo del user
  
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
-      setUser(currentUser); // Se actualiza el estado cuando el usuario cambia
-    });
-
-    return () => unsubscribe(); // Limpiar el listener al desmontar el componente
-  }, []);
-
+  
 
   return (
     <header id="header-principal">
@@ -31,7 +23,6 @@ const Header = () => {
             <button id="buscador-Inicial" title="Buscar"><Buscador /></button>
           </div>
           
-          {/* Mostrar enlaces dependiendo del estado de autenticación */}
           {user ? (
             <>
                 <Link to="/Cuenta">MI CUENTA</Link>

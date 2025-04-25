@@ -13,7 +13,6 @@
     "@cloudinary/react": "^1.13.1",
     "@cloudinary/url-gen": "^1.21.0",
     "cloudinary": "^2.5.1",
-    "firebase": "^11.3.1",
     "itek": "file:",
     "lucide-react": "^0.474.0",
     "react": "^18.3.1",

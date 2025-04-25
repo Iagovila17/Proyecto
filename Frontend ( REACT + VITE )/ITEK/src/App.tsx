@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Header from "./component/Header/Header";
 import HeaderPaginas from "./component/HeaderPaginas/HeaderPaginas";
 import Footer from "./component/footer/Footer";
@@ -8,7 +7,6 @@ import Inicio from "./component/Pages/Inicio/Inicio";
 import Hombre from "./component/Pages/RopaHombre/RopaHombre";
 import Mujer from "./component/Pages/RopaMujer/RopaMujer";
 import Niño from "./component/Pages/RopaNiños/RopaNiños";
-import Hogar from "./component/Pages/Hogar/Hogar";
 import Login from "./component/Login/Login";
 import Registro from "./component/registro/registro";
 import Ayuda from "./component/Pages/Ayuda/Ayuda";
@@ -36,23 +34,9 @@ const App: React.FC = () => {
 
   // Verificar si el usuario está autenticado
   useEffect(() => {
-    const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setIsAuthenticated(true);
-      } else {
-        setIsAuthenticated(false);
-      }
-    });
-    return () => unsubscribe();
+    const user = localStorage.getItem("isAuthenticated");
+    setIsAuthenticated(user === "true"); // Si está "true", significa que el usuario está autenticado
   }, []);
-
-  // Función para añadir un producto al carrito
-  const addToCart = (product: Product) => {
-    const updatedCart = [...cart, product];
-    setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-  };
 
   const removeFromCart = (id: number) => {
     setCart(cart.filter(product => product.id !== id));
@@ -69,7 +53,6 @@ const App: React.FC = () => {
   const clearCart = () => {
     setCart([]);  // Si cart se maneja con useState
   };
-  
 
   return (
     <Router>
@@ -82,7 +65,6 @@ const App: React.FC = () => {
         <Route path="/hombre" element={<><HeaderPaginas /> <Hombre /> <Footer /></>} />
         <Route path="/mujer" element={<><HeaderPaginas /> <Mujer /> <Footer /></>} />
         <Route path="/niño" element={<><HeaderPaginas /> <Niño /> <Footer /></>} />
-        <Route path="/home" element={<><HeaderPaginas /> <Hogar /> <Footer /></>} />
 
         {/* Autenticación */}
         <Route path="/login" element={<Login />} />
@@ -103,8 +85,8 @@ const App: React.FC = () => {
         />
 
         {/* Productos */}
-        <Route path="/product/:id" element={<><HeaderPaginas /> <ProductDetail addToCart={addToCart} /> <Footer /></>} />
-        <Route path="/products" element={<><HeaderPaginas /><Product products={[]} /><Footer /></>} />
+        <Route path="/product/:id" element={<><HeaderPaginas /> <ProductDetail /> <Footer /></>} />
+        <Route path="/products" element={<><HeaderPaginas /><Product /><Footer /></>} />
       </Routes>
     </Router>
   );

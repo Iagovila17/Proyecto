@@ -1,14 +1,10 @@
 import React from "react";
 import "./RopaNiños.css"
-import ProductGrid from "../../Product/Product"
-import RopaNiñosProduct from "./RopaNiñosProduct";
 
 const RopaMujer: React.FC = () => {
 
   return (
     <div>
-      
-      
       <div className="contenedor-secciones">
         <div className="secciones">VER TODO</div>
         <div className="secciones">NIÑA</div>
@@ -20,8 +16,7 @@ const RopaMujer: React.FC = () => {
         <div className="secciones">BEBÉ</div>
         <div className="secciones">0 - 8 MESES</div>
         <div className="secciones">8 - 15 MESES</div>
-        </div>
-     <ProductGrid products={RopaNiñosProduct}/>
+      </div>
     </div> 
       
   );

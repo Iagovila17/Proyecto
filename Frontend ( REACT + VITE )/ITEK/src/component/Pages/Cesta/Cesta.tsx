@@ -1,6 +1,4 @@
 import './Cesta.css';
-import { db, auth } from "../../../firebase-config";
-import { doc, deleteDoc, collection, getDocs } from "firebase/firestore";
 
 // Interfaz de producto
 interface Product {
@@ -36,33 +34,14 @@ const Cesta: React.FC<CestaProps> = ({ cart, removeFromCart, clearCart }) => {
   const total = cartWithQuantities.reduce((acc, { product, quantity }) => acc + product.price * quantity, 0);
 
   // Función para eliminar un producto
-  const handleRemove = async (id: number) => {
-    if (!auth.currentUser) return;
-    const userId = auth.currentUser.uid;
-      
+  const handleRemove = (id: number) => {
     removeFromCart(id);
-
-    // Referencia al producto en la base de datos
-    const productRef = doc(db, "users", userId, "cart", id.toString());
-    await deleteDoc(productRef);
   };
 
   // Función para realizar la compra
-  const handlePurchase = async () => {
-    if (!auth.currentUser) return;
-    const userId = auth.currentUser.uid;
-
-    // Referencia a la colección de productos en el carrito del usuario
-    const cartRef = collection(db, "users", userId, "cart");  
-    const cartSnapshot = await getDocs(cartRef);  
-
-    // Eliminar cada producto en la base de datos
-    const deletePromises = cartSnapshot.docs.map(doc => deleteDoc(doc.ref));  
-    await Promise.all(deletePromises);  
-
+  const handlePurchase = () => {
     // Vaciar el carrito en el estado local
     clearCart();
-
     alert("Compra realizada con éxito");
   };
 
