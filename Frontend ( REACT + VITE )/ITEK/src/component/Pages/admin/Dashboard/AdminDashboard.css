@@ -1,0 +1,203 @@
+.user-info-centered {
+  color: #fff;
+  padding: 15px 10px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: 1.1em; /* Un poco más grande */
+  font-weight: bold; /* Para que destaque más */
+  border-bottom: 1px solid #333;
+}
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh; /* Asegura que el contenedor ocupe al menos toda la altura de la pantalla */
+  }
+  
+  .sidebar {
+    background-color: #000; /* Color negro para la barra lateral */
+    color: #fff; /* Texto blanco para contraste */
+    width: 220px; /* Ancho de la barra lateral (ajusta según necesites) */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .logo {
+    margin-bottom: 30px;
+  }
+  
+  .logo h2 {
+    margin: 0;
+    font-size: 4em;
+  }
+  
+  .categories {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .categories li {
+    margin-bottom: 15px;
+  }
+  
+  .categories li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    font-size: 1.2em;
+    border-radius: 5px; /* Opcional: bordes redondeados */
+  }
+  
+  .categories li a:hover {
+    background-color: #333; /* Cambia el color al pasar el ratón */
+  }
+  
+  .main-content {
+    flex-grow: 1; /* El contenido principal ocupa el resto del espacio */
+    padding: 20px;
+  }
+  
+  .main-content h1 {
+    margin-top: 0;
+  }
+
+/* Estilo destacado para el botón de cerrar sesión */
+.logout-button {
+  background-color: #dd1e17; /* Un color rojo para destacar (puedes elegir otro) */
+  color: #fff;
+  border: none;
+  padding: 12px 15px; /* Un poco más de padding */
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 115px; /* Espacio superior para separarlo del contenido */;
+  text-align: center; /* Centramos el texto para que destaque más */
+  font-weight: bold; /* Texto en negrita */
+  font-size: 1em; /* Aseguramos un tamaño legible */
+  transition: background-color 0.3s ease; /* Transición suave para el hover */
+}
+
+.logout-button:hover {
+  background-color: #c94440; /* Un tono de rojo más oscuro al pasar el ratón */
+}
+
+/* Contenedor para el botón de cerrar sesión para alinearlo al final */
+.logout-container {
+  margin-top: auto; /* Empuja este elemento hacia la parte inferior */
+}
+
+.title {
+  font-size: 2.5em;
+  color: #333; /* Color del título */
+  margin-left: 35%;
+}
+
+
+
+
+
+
+/* ... estilos PRUEBA DE MAINN  ... */
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.main-content h1 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.dashboard-widgets {
+  margin-top: 2%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.widget {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+}
+
+.widget-icon {
+  font-size: 2.5em;
+  color: #007bff;
+  margin-right: 15px;
+}
+
+.widget-info h3 {
+  margin-top: 0;
+  font-size: 1.8em;
+  margin-bottom: 5px;
+}
+
+.widget-info p {
+  margin-bottom: 0;
+  color: #6c757d;
+}
+
+.dashboard-charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas para los gráficos */
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.chart-container {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.chart-container h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.3em;
+  text-align: center;
+}
+
+.dashboard-details {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-details h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.3em;
+}
+
+.dashboard-details ul {
+  list-style: none;
+  padding: 0;
+}
+
+.dashboard-details li {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.dashboard-details li:last-child {
+  border-bottom: none;
+}
+
+.sales-chart {
+  margin-top: 20px;
+  padding: 15px;
+  text-align: center;
+  border: 1px dashed #ccc;
+  border-radius: 5px;
+  color: #777;
+}

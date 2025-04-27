@@ -1,9 +1,13 @@
 package com.tienda.I.tek.Entities;
 
-
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import com.tienda.I.tek.Enumerated.Rol;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,16 +23,16 @@ import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false) 
+    @Column(nullable = true) 
     private String nombre; 
 
-    @Column(unique =  true, nullable = false)
+    @Column(unique =  false, nullable = false)
     private String email; 
 
     @Column(nullable = false)
@@ -49,9 +53,21 @@ public class User {
     @OneToOne(mappedBy = "usuario")
     private Cart cart;
 
+    // Constructor sin parámetros para JPA
     public User() {
     }
 
+    // Constructor con parámetros
+    public User(String email, String password, Rol rol, String nombre, String telefono) {
+        this.email = email;
+        this.password = password;
+        this.rol = rol;
+        this.nombre = nombre;
+        this.telefono = telefono;
+
+    }
+
+    // Otros constructores
     public User(Long id, String nombre, String email, String password, String direccion, String telefono, Rol rol,
             Date fechaRegistro, Cart cart) {
         this.id = id;
@@ -64,6 +80,7 @@ public class User {
         this.fechaRegistro = fechaRegistro;
         this.cart = cart;
     }
+    
 
     public Long getId() {
         return id;
@@ -144,7 +161,36 @@ public class User {
                 + cart + "]";
     }
 
-    
+    // Métodos de la interfaz UserDetails
 
-    
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // Devolver las autoridades (roles) del usuario, asumiendo que Rol es un enum
+        return List.of(() -> "ROLE_" + rol.name());  // Asumiendo que el Rol tiene valores como USER, ADMIN, etc.
+    }
+
+    @Override
+    public String getUsername() {
+        return email;  // El nombre de usuario es el email
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;  // Suponemos que la cuenta no ha expirado
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;  // Suponemos que la cuenta no está bloqueada
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;  // Las credenciales no han expirado
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;  // El usuario está habilitado
+    }
 }

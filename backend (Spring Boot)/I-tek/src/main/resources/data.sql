@@ -27,10 +27,10 @@ VALUES (1, 19.99, 'PAYPAL', NOW(), 'PENDIENTE');
 INSERT INTO orderhistories (pedido_id, usuario_id, fechaActualizacion, estadoAnterior, estadoNuevo)
 VALUES (1, 1, NOW(), 'PENDIENTE', 'PENDIENTE');
 
--- Insertar un carrito asociado al usuario
+-- Insertar 2 carritos de golpe (para usuario 1 y 2)
 INSERT INTO carts (usuario_id) 
-VALUES (1);  -- Suponiendo que el id del usuario es 1
+VALUES (1), (2);
 
 -- Insertar un producto en el carrito
 INSERT INTO cart_product (cart_id, product_id) 
-VALUES (1, 1);  -- Suponiendo que el id del carrito es 1 y el id del producto es 1
+VALUES (1, 1), (2, 1);

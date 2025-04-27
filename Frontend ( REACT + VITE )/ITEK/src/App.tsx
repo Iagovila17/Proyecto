@@ -14,6 +14,7 @@ import Cuenta from "./component/Pages/Cuenta/Cuenta";
 import Cesta from "./component/Pages/Cesta/Cesta";
 import Product from "./component/Product/Product";
 import ProductDetail from "./component/ProductDetail/ProductDetail";
+import AdminDashboard from './component/Pages/admin/Dashboard/AdminDashboard';
 
 interface Product {
   id: number;
@@ -25,17 +26,19 @@ interface Product {
 const App: React.FC = () => {
   const savedCart = localStorage.getItem("cart");
   const initialCart = savedCart ? JSON.parse(savedCart) : [];
-
-  // Estado del carrito
   const [cart, setCart] = useState<Product[]>(initialCart);
 
   // Estado de autenticación
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [role, setRole] = useState('');
 
-  // Verificar si el usuario está autenticado
   useEffect(() => {
-    const user = localStorage.getItem("isAuthenticated");
-    setIsAuthenticated(user === "true"); // Si está "true", significa que el usuario está autenticado
+    const authStatus = localStorage.getItem("isAuthenticated");
+    const userRole = localStorage.getItem("role");
+    if (authStatus === 'true' && userRole) {
+      setIsAuthenticated(true);
+      setRole(userRole);
+    }
   }, []);
 
   const removeFromCart = (id: number) => {
@@ -50,41 +53,29 @@ const App: React.FC = () => {
     return children;
   };
 
-  const clearCart = () => {
-    setCart([]);  // Si cart se maneja con useState
-  };
-
   return (
     <Router>
       <Routes>
-        {/* Página de Inicio */}
         <Route path="/" element={<Navigate to="/inicio" replace />} />
         <Route path="/inicio" element={<><Header /> <Inicio /><Footer /></>} />
-
-        {/* Páginas de categorías de productos */}
         <Route path="/hombre" element={<><HeaderPaginas /> <Hombre /> <Footer /></>} />
         <Route path="/mujer" element={<><HeaderPaginas /> <Mujer /> <Footer /></>} />
         <Route path="/niño" element={<><HeaderPaginas /> <Niño /> <Footer /></>} />
-
-        {/* Autenticación */}
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
-
-        {/* Otras páginas */}
         <Route path="/ayuda" element={<><Ayuda /> <Footer /></>} />
         <Route path="/cuenta" element={<Cuenta />} />
 
         {/* Ruta de la cesta protegida */}
-        <Route
-          path="/cesta"
-          element={
-            <ProtectedRoute>
-              <><HeaderPaginas /><Cesta cart={cart} removeFromCart={removeFromCart} clearCart={clearCart} /><Footer /></>
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/cesta" element={<><HeaderPaginas /> <Cesta /> <Footer /></>} />
 
-        {/* Productos */}
+        
+        {/* Ruta para admin */}
+        {role === 'ADMIN' && (
+          <Route path="/admin/dashboard" element={<><AdminDashboard /></>} />
+        )}
+
+        {/* Rutas de productos */}
         <Route path="/product/:id" element={<><HeaderPaginas /> <ProductDetail /> <Footer /></>} />
         <Route path="/products" element={<><HeaderPaginas /><Product /><Footer /></>} />
       </Routes>
