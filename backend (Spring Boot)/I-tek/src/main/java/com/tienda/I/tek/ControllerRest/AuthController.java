@@ -66,7 +66,7 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         // Autenticación del usuario
         Authentication authentication = authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
+            new UsernamePasswordAuthenticationToken(request.getEmail().trim(), request.getPassword())
         );
     
         // Buscar al usuario en la base de datos

@@ -28,7 +28,7 @@ public class JwtTokenProvider {
     // Generar un token JWT
     public String generateToken(User user) {
         return Jwts.builder()
-                .setSubject(user.getNombre())
+                .setSubject(user.getEmail())
                 .claim("roles", user.getRol()) // Verifica que el rol esté aquí
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))

@@ -26,6 +26,7 @@ public class UserControllerRest {
     private UserService userServi; 
 
     @GetMapping("/list")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<User> listUser() {
         return userServi.listUser();  
     }

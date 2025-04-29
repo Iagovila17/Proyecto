@@ -26,6 +26,7 @@ const Usuarios = () => {
     }
 
     axios.get('http://localhost:8080/User/list', {
+      method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
       },

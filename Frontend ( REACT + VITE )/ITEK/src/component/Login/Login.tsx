@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -6,63 +6,49 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+const handleLogin = async () => {
+  console.log("Login → Email:", email);
+  console.log("Login → Password:", password);
+  try {
+    const response = await fetch('http://localhost:8080/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    });
 
-  // Si ya está autenticado, redirige a la página correcta
-  const checkAuth = () => {
-    const user = localStorage.getItem('user');
-    if (user) {
-      const parsedUser = JSON.parse(user);
-      if (parsedUser.role === 'ADMIN') {
-        navigate('/admin/dashboard');
+    if (response.ok) {
+      const data = await response.json();
+
+      // Guarda el nombre, el rol y el token en localStorage
+      localStorage.setItem('user', JSON.stringify({
+        nombre: data.nombre,
+        email: data.email,  // Asegúrate de que el backend envíe el email
+        telefono: data.telefono,  // Asegúrate de que el backend envíe el teléfono
+        direccion: data.direccion,
+        role: data.role,
+        token: data.token,
+        isAuthenticated: true,  // Marcamos que el usuario está autenticado
+      }));
+
+      localStorage.setItem('role', data.role);  // Aquí guardas el rol
+
+      localStorage.setItem('isAuthenticated', 'true');  // Indicamos que el usuario está autenticado
+
+      // Redirigir según el rol
+      if (data.role === 'ADMIN') {
+        navigate('/admin/dashboard');  // Redirige a admin si es un administrador
       } else {
-        navigate('/');
+        navigate('/');  // Redirige a inicio si es un usuario común
       }
+    } else {
+      setError("Correo o contraseña incorrectos");
     }
-  };
-
-  // Verifica si el usuario está autenticado al cargar el componente
-  React.useEffect(() => {
-    checkAuth();
-  }, []);
-
-  const handleLogin = async () => {
-    try {
-      const response = await fetch('http://localhost:8080/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-  
-      if (response.ok) {
-        const data = await response.json();
-  
-        // Guarda toda la información en un solo objeto en localStorage
-        localStorage.setItem('user', JSON.stringify({
-          nombre: data.nombre,
-          email: data.email,  // Asegúrate de que el backend envíe el email
-          telefono: data.telefono,  // Asegúrate de que el backend envíe el teléfono
-          direccion: data.direccion,
-          role: data.role,
-          token: data.token,
-          isAuthenticated: true,  // Marcamos que el usuario está autenticado
-        }));
-  
-        // Redirigir según el rol
-        if (data.role === 'ADMIN') {
-          navigate('/admin/dashboard');  // Redirige a admin si es un administrador
-        } else {
-          navigate('/');  // Redirige a inicio si es un usuario común
-        }
-      } else {
-        setError("Correo o contraseña incorrectos");
-      }
-    } catch (error) {
-      console.error(error);
-      setError("Error en la solicitud. Intenta nuevamente.");
-    }
-  };
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   return (
     <div className="Regis-Login">
