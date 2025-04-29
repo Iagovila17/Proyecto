@@ -20,15 +20,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final CustomAuthenticationSuccessHandler authenticationSuccessHandler;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final CustomUserDetailsService userDetailsService;
 
     @Autowired
-    public SecurityConfig(CustomAuthenticationSuccessHandler authenticationSuccessHandler,
-                          JwtAuthenticationFilter jwtAuthenticationFilter,
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter,
                           CustomUserDetailsService userDetailsService) {
-        this.authenticationSuccessHandler = authenticationSuccessHandler;
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.userDetailsService = userDetailsService;
     }
@@ -36,28 +33,23 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf().disable()
+            .csrf(csrf -> csrf.disable())
             .cors().configurationSource(request -> {
-                CorsConfiguration corsConfig = new CorsConfiguration();
-                corsConfig.setAllowedOrigins(List.of("http://localhost:5174"));
-                corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-                corsConfig.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-                corsConfig.setAllowCredentials(true);
-                return corsConfig;
+                CorsConfiguration config = new CorsConfiguration();
+                config.setAllowedOrigins(List.of("http://localhost:5174")); // Permite las solicitudes desde el frontend React
+                config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Métodos permitidos
+                config.setAllowedHeaders(List.of("*")); // Permite todos los headers
+                config.setAllowCredentials(true); // Permite enviar credenciales (cookies, headers, etc.)
+                return config;
             })
         .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
             .authorizeHttpRequests()
-                .requestMatchers("/auth/login", "/auth/register", "/css/**", "/js/**").permitAll()
-                .requestMatchers("/admin/**").hasAuthority("ADMIN")
-                .requestMatchers("/user/**").hasAuthority("USER")
+                .requestMatchers("/auth/login", "/auth/register").permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated()
-        .and()
-            .formLogin()
-                .loginPage("/login")
-                .successHandler(authenticationSuccessHandler) // Configura el success handler
-                .permitAll()
         .and()
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
@@ -65,8 +57,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
     }
 
     @Bean

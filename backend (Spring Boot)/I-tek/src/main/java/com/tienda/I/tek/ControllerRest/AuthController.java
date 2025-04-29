@@ -2,6 +2,7 @@ package com.tienda.I.tek.ControllerRest;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +30,7 @@ import com.tienda.I.tek.Model.LoginRequest;
 import com.tienda.I.tek.Model.RegisterRequest;
 import com.tienda.I.tek.Repository.CartRepository;
 import com.tienda.I.tek.Repository.UserRepository;
+import com.tienda.I.tek.Secutiry.CustomUserDetailsService;
 import com.tienda.I.tek.Secutiry.JwtTokenProvider;
 
 import org.springframework.security.authentication.BadCredentialsException;
@@ -36,69 +40,54 @@ import org.springframework.security.authentication.BadCredentialsException;
 @CrossOrigin(origins = "http://localhost:5174") // Permite peticiones desde React
 public class AuthController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
+    private final UserRepository userRepo;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final CartRepository cartRepository;
+    private final CustomUserDetailsService userDetailsService;
 
-    @Autowired
-    private UserRepository UserRepo;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private JwtTokenProvider jwtTokenProvider;  // Inyectamos JwtTokenProvider
-
-    @Autowired
-    private CartRepository cartRepository; // Inyectamos el repositorio de Carrito
+    public AuthController(AuthenticationManager authenticationManager,
+                          JwtTokenProvider jwtTokenProvider,
+                          CustomUserDetailsService userDetailsService,
+                          UserRepository userRepo,
+                          PasswordEncoder passwordEncoder,
+                          CartRepository cartRepository) {
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.userDetailsService = userDetailsService;
+        this.userRepo = userRepo;
+        this.passwordEncoder = passwordEncoder;
+        this.cartRepository = cartRepository;
+    }
 
     // Endpoint para login
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-        try {
-            Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                    loginRequest.getEmail(),
-                    loginRequest.getPassword()
-                )
-            );
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+        // Autenticación del usuario
+        Authentication authentication = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
+        );
     
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            
+        // Buscar al usuario en la base de datos
+        User user = userRepo.findByEmail(request.getEmail())
+            .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
     
-            // Obtener el objeto UserDetails
-                 org.springframework.security.core.userdetails.User user = 
-                (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
+        // Generar el token JWT
+        String token = jwtTokenProvider.generateToken(user);
     
-            // Buscar el usuario en la base de datos usando el email (o algún otro identificador único)
-            User userFromDb = UserRepo.findByEmail(user.getUsername()).orElseThrow(() -> 
-                new RuntimeException("Usuario no encontrado"));
-    
-            // Recuperamos el nombre del usuario y el rol
-            String nombre = userFromDb.getNombre();  // Usamos el nombre desde la entidad 'User'
-            String role = user.getAuthorities().stream()
-                .findFirst()
-                .map(GrantedAuthority::getAuthority)
-                .orElse("USER");
-    
-            // Generar el token JWT
-            String token = jwtTokenProvider.generateToken(UserRepo.findByEmail(user.getUsername()).orElseThrow(() -> 
-            new RuntimeException("Usuario no encontrado")));
-        
-        // Mapear la respuesta
+        // Crear la respuesta con los datos del usuario y el token
         Map<String, Object> response = new HashMap<>();
-        response.put("message", "Login exitoso");
-        response.put("role", role);
-        response.put("nombre", nombre);  // Aquí estás enviando el nombre
-        response.put("token", token);    // Y aquí el token
-        
-        return ResponseEntity.ok(response);
+        response.put("nombre", user.getNombre());  // Nombre del usuario
+        response.put("email", user.getEmail());    // Email del usuario
+        response.put("telefono", user.getTelefono()); // Teléfono del usuario
+        response.put("id", user.getId());          // ID del usuario
+        response.put("direccion", user.getDireccion()); // ID del carrito del usuario
+        response.put("role", user.getRol().name());  // Rol del usuario
+        response.put("token", token);  // El token JWT generado
     
-        } catch (BadCredentialsException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
-        } catch (Exception e) {
-            e.printStackTrace();  // Imprimir el error completo
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error en el servidor: " + e.getMessage());
-        }
+        // Devolver la respuesta con los datos
+        return ResponseEntity.ok(response);
     }
 
 
@@ -114,7 +103,7 @@ public class AuthController {
         System.out.println("Telefono: " + registerRequest.getTelefono());
     
         // Comprobar si ya existe un usuario con ese correo
-        if (UserRepo.existsByEmail(registerRequest.getEmail())) {
+        if (userRepo.existsByEmail(registerRequest.getEmail())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Correo ya registrado");
         }
     
@@ -127,7 +116,7 @@ public class AuthController {
         newUser.setRol(Rol.USER); // Asignar un rol por defecto (usuario registrado)
     
         // Guardar el usuario en la base de datos
-        UserRepo.save(newUser);
+        userRepo.save(newUser);
 
         // Crear un carrito para el nuevo usuario
         Cart newCart = new Cart();

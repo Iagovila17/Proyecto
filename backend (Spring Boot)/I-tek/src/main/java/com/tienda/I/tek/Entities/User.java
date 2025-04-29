@@ -4,11 +4,14 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.tienda.I.tek.Enumerated.Rol;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -16,6 +19,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -50,8 +54,9 @@ public class User implements UserDetails {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaRegistro;
 
-    @OneToOne(mappedBy = "usuario")
-    private Cart cart;
+    @JsonIgnore
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<Cart> carts;
 
     // Constructor sin parámetros para JPA
     public User() {
@@ -68,8 +73,15 @@ public class User implements UserDetails {
     }
 
     // Otros constructores
+    
+    
+
+    public Long getId() {
+        return id;
+    }
+
     public User(Long id, String nombre, String email, String password, String direccion, String telefono, Rol rol,
-            Date fechaRegistro, Cart cart) {
+            Date fechaRegistro, List<Cart> carts) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
@@ -78,12 +90,7 @@ public class User implements UserDetails {
         this.telefono = telefono;
         this.rol = rol;
         this.fechaRegistro = fechaRegistro;
-        this.cart = cart;
-    }
-    
-
-    public Long getId() {
-        return id;
+        this.carts = carts;
     }
 
     public void setId(Long id) {
@@ -146,22 +153,24 @@ public class User implements UserDetails {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public Cart getCart() {
-        return cart;
+    public List<Cart> getCarts() {
+        return carts;
     }
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
+    public void setCarts(List<Cart> carts) {
+        this.carts = carts;
     }
+
+    
+
+    // Métodos de la interfaz UserDetails
 
     @Override
     public String toString() {
         return "User [id=" + id + ", nombre=" + nombre + ", email=" + email + ", password=" + password + ", direccion="
-                + direccion + ", telefono=" + telefono + ", rol=" + rol + ", fechaRegistro=" + fechaRegistro + ", cart="
-                + cart + "]";
+                + direccion + ", telefono=" + telefono + ", rol=" + rol + ", fechaRegistro=" + fechaRegistro
+                + ", carts=" + carts + "]";
     }
-
-    // Métodos de la interfaz UserDetails
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

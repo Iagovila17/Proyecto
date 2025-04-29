@@ -12,21 +12,12 @@ import Registro from "./component/registro/registro";
 import Ayuda from "./component/Pages/Ayuda/Ayuda";
 import Cuenta from "./component/Pages/Cuenta/Cuenta";
 import Cesta from "./component/Pages/Cesta/Cesta";
-import Product from "./component/Product/Product";
-import ProductDetail from "./component/ProductDetail/ProductDetail";
-import AdminDashboard from './component/Pages/admin/Dashboard/AdminDashboard';
 
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  image1?: string;
-}
+
+import AdminDashboard from './component/Pages/admin/Dashboard/AdminDashboard';
+import AdminUsuarios from './component/Pages/admin/Usuarios/Usuarios';
 
 const App: React.FC = () => {
-  const savedCart = localStorage.getItem("cart");
-  const initialCart = savedCart ? JSON.parse(savedCart) : [];
-  const [cart, setCart] = useState<Product[]>(initialCart);
 
   // Estado de autenticación
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -41,18 +32,6 @@ const App: React.FC = () => {
     }
   }, []);
 
-  const removeFromCart = (id: number) => {
-    setCart(cart.filter(product => product.id !== id));
-  };
-
-  // Ruta protegida (si no está autenticado, redirige a login)
-  const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
-    if (!isAuthenticated) {
-      return <Navigate to="/login" replace />;
-    }
-    return children;
-  };
-
   return (
     <Router>
       <Routes>
@@ -64,20 +43,18 @@ const App: React.FC = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/ayuda" element={<><Ayuda /> <Footer /></>} />
-        <Route path="/cuenta" element={<Cuenta />} />
+        <Route path="/cuenta" element={<><HeaderPaginas /> <Cuenta /> <Footer /></>} />
 
         {/* Ruta de la cesta protegida */}
         <Route path="/cesta" element={<><HeaderPaginas /> <Cesta /> <Footer /></>} />
 
         
-        {/* Ruta para admin */}
         {role === 'ADMIN' && (
-          <Route path="/admin/dashboard" element={<><AdminDashboard /></>} />
+          <>
+            <Route path="/admin/dashboard" element={<><AdminDashboard /></>} />
+            <Route path="/admin/usuarios" element={<><AdminUsuarios /></>} /> {/* Asegúrate de tener este componente */}
+          </>
         )}
-
-        {/* Rutas de productos */}
-        <Route path="/product/:id" element={<><HeaderPaginas /> <ProductDetail /> <Footer /></>} />
-        <Route path="/products" element={<><HeaderPaginas /><Product /><Footer /></>} />
       </Routes>
     </Router>
   );

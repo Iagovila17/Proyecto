@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -7,9 +7,25 @@ const Login = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  
-  
-    const handleLogin = async () => {
+  // Si ya está autenticado, redirige a la página correcta
+  const checkAuth = () => {
+    const user = localStorage.getItem('user');
+    if (user) {
+      const parsedUser = JSON.parse(user);
+      if (parsedUser.role === 'ADMIN') {
+        navigate('/admin/dashboard');
+      } else {
+        navigate('/');
+      }
+    }
+  };
+
+  // Verifica si el usuario está autenticado al cargar el componente
+  React.useEffect(() => {
+    checkAuth();
+  }, []);
+
+  const handleLogin = async () => {
     try {
       const response = await fetch('http://localhost:8080/auth/login', {
         method: 'POST',
@@ -22,15 +38,16 @@ const Login = () => {
       if (response.ok) {
         const data = await response.json();
   
-        // Guarda el nombre, el rol y el token en localStorage
+        // Guarda toda la información en un solo objeto en localStorage
         localStorage.setItem('user', JSON.stringify({
           nombre: data.nombre,
+          email: data.email,  // Asegúrate de que el backend envíe el email
+          telefono: data.telefono,  // Asegúrate de que el backend envíe el teléfono
+          direccion: data.direccion,
+          role: data.role,
           token: data.token,
+          isAuthenticated: true,  // Marcamos que el usuario está autenticado
         }));
-  
-        localStorage.setItem('role', data.role);  // Aquí guardas el rol
-  
-        localStorage.setItem('isAuthenticated', 'true');  // Indicamos que el usuario está autenticado
   
         // Redirigir según el rol
         if (data.role === 'ADMIN') {
@@ -43,6 +60,7 @@ const Login = () => {
       }
     } catch (error) {
       console.error(error);
+      setError("Error en la solicitud. Intenta nuevamente.");
     }
   };
 

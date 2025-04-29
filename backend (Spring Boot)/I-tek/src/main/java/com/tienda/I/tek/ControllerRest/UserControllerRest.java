@@ -3,6 +3,8 @@ package com.tienda.I.tek.ControllerRest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,9 +27,9 @@ public class UserControllerRest {
 
     @GetMapping("/list")
     public List<User> listUser() {
-    return userServi.listUser();
+        return userServi.listUser();  
     }
-
+    
     @GetMapping("/{id}")
     public User idUser(@PathVariable("id")Long id) {
         return userServi.idUser(id);
@@ -44,9 +46,10 @@ public class UserControllerRest {
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteUser(@PathVariable("id")Long id) {
         userServi.deleteUser(id);
     }
-    
+
 }
 

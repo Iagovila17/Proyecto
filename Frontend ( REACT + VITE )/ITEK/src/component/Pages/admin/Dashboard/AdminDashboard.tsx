@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './AdminDashboard.css';
+import AdminSidebar from '../sidebar/Sidebar'; // Asegúrate de que la ruta sea correcta
+import './AdminDashboard.css'; // Importa tus estilos
 import {
   FaBoxOpen,
   FaChartBar,
@@ -70,12 +71,6 @@ const AdminDashboard = () => {
     obtenerEstadisticas();
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem('user');
-    setUserData(null);
-    navigate('/'); // Redirige al inicio
-  };
-
   // Datos de ejemplo para el gráfico de ventas
   const salesData = {
     labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
@@ -129,32 +124,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="dashboard-container">
-      <aside className="sidebar">
-        <div className="logo">
-          <h2>I&TEK</h2>
-        </div>
-        {userData && userData.nombre && (
-          <div className="user-info-centered">
-            {userData.nombre}
-          </div>
-        )}
-        <ul className="categories">
-          <li><a href="/admin/productos">Productos</a></li>
-          <li><a href="/admin/pedidos">Pedidos</a></li>
-          <li><a href="/admin/clientes">Clientes</a></li>
-          <li><a href="/admin/inventario">Inventario</a></li>
-          <li><a href="/admin/promociones">Promociones</a></li>
-          <li><a href="/admin/configuracion">Configuración</a></li>
-          <li><a href="/admin/usuarios">Usuarios</a></li>
-          <li><a href="/admin/estadisticas">Estadísticas</a></li>
-          <li><a href="/admin/terminos">Términos y Condiciones</a></li>
-          <li className="logout-item">
-            <button className="logout-button" onClick={handleLogout}>
-              Cerrar sesión
-            </button>
-          </li>
-        </ul>
-      </aside>
+      <AdminSidebar />
       <main className="main-content">
         <h1 className='title'>Panel de Administración</h1>
         <div className="dashboard-widgets">

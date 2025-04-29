@@ -2,6 +2,7 @@ package com.tienda.I.tek.Service;
 
 import java.util.List;
 
+import com.tienda.I.tek.DTO.UserDto;
 import com.tienda.I.tek.Entities.User;
 
 public interface IUserService {
@@ -13,6 +14,9 @@ public interface IUserService {
     public void updateUser(User user);
     public void deleteUser(Long id);
     
+
+    //DTO
+    public List<UserDto> listUserDto();
     
 
 }

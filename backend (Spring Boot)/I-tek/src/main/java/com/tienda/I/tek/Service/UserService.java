@@ -1,17 +1,21 @@
 package com.tienda.I.tek.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tienda.I.tek.DTO.UserDto;
 import com.tienda.I.tek.Entities.Cart;
 import com.tienda.I.tek.Entities.User;
 import com.tienda.I.tek.Repository.CartRepository;
 import com.tienda.I.tek.Repository.UserRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
-public class UserService  implements IUserService{
+public class UserService implements IUserService{
 
     @Autowired
     private UserRepository UserRepo; 
@@ -61,9 +65,19 @@ public class UserService  implements IUserService{
     }
 
 
-	@Override
-	public void deleteUser(Long id) {
-       UserRepo.deleteById(id);
+    @Transactional
+    public void deleteUser(Long id) {
+        UserRepo.deleteById(id);
+    }
+
+
+    @Override
+    public List<UserDto> listUserDto() {
+         List<User> users = UserRepo.findAll();
+        // Transformamos cada usuario en un UserDTO
+        return users.stream()
+                    .map(user -> new UserDto())
+                    .collect(Collectors.toList());
     }
 
 }
