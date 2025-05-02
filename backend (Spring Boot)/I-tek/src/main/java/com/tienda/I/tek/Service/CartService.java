@@ -8,12 +8,15 @@ import org.springframework.stereotype.Service;
 import com.tienda.I.tek.Entities.Cart;
 import com.tienda.I.tek.Entities.User;
 import com.tienda.I.tek.Repository.CartRepository;
+import com.tienda.I.tek.Repository.UserRepository;
 
 @Service
 public class CartService  implements IcartService {
 
     @Autowired
     private CartRepository cartRepo;
+    
+    
 
     @Override
     public List<Cart> listcarrito() {

@@ -1,20 +1,23 @@
+// Buscador.tsx
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Buscador.css";
 
 const Buscador: React.FC = () => {
   const [query, setQuery] = useState("");
+  const navigate = useNavigate();
 
-  const handleSearch = (event: React.FormEvent) => {
-    event.preventDefault();
-    console.log(`Buscando: ${query}`);
+  const handleFocus = () => {
+    navigate("/search");
   };
 
   return (
-    <form onSubmit={handleSearch} className="buscador-web">
+    <form className="buscador-web" onSubmit={(e) => e.preventDefault()}>
       <input
         type="text"
         value={query}
         placeholder="BUSCAR"
+        onFocus={handleFocus}
         onChange={(e) => setQuery(e.target.value)}
       />
     </form>

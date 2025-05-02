@@ -56,7 +56,7 @@ public class User implements UserDetails {
 
     @JsonIgnore
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-    private List<Cart> carts;
+    private List<Cart> carts ;
 
     // Constructor sin parámetros para JPA
     public User() {

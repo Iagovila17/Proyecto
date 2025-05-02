@@ -1,0 +1,54 @@
+.envios-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 700px;
+    height: 100%;
+    background-color: #fffffff1;
+    padding: 20px;
+    z-index: 1000;
+    overflow-y: auto;
+  }
+  
+  .envios-panel-close {
+    float: right;
+    font-size: 30px;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+
+
+.envios-panel-container {
+    font-family: sans-serif;
+    line-height: 1.6;
+    margin: 15px;
+    font-size: 15px;
+}
+
+.envios-panel-header{
+    margin-top: 30px;
+}
+.free  {
+    color: #333;
+    font-size: 15px;
+    font-weight: bold;
+}
+h3 {
+    color: #000000;
+    margin-top: 1em;
+    margin-bottom: 0.3em;
+    font-size: 15px;
+}
+ul {
+    list-style: none;
+    padding: 0;
+}
+li {
+    margin-bottom: 0.3em;
+}
+
+.important {
+    font-style: italic;
+}
+  

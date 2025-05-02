@@ -10,7 +10,7 @@ const handleLogin = async () => {
   console.log("Login → Email:", email);
   console.log("Login → Password:", password);
   try {
-    const response = await fetch('http://localhost:8080/auth/login', {
+    const response = await fetch('http://192.168.68.100:8080/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import AdminSidebar from '../sidebar/Sidebar'; // Asegúrate de que la ruta sea correcta
-import './Usuarios.css'; // Importa el archivo CSS
+import AdminSidebar from '../sidebar/Sidebar';
+import './Usuarios.css';
 
 const Usuarios = () => {
   interface Usuario {
@@ -15,6 +15,8 @@ const Usuarios = () => {
   }
 
   const [usuarios, setUsuarios] = useState<Usuario[]>([]);
+  const [paginaActual, setPaginaActual] = useState<number>(1);
+  const usuariosPorPagina = 10;
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -32,7 +34,6 @@ const Usuarios = () => {
       },
     })
     .then((response) => {
-      console.log('Usuarios recibidos:', response.data);
       setUsuarios(response.data);
     })
     .catch((error) => {
@@ -45,19 +46,26 @@ const Usuarios = () => {
     if (confirmDelete) {
       const storedUser = localStorage.getItem('user');
       const token = storedUser ? JSON.parse(storedUser).token : null;
-  
+
       if (!token) {
         alert('No se encontró el token de autenticación.');
         return;
       }
-  
+
       axios.delete(`http://localhost:8080/User/delete/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
       })
       .then(() => {
-        setUsuarios(usuarios.filter((usuario) => usuario.id !== id));
+        const nuevosUsuarios = usuarios.filter((usuario) => usuario.id !== id);
+        setUsuarios(nuevosUsuarios);
+
+        const maxPag = Math.ceil(nuevosUsuarios.length / usuariosPorPagina);
+        if (paginaActual > maxPag) {
+          setPaginaActual(maxPag);
+        }
+
         alert('Usuario eliminado exitosamente');
       })
       .catch((error) => {
@@ -67,47 +75,68 @@ const Usuarios = () => {
     }
   };
 
+  const totalPaginas = Math.ceil(usuarios.length / usuariosPorPagina);
+  const indiceInicio = (paginaActual - 1) * usuariosPorPagina;
+  const usuariosVisibles = usuarios.slice(indiceInicio, indiceInicio + usuariosPorPagina);
+
+  const siguientePagina = () => {
+    if (paginaActual < totalPaginas) {
+      setPaginaActual(paginaActual + 1);
+    }
+  };
+
+  const anteriorPagina = () => {
+    if (paginaActual > 1) {
+      setPaginaActual(paginaActual - 1);
+    }
+  };
+
   return (
     <div className="usuarios-container">
       <AdminSidebar />
       <div className="usuarios-main">
         <h1>Usuarios Registrados</h1>
-        {usuarios.length > 0 ? (
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Email</th>
-                <th>Dirección</th>
-                <th>Teléfono</th>
-                <th>Rol</th>
-                <th>Fecha de Registro</th>
-                <th>Eliminar</th>
-              </tr>
-            </thead>
-            <tbody>
-              {usuarios.map((usuario) => (
-                <tr key={usuario.id}>
-                  <td>{usuario.id}</td>
-                  <td>{usuario.nombre}</td>
-                  <td>{usuario.email}</td>
-                  <td>{usuario.direccion}</td>
-                  <td>{usuario.telefono}</td>
-                  <td>{usuario.rol}</td>
-                  <td>{usuario.fechaRegistro}</td>
-                  <td>
-                    <button
-                      onClick={() => handleDelete(usuario.id)}
-                      className="eliminar"
-                    >
-                      Eliminar
-                    </button>
-                  </td>
+        {usuariosVisibles.length > 0 ? (
+          <>
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>Email</th>
+                  <th>Dirección</th>
+                  <th>Teléfono</th>
+                  <th>Rol</th>
+                  <th>Fecha de Registro</th>
+                  <th>Eliminar</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {usuariosVisibles.map((usuario) => (
+                  <tr key={usuario.id}>
+                    <td>{usuario.id}</td>
+                    <td>{usuario.nombre}</td>
+                    <td>{usuario.email}</td>
+                    <td>{usuario.direccion}</td>
+                    <td>{usuario.telefono}</td>
+                    <td>{usuario.rol}</td>
+                    <td>{usuario.fechaRegistro}</td>
+                    <td>
+                      <button onClick={() => handleDelete(usuario.id)} className="eliminar">
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            <div className="paginacion">
+              <button onClick={anteriorPagina} disabled={paginaActual === 1}>Anterior</button>
+              <span>Página {paginaActual} de {totalPaginas}</span>
+              <button onClick={siguientePagina} disabled={paginaActual === totalPaginas}>Siguiente</button>
+            </div>
+          </>
         ) : (
           <p className="no-usuarios">No hay usuarios registrados.</p>
         )}

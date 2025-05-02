@@ -60,11 +60,5 @@ public class CartControllerRest {
             }
     }
 
-    @GetMapping("/getOrCreate/{userId}")
-    public ResponseEntity<Cart> getOrCreateCart(@PathVariable Long userId) {
-        User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        Cart cart = cartServi.getOrCreateCartByUser(user);
-        return ResponseEntity.ok(cart); 
-    }
 
 }
