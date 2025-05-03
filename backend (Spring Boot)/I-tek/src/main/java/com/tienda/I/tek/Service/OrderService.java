@@ -55,7 +55,7 @@ public class OrderService implements IOrderService {
         User user = userService.idUser(userId);
         if (user == null) throw new RuntimeException("Usuario no encontrado");
 
-        Cart cart = cartService.getCartByUser(user);
+        Cart cart = cartService.getCartByUser(String.valueOf(user.getId())); // Convert Long to String
         if (cart == null || cart.getProductos().isEmpty()) throw new RuntimeException("El carrito está vacío");
 
         Order order = new Order();
@@ -72,7 +72,7 @@ public class OrderService implements IOrderService {
         order.setTotal(total);
         orderRepo.save(order);
 
-        cartService.vaciarCarrito(user);
+        cartService.clearCart(String.valueOf(user.getId()));
         return order;
     }
 }

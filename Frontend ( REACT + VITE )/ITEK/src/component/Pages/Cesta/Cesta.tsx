@@ -1,33 +1,27 @@
 import { useEffect, useState } from 'react';
 
 const Cesta = () => {
-  const [tieneProductos, setTieneProductos] = useState<boolean | null>(null);
+  const [productos, setProductos] = useState<any[]>([]);  // Para almacenar los productos de la cesta
   const [error, setError] = useState<string>('');
   const [cargando, setCargando] = useState<boolean>(true);
 
   useEffect(() => {
     fetchCesta();
   }, []);
-
+  
   const fetchCesta = async () => {
     setCargando(true);
     try {
-      const token = localStorage.getItem("token");
-
-      if (!token) {
-        setError('No estás autenticado. Redirigiendo al login...');
-        window.location.href = "/login";
-        return;
-      }
-
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+      const token = user.token;
+      console.log("Token que se enviará:", token);
+  
       const response = await fetch('http://192.168.68.100:8080/cesta', {
-        method: 'GET',
         headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
+          Authorization: `Bearer ${user.token}`,
         }
       });
-
+  
       if (response.status === 403) {
         setError('Acceso denegado. No tienes permiso.');
         return;
@@ -39,9 +33,9 @@ const Cesta = () => {
         setError('Error desconocido al obtener la cesta.');
         return;
       }
-
+  
       const data = await response.json();
-      setTieneProductos(data.tieneProductos); // Asegúrate de que tu backend responde con esta propiedad
+      setProductos(data.productos || []);
     } catch (err) {
       console.error(err);
       setError('Error de conexión con el servidor.');
@@ -55,8 +49,19 @@ const Cesta = () => {
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {cargando ? (
         <p>Cargando...</p>
-      ) : tieneProductos ? (
-        <p>Tienes productos en tu cesta.</p>
+      ) : productos.length > 0 ? (
+        <div>
+          <h3>Artículos en tu cesta:</h3>
+          <ul>
+            {productos.map((producto: any, index: number) => (
+              <li key={index}>
+                <p><strong>{producto.nombre}</strong></p>
+                <p>Cantidad: {producto.cantidad}</p>
+                <p>Precio: ${producto.precio}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
       ) : (
         <p>No hay productos en la cesta.</p>
       )}

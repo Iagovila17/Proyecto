@@ -12,7 +12,11 @@ public interface IcartService {
     public void savecarrito(Cart cart);
     public void deleteCarrito(Long id);
 
-    Cart getOrCreateCartByUser(User user);
-    Cart getCartByUser(User user);  
-    void vaciarCarrito(User user);  
+     
+
+    // CartService methods
+    Cart getCartByUser(String nombre);
+    void addProductToCart(String nombre, Long productId);
+    void removeProductFromCart(String nombre, Long productId);
+    void clearCart(String nombre);
 }

@@ -22,14 +22,14 @@ import java.util.stream.Collectors;
 @Component
 public class JwtTokenProvider {
 
-    private final String SECRET_KEY = "miClaveSecreta"; // Cambiar por una clave más segura
+    private final String SECRET_KEY = "a-very-long-secret-string-with-at-least-256-bits-long-length-should-be-difficult-to-guess"; // Cambiar por una clave más segura
     private final long EXPIRATION_TIME = 2592000000L; // 30 días en milisegundos
 
     // Generar un token JWT
     public String generateToken(User user) {
         return Jwts.builder()
                 .setSubject(user.getEmail())
-                .claim("roles", user.getRol()) // Verifica que el rol esté aquí
+                .claim("role", user.getRol())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
@@ -41,14 +41,8 @@ public class JwtTokenProvider {
         try {
             Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
             return true;
-        } catch (ExpiredJwtException e) {
-            System.out.println("El token ha expirado.");
-        } catch (MalformedJwtException e) {
-            System.out.println("Token mal formado.");
-        } catch (UnsupportedJwtException e) {
-            System.out.println("Token no soportado.");
-        } catch (SignatureException e) {
-            System.out.println("Firma no válida.");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return false;
     }
@@ -58,17 +52,12 @@ public class JwtTokenProvider {
         return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody().getSubject();
     }
 
-    // Obtener los roles desde el token JWT
-    public Collection<? extends GrantedAuthority> getAuthoritiesFromToken(String token) {
-        List<String> roles = getRolesFromToken(token);
-        return roles.stream()
-                    .map(SimpleGrantedAuthority::new)
-                    .collect(Collectors.toList());
-    }
-
-    // Obtener los roles desde el token JWT
-    private List<String> getRolesFromToken(String token) {
-        Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
-        return (List<String>) claims.get("roles");  // Recuperar roles del token
+    
+    public String getRoleFromToken(String token) {
+        Claims claims = Jwts.parser()
+            .setSigningKey(SECRET_KEY)
+            .parseClaimsJws(token)
+            .getBody();
+        return claims.get("role", String.class); // o "role", según como lo guardes
     }
 }

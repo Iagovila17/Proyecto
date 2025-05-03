@@ -37,7 +37,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:5174") // Permite peticiones desde React
+@CrossOrigin(origins = "http://192.168.68.100:5174") // Permite peticiones desde React
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;

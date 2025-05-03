@@ -20,10 +20,11 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import java.security.Principal;
 
 
 @RestController
-@RequestMapping("/carrito")
+@RequestMapping("/cesta")
 public class CartControllerRest {
 
     @Autowired
@@ -60,5 +61,30 @@ public class CartControllerRest {
             }
     }
 
+
+
+    @GetMapping
+    public ResponseEntity<Cart> getCart(Principal principal) {
+        Cart cart = cartServi.getCartByUser(principal.getName());
+        return ResponseEntity.ok(cart);
+    }
+
+    @PostMapping("/add/{productId}")
+    public ResponseEntity<String> addProduct(@PathVariable Long productId, Principal principal) {
+        cartServi.addProductToCart(principal.getName(), productId);
+        return ResponseEntity.ok("Producto añadido a la cesta");
+    }
+
+    @DeleteMapping("/remove/{productId}")
+    public ResponseEntity<String> removeProduct(@PathVariable Long productId, Principal principal) {
+        cartServi.removeProductFromCart(principal.getName(), productId);
+        return ResponseEntity.ok("Producto eliminado de la cesta");
+    }
+
+    @DeleteMapping("/clear")
+    public ResponseEntity<String> clearCart(Principal principal) {
+        cartServi.clearCart(principal.getName());
+        return ResponseEntity.ok("Cesta vaciada");
+    }
 
 }
