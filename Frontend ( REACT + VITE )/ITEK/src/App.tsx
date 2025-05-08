@@ -18,6 +18,8 @@ import Search from "./component/Search/Search";
 // Importación de componentes Protegidos
 import Cuenta from "./component/Pages/Cuenta/Cuenta";
 import Cesta from "./component/Pages/Cesta/Cesta";
+import CestaEnvio  from "./component/Pages/CestaEnvio/CestaEnvio";
+import Payment  from "./component/Pages/Payment/Payment";
 
 // Importación de componentes de administración
 import AdminDashboard from './component/Pages/admin/Dashboard/AdminDashboard';
@@ -57,6 +59,8 @@ const App: React.FC = () => {
 
         {/* Ruta de la cesta protegida */}
         <Route path="/cesta" element={<><HeaderPaginas /> <Cesta /> <Footer /></>} />
+        <Route path="/CestaEnvio" element={<><HeaderPaginas /> <CestaEnvio /> <Footer /></>} />
+        <Route path="/Payment" element={<><HeaderPaginas /> <Payment /> <Footer /></>} />
         <Route path="/cuenta" element={<><HeaderPaginas /> <Cuenta /> <Footer /></>} />
 
         

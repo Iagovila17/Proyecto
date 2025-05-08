@@ -58,5 +58,8 @@ INSERT INTO carts (usuario_id)
 VALUES (1), (2);
 
 -- Insertar un producto en el carrito
-INSERT INTO cart_product (cart_id, product_id) 
-VALUES (1, 1), (2, 1);
+INSERT INTO cart_product (cart_id, product_id) VALUES
+ (1, 1),
+ (2, 1),
+ (2, 2);
+
