@@ -52,6 +52,7 @@ public class SecurityConfig {
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers("/cesta").hasRole("USER")
+                .requestMatchers("/cesta/add/{productId}").hasRole("USER")  // Asegúrate de que esta ruta esté protegida
                 .anyRequest().authenticated()
             )
              .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // <-- Añadir esto

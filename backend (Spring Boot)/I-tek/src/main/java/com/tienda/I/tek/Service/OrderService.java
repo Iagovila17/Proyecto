@@ -52,27 +52,35 @@ public class OrderService implements IOrderService {
     
     @Transactional
     public Order checkout(Long userId) {
+        // Obtener el usuario por su ID
         User user = userService.idUser(userId);
         if (user == null) throw new RuntimeException("Usuario no encontrado");
-
-        Cart cart = cartService.getCartByUser(String.valueOf(user.getId())); // Convert Long to String
+    
+        // Obtener el carrito del usuario
+        Cart cart = cartService.getCartByUser(user);  // Pasa el objeto User, no el ID
         if (cart == null || cart.getProductos().isEmpty()) throw new RuntimeException("El carrito está vacío");
-
+    
+        // Crear y configurar la nueva orden
         Order order = new Order();
         order.setUser(user);
         order.setFecha(new Date());
         order.setEstado(EstadoPedido.PENDIENTE);
         order.setMetodoPago(MetodoPago.PAYPAL); 
         order.setDireccionEnvio(user.getDireccion()); 
-
+    
+        // Calcular el total de la orden
         double total = cart.getProductos().stream()
                 .mapToDouble(p -> p.getPrecio())
                 .sum();
-
+    
+        // Establecer el total y guardar la orden
         order.setTotal(total);
         orderRepo.save(order);
-
-        cartService.clearCart(String.valueOf(user.getId()));
+    
+        // Limpiar el carrito después de realizar el pedido
+        cartService.clearCart(String.valueOf(user.getId()));  // No es necesario pasar el ID como String si el método ya está adaptado para recibir un User
+    
         return order;
     }
+    
 }

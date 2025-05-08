@@ -1,7 +1,5 @@
-import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { AnimatePresence } from "framer-motion";
-import EnviosPanel from "../EnviosPanel/EnviosPanel";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./ProductDetail.css";
 
@@ -11,9 +9,14 @@ export default function ProductDetail() {
   const [mostrarEnvios, setMostrarEnvios] = useState(false);
   const [mostrarTallas, setMostrarTallas] = useState(false);
   const [mensajeExito, setMensajeExito] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(null); // Estado para el token
   const navigate = useNavigate();
 
   useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    console.log("Stored token desde localStorage:", storedToken);
+    setToken(storedToken);
+  
     const fetchProducto = async () => {
       try {
         const res = await axios.get(`http://192.168.68.100:8080/Product/${id}`);
@@ -22,45 +25,41 @@ export default function ProductDetail() {
         console.error("Error al obtener producto:", error);
       }
     };
-
+  
     fetchProducto();
   }, [id]);
 
   const handleTallaClick = async (talla: string) => {
-    const token = localStorage.getItem("token");
+    const storedUser = localStorage.getItem("user");
+    let token = null;
+  
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      token = parsedUser.token;
+    }
   
     if (!token) {
-      navigate("/login");
+      alert("⚠️ No estás autenticado.");
       return;
     }
   
     try {
-      const response = await axios.post(`http://192.168.68.100:8080/Cart/add`,
-        {
-          productId: producto.id,
-          talla: talla,
-          cantidad: 1,
-        },
+      const response = await axios.post(
+        `http://192.168.68.100:8080/cesta/add/${producto.id}`,
+        { talla, cantidad: 1 },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
-      )
+      );
   
-      if (response.status === 200 || response.status === 201) {
+      if (response.status === 200) {
         alert(`✅ Producto talla ${talla} añadido a la cesta`);
-      } else {
-        alert(`⚠️ No se pudo añadir el producto (código ${response.status})`);
       }
-    } catch (error: any) {
-      if (error.response && error.response.status === 401) {
-        alert("⚠️ Tu sesión ha expirado. Vuelve a iniciar sesión.");
-        navigate("/login");
-      } else {
-        console.error("Error al añadir a la cesta:", error);
-        alert("❌ Hubo un error al añadir a la cesta.");
-      }
+    } catch (error) {
+      console.error("Error al añadir a la cesta", error);
+      alert("❌ Hubo un error al añadir el producto.");
     }
   };
 
@@ -68,18 +67,19 @@ export default function ProductDetail() {
 
   return (
     <div>
-      {/* Mensaje de éxito */}
       {mensajeExito && (
-        <div style={{
-          position: 'fixed',
-          top: '20px',
-          right: '20px',
-          backgroundColor: '#4BB543',
-          color: 'white',
-          padding: '10px 20px',
-          borderRadius: '5px',
-          zIndex: 9999,
-        }}>
+        <div
+          style={{
+            position: "fixed",
+            top: "20px",
+            right: "20px",
+            backgroundColor: "#4BB543",
+            color: "white",
+            padding: "10px 20px",
+            borderRadius: "5px",
+            zIndex: 9999,
+          }}
+        >
           {mensajeExito}
         </div>
       )}
@@ -95,7 +95,12 @@ export default function ProductDetail() {
             <div className="referencia">Ref: {producto.referencia}</div>
 
             <div className="Button-añadir">
-              <button id="Button-Añadir" onClick={() => setMostrarTallas(!mostrarTallas)}>ADD</button>
+              <button
+                id="Button-Añadir"
+                onClick={() => setMostrarTallas(!mostrarTallas)}
+              >
+                ADD
+              </button>
             </div>
 
             {mostrarTallas && (
@@ -117,22 +122,8 @@ export default function ProductDetail() {
             <div className="composicion">{producto.composicion}</div>
             <h3 className="h3-detalles">CUIDADOS</h3>
             <div className="cuidados">{producto.cuidados}</div>
-
-            <AnimatePresence>
-              {mostrarEnvios && (
-                <EnviosPanel onClose={() => setMostrarEnvios(false)} />
-              )}
-              <h3 className="h3-detalles" onClick={() => setMostrarEnvios(!mostrarEnvios)}>
-                ENVÍOS, CAMBIOS Y DEVOLUCIONES
-              </h3>
-            </AnimatePresence>
           </div>
         </div>
-      </div>
-
-      <div className="imagen-detalle-estilo">
-        <img src={producto.imagen2} alt="Detalle 1" />
-        <img src={producto.imagen3} alt="Detalle 2" />
       </div>
     </div>
   );

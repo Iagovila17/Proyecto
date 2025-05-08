@@ -15,7 +15,7 @@ public interface IcartService {
      
 
     // CartService methods
-    Cart getCartByUser(String nombre);
+    Cart getCartByUser(User usuario);
     void addProductToCart(String nombre, Long productId);
     void removeProductFromCart(String nombre, Long productId);
     void clearCart(String nombre);

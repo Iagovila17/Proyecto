@@ -9,9 +9,9 @@ import com.tienda.I.tek.Entities.User;
 
 
 
-public interface CartRepository  extends JpaRepository<Cart, Long>{
-    Optional<Cart> findByUsuarioId(Long usuarioId);
-    Optional<Cart> findByUsuario(User usuario);
 
-
+public interface CartRepository extends JpaRepository<Cart, Long> {
+        Optional<Cart> findByUsuarioId(Long usuarioId); // Cuando se busca por ID de usuario
+        Optional<Cart> findByUsuario(User usuario); // Cuando se busca por objeto User
     }
+    

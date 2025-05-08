@@ -4,19 +4,24 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.SignatureException;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import com.tienda.I.tek.Entities.User;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
@@ -26,38 +31,52 @@ public class JwtTokenProvider {
     private final long EXPIRATION_TIME = 2592000000L; // 30 días en milisegundos
 
     // Generar un token JWT
-    public String generateToken(User user) {
-        return Jwts.builder()
-                .setSubject(user.getEmail())
-                .claim("role", user.getRol())
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
-                .compact();
-    }
+    public String generateToken(UserDetails userDetails) {
+    Map<String, Object> claims = new HashMap<>();
+
+    Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+    List<String> roles = authorities.stream()
+            .map(GrantedAuthority::getAuthority)       // "ROLE_USER"
+            .map(role -> role.replace("ROLE_", ""))    // solo "USER"
+            .collect(Collectors.toList());
+
+    claims.put("roles", roles);
+
+    return Jwts.builder()
+            .setClaims(claims)
+            .setSubject(userDetails.getUsername())
+            .setIssuedAt(new Date(System.currentTimeMillis()))
+            .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) // 1 día
+            .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
+            .compact();
+}
 
     // Validar un token JWT
     public boolean validateToken(String token) {
-        try {
-            Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    try {
+        Jws<Claims> claims = Jwts.parser()
+            .setSigningKey(SECRET_KEY)
+            .parseClaimsJws(token);
+        return !claims.getBody().getExpiration().before(new Date());
+    } catch (JwtException | IllegalArgumentException e) {
+        // Aquí puedes loggear más detalles
+        System.out.println("Token no válido: " + e.getMessage());
         return false;
     }
+}
 
     // Obtener el nombre de usuario desde el token JWT
     public String getUsernameFromToken(String token) {
-        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody().getSubject();
+        Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+        return claims.getSubject();
     }
 
     
-    public String getRoleFromToken(String token) {
+    public List<String> getRolesFromToken(String token) {
         Claims claims = Jwts.parser()
-            .setSigningKey(SECRET_KEY)
-            .parseClaimsJws(token)
-            .getBody();
-        return claims.get("role", String.class); // o "role", según como lo guardes
+                .setSigningKey(SECRET_KEY)
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.get("roles", List.class);
     }
 }

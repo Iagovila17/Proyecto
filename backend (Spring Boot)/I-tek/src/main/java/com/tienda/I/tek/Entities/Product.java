@@ -41,10 +41,10 @@ public class Product {
     private String referencia;
     
     @Lob
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(nullable = true, columnDefinition = "TEXT")
     private String composicion;
 
-    @Column(nullable = false)
+    @Column(nullable = true, columnDefinition = "TEXT")
     private String cuidados;
 
     @Column(nullable = false)

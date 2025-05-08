@@ -1,5 +1,6 @@
 package com.tienda.I.tek.Entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -48,6 +49,12 @@ public class Cart {
         this.productos = productos;
     }
 
+    public Cart(User usuario, Product producto) {
+        this.usuario = usuario;
+        this.productos = new ArrayList<>();
+        this.productos.add(producto);
+    }
+
     public Long getId() {
         return id;
     }
@@ -59,6 +66,8 @@ public class Cart {
     public User getUsuario() {
         return usuario;
     }
+
+    
 
     public void setUsuario(User usuario) {
         this.usuario = usuario;
