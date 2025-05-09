@@ -3,19 +3,17 @@ package com.tienda.I.tek.Secutiry;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
+
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.UnsupportedJwtException;
-import io.jsonwebtoken.SignatureException;
+
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import com.tienda.I.tek.Entities.User;
+
 
 import java.util.Collection;
 import java.util.Date;
@@ -46,7 +44,7 @@ public class JwtTokenProvider {
             .setClaims(claims)
             .setSubject(userDetails.getUsername())
             .setIssuedAt(new Date(System.currentTimeMillis()))
-            .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) // 1 día
+            .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME)) // 30 días
             .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
             .compact();
 }

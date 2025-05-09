@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.security.Principal;
 
@@ -103,7 +102,7 @@ public ResponseEntity<String> addProduct(@PathVariable Long productId, Principal
 
 
 
-    @DeleteMapping("/remove/{productId}")
+    @DeleteMapping("/delete/{productId}")
     public ResponseEntity<String> removeProduct(@PathVariable Long productId, Principal principal) {
         cartServi.removeProductFromCart(principal.getName(), productId);
         return ResponseEntity.ok("Producto eliminado de la cesta");

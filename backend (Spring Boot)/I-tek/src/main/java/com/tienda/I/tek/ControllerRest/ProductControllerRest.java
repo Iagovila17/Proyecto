@@ -1,7 +1,6 @@
 package com.tienda.I.tek.ControllerRest;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +25,6 @@ public class ProductControllerRest {
     @Autowired
     private ProductService ProductServi;
 
-    @Autowired
     public ProductControllerRest(ProductService ProductServi) {
         this.ProductServi = ProductServi;
     }

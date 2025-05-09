@@ -1,10 +1,8 @@
 package com.tienda.I.tek.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.tienda.I.tek.Entities.Product;
@@ -19,7 +17,6 @@ public class ProductService implements IProductService{
      @Autowired
     private ProductRepository productRepo; 
 
-    @Autowired
     public ProductService(ProductRepository productRepo) {
         this.productRepo = productRepo;
     }
