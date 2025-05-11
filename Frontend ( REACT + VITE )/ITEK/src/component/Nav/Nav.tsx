@@ -32,15 +32,9 @@ const Nav: React.FC = () => {
         <li className="menu-item">
         <p id="nombre-menu-nav">NIÑOS</p>
           <ul className="dropdown">
-            <li><Link to="/productos/NINA">NIÑA</Link></li>
-            <ul className="subfamilia">1½ - 6 AÑOS</ul>
-            <ul className="subfamilia">6 - 14 AÑOS</ul>
-            <li><Link to="/productos/NINO">NIÑO</Link></li>
-            <ul className="subfamilia">1½ - 6 AÑOS</ul>
-            <ul className="subfamilia">6 - 14 AÑOS</ul>
-            <li><Link to="/productos/BEBE">BEBÉ</Link></li>
-            <ul className="subfamilia">0 - 8 MESES</ul>
-            <ul className="subfamilia">8 - 15 MESES</ul>
+            <li><Link to="/productos/nina/todos">NIÑA</Link></li>
+            <li><Link to="/productos/nino/todos">NIÑO</Link></li>
+            <li><Link to="/productos/bebe/todos">BEBÉ</Link></li>
           </ul>
         </li>
       </ul>

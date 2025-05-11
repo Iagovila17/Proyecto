@@ -6,26 +6,26 @@ import Header from "./component/Header/Header";
 import HeaderPaginas from "./component/HeaderPaginas/HeaderPaginas";
 import HeaderSearch from "./component/HeaderSearch/HeaderSearch";
 import Footer from "./component/footer/Footer";
-import Inicio from "./component/Pages/Inicio/Inicio";
-import ListaProductosPorCategoria from "./component/Pages/ListarProductos/ListaProductosPorCategoria";
-import ProductDetail from "./component/ProductDetail/ProductDetail";
-import Login from "./component/Login/Login";
-import Registro from "./component/registro/registro";
-import Ayuda from "./component/Pages/Ayuda/Ayuda";
+import Inicio from "./Paginas/Inicio/Inicio";
+import ListaProductosPorCategoria from "./Product/ListarProductos/ListaProductosPorCategoria";
+import ProductDetail from "./Product/ProductDetail/ProductDetail";
+import Login from "./RegistroyLogin/Login/Login";
+import Registro from "./RegistroyLogin/registro/registro";
+import Ayuda from "./Paginas/Ayuda/Ayuda";
 import Search from "./component/Search/Search";
 
 
 // Importación de componentes Protegidos
-import Cuenta from "./component/Pages/Cuenta/Cuenta";
-import Cesta from "./component/Pages/Cesta/Cesta";
-import CestaEnvio  from "./component/Pages/CestaEnvio/CestaEnvio";
-import Payment  from "./component/Pages/Payment/Payment";
+import Cuenta from "./Paginas/Cuenta/Cuenta";
+import Cesta from "./Paginas/Cesta/Cesta";
+import CestaEnvio  from "./Compra/CestaEnvio/CestaEnvio";
+import Payment  from "./Compra/Payment/Payment";
 
 // Importación de componentes de administración
-import AdminDashboard from './component/Pages/admin/Dashboard/AdminDashboard';
-import AdminUsuarios from './component/Pages/admin/Usuarios/Usuarios';
-import AdminProductos from './component/Pages/admin/Productos/Productos';
-import AdminNewProduct from './component/Pages/admin/Productos/AgregarProductos/AdminNewProduct';
+import AdminDashboard from './ADMIN/admin/Dashboard/AdminDashboard';
+import AdminUsuarios from './ADMIN/admin/Usuarios/Usuarios';
+import AdminProductos from './ADMIN/admin/Productos/Productos';
+import AdminNewProduct from './ADMIN/admin/Productos/AgregarProductos/AdminNewProduct';
 
 const App: React.FC = () => {
 

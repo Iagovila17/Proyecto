@@ -1,0 +1,43 @@
+.menu-familia {
+  margin-top: 15px;
+  width: 60%;
+  background-color: #ffffff;
+  padding: 10px 0;
+}
+
+.menu-personalizado {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 20px;
+}
+
+.zona-familias {
+  display: flex;
+  gap: 35px;
+  flex-wrap: wrap;
+}
+
+.lista-familias {
+  padding: 10px 15px;
+  border: 1px solid black;
+  transition: background-color 0.3s ease;
+}
+
+.lista-familias a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+/* Familia activa */
+.lista-familias.activa {
+  background-color: black;
+}
+
+.lista-familias.activa a {
+  color: white;
+}

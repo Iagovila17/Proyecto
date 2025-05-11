@@ -1,0 +1,65 @@
+.cuenta-container {
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 24px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.profile-card h2 {
+  margin-bottom: 24px;
+  font-size: 24px;
+  color: #222;
+}
+
+.profile-section {
+  margin-bottom: 20px;
+}
+
+.profile-section h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  color: #444;
+}
+
+.profile-section label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.profile-section input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-top: 4px;
+  font-size: 14px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.button-cuenta {
+  padding: 10px 16px;
+  background-color: #363b44;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button.logout {
+  background-color: #000000;
+  color: white;
+  font-size: 15px;
+  padding: 5px;
+  border: 1px solid black;
+}
+

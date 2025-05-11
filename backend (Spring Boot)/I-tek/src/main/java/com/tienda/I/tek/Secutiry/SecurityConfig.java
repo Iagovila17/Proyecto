@@ -51,6 +51,7 @@ public class SecurityConfig {
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers("/cesta").hasRole("USER")
+                .requestMatchers("/auth/reset-password", "/auth/change-password").authenticated() 
                 .requestMatchers("/cesta/add/{productId}").hasRole("USER")  // Asegúrate de que esta ruta esté protegida
                 .anyRequest().authenticated()
             )

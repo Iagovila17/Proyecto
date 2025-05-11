@@ -1,0 +1,38 @@
+.selector-columnas {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 16px;
+    margin-right: 80px;
+    gap: 1px;
+    font-weight: bold;
+  }
+  
+  .btn-columna {
+    padding: 6px 10px;
+    border: 1px solid #ffffff;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .btn-columna:hover {
+    background-color: #e7e7e7;
+  }
+  
+  .lista-product{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.text-vista{
+    color: #464646;
+}
+
+
+
+

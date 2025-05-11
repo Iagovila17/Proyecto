@@ -1,0 +1,236 @@
+.indicador-container {
+    max-width: 1000px;
+    margin-left: 550px;
+    margin-top: 30px;
+  }
+  
+  .indicador {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    position: relative;
+    font-size: 14px;
+    color: #000000;
+  }
+  
+  .indicador .circulo {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    margin-right: 6px;
+    background-color: white;
+  }
+  .Cesta-Cantidad{
+    margin-left: 190px;
+    font-size: 24px;
+    color: #000000;
+    margin-bottom: 30px;
+    color: rgb(0, 0, 0);
+    padding: 2px 6px;
+    font-weight: bold;
+  }
+  
+  .indicador.activo .circulo {
+    background-color: black;
+    color: white;
+    border-color: black;
+  }
+  
+  .indicador span {
+    margin-right: 10px;
+    color: inherit;
+  }
+
+.cesta-container {
+    margin-left: 150px;
+    margin-right: 150px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .cesta-content {
+    
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .info-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .info-item {
+    margin-top: 150px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .info-icon {
+    width: 45px; 
+    height: 39px; 
+    margin-right: 10px;
+  }
+  
+  .info-text {
+    font-weight: bold;
+    color: #535353; 
+  }
+  
+  .info-subtext {
+    font-size: 0.8em;
+    color: #a0a0a0; 
+  }
+  
+  .info-text-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  @media (min-width: 768px) {
+    .cesta-content {
+      flex-direction: row;
+    }
+  }
+  
+  .productos {
+    flex: 2;
+  }
+  .eliminar-producto{
+    color: #000000;
+    font-size: 50px;
+    width: 45px;
+    height: 45px;
+    background-color: rgb(255, 255, 255);
+    border: none;
+    margin-left: 50px;
+  }
+
+  .producto-final{
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .producto {
+    display: flex;
+    margin-bottom: 16px;
+    padding: 12px;
+    gap: 16px;
+  }
+  
+  .producto-img-cesta{
+    width: 150px;
+    height: 230px;
+  }
+  
+  .producto-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+  }
+  .producto-cesta{
+    margin-left: 200px;
+    width: 650px;
+    display: flex;
+    margin-bottom: 15px;
+    border: 1px solid #000000;
+    padding: 15px;
+  }
+  
+  .producto-nombre {
+    font-weight: bold;
+  }
+  
+  .producto-descripcion {
+    color: #000000;
+    font-size: 14px;
+  }
+  
+  .producto-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 20px;
+  }
+
+  .select-cantidad{
+    width: 50px;
+    height: 25px;
+    border: 1px solid #000000;
+    padding: 4px;
+  }
+  
+  .producto-precio {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .resumen {
+    margin-right: 200px;
+    flex: 1;
+    border: 1px solid #000000;
+    padding: 22px;
+    height: fit-content;
+  }
+  
+  .input-cupon {
+    width: 95%;
+    padding: 8px;
+    margin-bottom: 15px;
+  }
+  
+  .resumen-item {
+    display: flex;
+      justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  
+  .resumen-total {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 12px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+  }
+  
+  .boton-validar {
+    width: 100%;
+    height: 55px;
+    margin-top: 20px;
+    padding: 12px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .boton-validar:hover {
+    background-color: #ffffff;
+    color: black;
+    border: 1px solid black;
+  }
+  
+  .pagos {
+    margin-top: 16px;
+    font-size: 12px;
+    color: #000000;
+  }
+  
+  .logos-pago img {
+    margin-top: 20px;
+    height: 22px;
+    margin-right: 8px;
+    margin-left: 38px;
+  }
+  
