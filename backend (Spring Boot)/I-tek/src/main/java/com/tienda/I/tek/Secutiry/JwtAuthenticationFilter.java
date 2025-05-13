@@ -48,7 +48,11 @@ protected void doFilterInternal(HttpServletRequest request,
     String token = getTokenFromRequest(request);
 
     if (token != null && jwtTokenProvider.validateToken(token)) {
+<<<<<<< HEAD
         String username = jwtTokenProvider.getEmailFromToken(token);
+=======
+        String username = jwtTokenProvider.getUsernameFromToken(token);
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
         List<String> roles = jwtTokenProvider.getRolesFromToken(token);
 
         List<GrantedAuthority> authorities = roles.stream()

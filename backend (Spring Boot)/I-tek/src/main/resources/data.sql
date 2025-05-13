@@ -1,6 +1,10 @@
 -- Insertar un usuario
 -- Insertar usuarios adicionales
+<<<<<<< HEAD
 INSERT INTO users (username, email, password, direccion, telefono, rol, fechaRegistro) VALUES 
+=======
+INSERT INTO users (nombre, email, password, direccion, telefono, rol, fechaRegistro) VALUES 
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 ('Iago Vila', 'iagovila17@gmail.com', '$2a$10$OLFtHR1GqCSvZYtMHU2gv.9SYrBvlc6gKYD4eIZsPlPGenKzs9CNi', 'Rua Boa Vista', '607048861', 'ADMIN', NOW()),
 ('Iago Vila', 'iagovila18@gmail.com', '$2a$10$OLFtHR1GqCSvZYtMHU2gv.9SYrBvlc6gKYD4eIZsPlPGenKzs9CNi', 'Calle Falsa 123', '123456789', 'USER', NOW());
 
@@ -27,4 +31,12 @@ VALUES
 INSERT INTO carts (usuario_id) 
 VALUES (1), (2);
 
+<<<<<<< HEAD
+=======
+-- Insertar un producto en el carrito
+INSERT INTO cart_product (cart_id, product_id) VALUES
+ (1, 1),
+ (2, 1),
+ (2, 2);
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 

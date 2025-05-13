@@ -1,4 +1,5 @@
 .cuenta-container {
+<<<<<<< HEAD
   padding: 20px;
   max-width: 800px;
   margin: 0 auto;
@@ -10,23 +11,62 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+=======
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 24px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.profile-card h2 {
+  margin-bottom: 24px;
+  font-size: 24px;
+  color: #222;
+}
+
+.profile-section {
+  margin-bottom: 20px;
+}
+
+.profile-section h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  color: #444;
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 }
 
 .profile-section label {
   display: block;
+<<<<<<< HEAD
   margin-bottom: 10px;
+=======
+  margin-bottom: 12px;
+  font-size: 14px;
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 }
 
 .profile-section input {
   width: 100%;
+<<<<<<< HEAD
   padding: 8px;
   margin-bottom: 10px;
   border-radius: 4px;
   border: 1px solid #ccc;
+=======
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-top: 4px;
+  font-size: 14px;
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 }
 
 .buttons {
   display: flex;
+<<<<<<< HEAD
   gap: 10px;
 }
 
@@ -83,3 +123,27 @@
 .product-item {
   margin-bottom: 8px;
 }
+=======
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.button-cuenta {
+  padding: 10px 16px;
+  background-color: #363b44;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button.logout {
+  background-color: #000000;
+  color: white;
+  font-size: 15px;
+  padding: 5px;
+  border: 1px solid black;
+}
+
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3

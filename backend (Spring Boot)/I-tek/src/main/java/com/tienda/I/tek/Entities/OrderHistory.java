@@ -2,15 +2,28 @@ package com.tienda.I.tek.Entities;
 
 import java.util.Date;
 
+<<<<<<< HEAD
 import jakarta.persistence.Entity;
 
+=======
+import com.tienda.I.tek.Enumerated.EstadoPedido;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+<<<<<<< HEAD
 
+=======
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 
 @Entity
 @Table(name = "orderhistories")
@@ -19,6 +32,7 @@ public class OrderHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+<<<<<<< HEAD
     private Date fecha;
     private Double total;
     private String metodoPago;
@@ -118,4 +132,22 @@ public class OrderHistory {
     }
 
     
+=======
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Order pedido;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private User usuario;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaActualizacion;
+
+    @Enumerated(EnumType.STRING)
+    private EstadoPedido estadoAnterior;
+
+    @Enumerated(EnumType.STRING)
+    private EstadoPedido estadoNuevo;
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 }

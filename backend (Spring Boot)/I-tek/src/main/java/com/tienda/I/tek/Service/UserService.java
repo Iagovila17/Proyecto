@@ -24,8 +24,11 @@ public class UserService implements IUserService{
     private CartRepository cartRepo;
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 	@Override
 	public List<User> listUser() {
         return UserRepo.findAll();
@@ -82,8 +85,11 @@ public class UserService implements IUserService{
                     .collect(Collectors.toList());
     }
 
+<<<<<<< HEAD
      
     
 
 
+=======
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 }

@@ -2,11 +2,14 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Cuenta.css';
 
+<<<<<<< HEAD
 interface Product {
   nombre: string;
   precio: number;
 }
 
+=======
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 const Cuenta = () => {
   const [userData, setUserData] = useState<any>(null);
   const [token, setToken] = useState<string | null>(null);
@@ -16,7 +19,10 @@ const Cuenta = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [emailForReset, setEmailForReset] = useState('');
   const [isResetLinkSent, setIsResetLinkSent] = useState(false);
+<<<<<<< HEAD
   const [orderHistory, setOrderHistory] = useState<any[]>([]);
+=======
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
   const navigate = useNavigate();
   
   useEffect(() => {
@@ -24,6 +30,7 @@ const Cuenta = () => {
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
       setUserData(parsedUser);
+<<<<<<< HEAD
       setToken(parsedUser.token); // Guardamos token por separado
       fetchOrderHistory(parsedUser.token);
     }
@@ -45,6 +52,12 @@ const Cuenta = () => {
     }
   };
 
+=======
+      setToken(parsedUser.token); // ✅ Guardamos token por separado
+    }
+  }, []);
+
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
@@ -170,6 +183,7 @@ const Cuenta = () => {
 
           {isResetLinkSent && <p>Revisa tu correo para restablecer la contraseña.</p>}
 
+<<<<<<< HEAD
           <div className="order-history">
             <h3>Historial de Compras</h3>
             {orderHistory.length > 0 ? (
@@ -198,6 +212,8 @@ const Cuenta = () => {
             )}
           </div>
 
+=======
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
         </div>
       ) : (
         <p>Cargando...</p>

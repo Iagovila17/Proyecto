@@ -23,17 +23,25 @@ const Payment = () => {
     return productosDelCarrito.reduce((total, prod) => {
       const precio = Number(prod.precio);
       const cantidad = Number(prod.cantidad);
+<<<<<<< HEAD
       return !isNaN(precio) && !isNaN(cantidad) ? total + precio * cantidad : total;
     }, 0);
   };
 
   
 
+=======
+      return (!isNaN(precio) && !isNaN(cantidad)) ? total + precio * cantidad : total;
+    }, 0);
+  };
+
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
   const handleMetodoCambio = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMetodoSeleccionado(e.target.value);
     setAceptaTerminos(false);
   };
 
+<<<<<<< HEAD
 const realizarCheckout = async () => {
   const userItem = localStorage.getItem('user');
   const userData = userItem ? JSON.parse(userItem) : null;
@@ -87,6 +95,17 @@ try {
         container.innerHTML = '';
       }
 
+=======
+  useEffect(() => {
+    if (metodoSeleccionado === 'paypal' && aceptaTerminos && (window as any).paypal) {
+      console.log('PayPal seleccionado y términos aceptados');
+      const container = document.getElementById('paypal-button-container');
+      if (container) {
+        container.innerHTML = ''; 
+      }
+
+      // Renderizar el botón de PayPal
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
       (window as any).paypal.Buttons({
         style: {
           layout: 'vertical',
@@ -96,6 +115,7 @@ try {
         },
         createOrder: (data: any, actions: any) => {
           return actions.order.create({
+<<<<<<< HEAD
             purchase_units: [
               {
                 amount: {
@@ -104,15 +124,33 @@ try {
                 },
               },
             ],
+=======
+            purchase_units: [{
+              amount: {
+                value: calcularTotal().toFixed(2),
+                currency_code: 'EUR',
+              }
+            }]
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
           });
         },
         onApprove: (data: any, actions: any) => {
           return actions.order.capture().then((details: any) => {
             alert('Pago completado por ' + details.payer.name.given_name);
+<<<<<<< HEAD
             realizarCheckout(); // Llamada real al backend
           });
         },
       }).render('#paypal-button-container');
+=======
+            localStorage.removeItem('productosCarrito'); 
+            window.location.href = '/'; 
+          });
+        }
+      }).render('#paypal-button-container'); 
+    } else {
+      console.log('Esperando a que se acepten los términos o PayPal no seleccionado');
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
     }
   }, [metodoSeleccionado, aceptaTerminos, productosDelCarrito]);
 
@@ -221,13 +259,56 @@ try {
               />
               Apple Pay
             </label>
+<<<<<<< HEAD
             <img src="/Imagenes/MetodoPago/applepay.png" alt="Apple Pay" />
           </div>
         </form>
       </div>
+=======
+            <img src="/Imagenes/MetodoPago/Pay.png" alt="ApplePay" />
+          </div>
+        </form>
+      </div>
+
+      {/* Sección derecha: Resumen de la cesta */}
+      <div className="resumen-cesta">
+        <h2>Resumen de la Cesta</h2>
+        <div className="productos">
+          {productosDelCarrito.map((producto, index) => (
+            <div key={index} className="producto-pago">
+              <img src={producto.imagen || "/default-image.jpg"} alt={producto.nombre} className="producto-img" />
+              <div className="producto-info">
+                <p className="producto-nombre">{producto.nombre}</p>
+                <p className="producto-detalle">Color: {producto.color}</p>
+                <p className="producto-detalle">Talla: {producto.talla}</p>
+                <div className="producto-footer">
+                  <span className="producto-precio">{producto.precio} EUR</span>
+                  <span className="producto-cantidad">Cantidad: {producto.cantidad}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="resumen-item">
+          <span>Subtotal</span>
+          <span>{calcularTotal().toFixed(2)} EUR</span>
+        </div>
+        <div className="resumen-item">
+          <span>Envío (4-6 días laborables)</span>
+          <span>Gratis</span>
+        </div>
+        <div className="resumen-total">
+          <span>Total</span>
+          <span>{calcularTotal().toFixed(2)} EUR</span>
+        </div>
+      </div>
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
     </div>
   );
 };
 
 export default Payment;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3

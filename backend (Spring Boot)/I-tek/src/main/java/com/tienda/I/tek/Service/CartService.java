@@ -5,11 +5,17 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< HEAD
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 
+=======
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 import com.tienda.I.tek.Entities.Cart;
 import com.tienda.I.tek.Entities.Product;
 import com.tienda.I.tek.Entities.User;
@@ -92,6 +98,7 @@ public class CartService implements IcartService {
         cartRepo.save(cart);
     }
 
+<<<<<<< HEAD
 
 @Transactional
 public void clearCart(Long userId) {
@@ -103,6 +110,20 @@ public void clearCart(Long userId) {
 }
 
 
+=======
+    @Override
+    public void clearCart(String nombre) {
+        // Obtener el carrito por nombre de usuario
+        User usuario = userRepository.findByEmail(nombre)
+            .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+
+        Cart cart = getCartByUser(usuario);
+        
+        // Limpiar todos los productos del carrito
+        cart.getProductos().clear();
+        cartRepo.save(cart);
+    }
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 
     public Cart getCartByUser(User usuario) {
         // Buscar el carrito del usuario
@@ -113,5 +134,9 @@ public void clearCart(Long userId) {
             throw new EntityNotFoundException("No se encontró el carrito para el usuario.");
         }
     }
+<<<<<<< HEAD
 
 }
+=======
+}
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3

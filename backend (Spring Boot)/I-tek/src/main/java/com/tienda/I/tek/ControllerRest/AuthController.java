@@ -1,7 +1,15 @@
 package com.tienda.I.tek.ControllerRest;
 
+<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.Map;
+=======
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,10 +23,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+<<<<<<< HEAD
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.tienda.I.tek.Entities.Cart;
 
+=======
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.tienda.I.tek.DTO.ChangePasswordRequest;
+import com.tienda.I.tek.DTO.PasswordReset;
+import com.tienda.I.tek.Entities.Cart;
+import com.tienda.I.tek.Entities.PasswordResetToken;
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 import com.tienda.I.tek.Entities.User;
 import com.tienda.I.tek.Enumerated.Rol;
 import com.tienda.I.tek.Model.LoginRequest;
@@ -28,6 +46,10 @@ import com.tienda.I.tek.Repository.PasswordResetRepository;
 import com.tienda.I.tek.Repository.UserRepository;
 import com.tienda.I.tek.Secutiry.CustomUserDetailsService;
 import com.tienda.I.tek.Secutiry.JwtTokenProvider;
+<<<<<<< HEAD
+=======
+import com.tienda.I.tek.Service.EmailService;
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 
 
 @RestController
@@ -41,6 +63,12 @@ public class AuthController {
     @Autowired
     private PasswordResetRepository passwordResetRepository;
 
+<<<<<<< HEAD
+=======
+    @Autowired
+    private EmailService emailService;
+
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepo;
     private final PasswordEncoder passwordEncoder;
@@ -129,5 +157,25 @@ public class AuthController {
 
 
 
+<<<<<<< HEAD
 
+=======
+    // Cambiar la contraseña con el token
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest request) {
+        String email = request.getEmail();
+        String newPassword = request.getNewPassword();
+
+        Optional<User> userOpt = userRepository.findByEmail(email);
+        if (userOpt.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado.");
+        }
+
+        User user = userOpt.get();
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+
+        return ResponseEntity.ok("Contraseña actualizada correctamente.");
+    }
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 }

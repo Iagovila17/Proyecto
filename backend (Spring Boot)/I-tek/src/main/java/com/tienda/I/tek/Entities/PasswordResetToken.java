@@ -6,11 +6,18 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+<<<<<<< HEAD
+=======
+import jakarta.persistence.JoinColumn;
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 import jakarta.persistence.ManyToOne;
 
 @Entity
 public class PasswordResetToken {
+<<<<<<< HEAD
    
+=======
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

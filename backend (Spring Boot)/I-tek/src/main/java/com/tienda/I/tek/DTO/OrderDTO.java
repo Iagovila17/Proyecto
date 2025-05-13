@@ -8,7 +8,11 @@ public class OrderDTO {
 
     private Long id;
     private Date fecha;
+<<<<<<< HEAD
    
+=======
+    private String estado;
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
     private Double total;
     private String metodoPago;
     private String direccionEnvio;
@@ -19,6 +23,10 @@ public class OrderDTO {
     public OrderDTO(Order order) {
         this.id = order.getId();
         this.fecha = (Date) order.getFecha();
+<<<<<<< HEAD
+=======
+        this.estado = order.getEstado().toString();
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
         this.total = order.getTotal();
         this.metodoPago = order.getMetodoPago().toString();
         this.direccionEnvio = order.getDireccionEnvio();
@@ -41,6 +49,16 @@ public class OrderDTO {
         this.fecha = fecha;
     }
 
+<<<<<<< HEAD
+=======
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 
     public Double getTotal() {
         return total;
@@ -68,7 +86,11 @@ public class OrderDTO {
 
     @Override
     public String toString() {
+<<<<<<< HEAD
         return "OrderDTO [id=" + id + ", fecha=" + fecha + ", total=" + total + ", metodoPago="
+=======
+        return "OrderDTO [id=" + id + ", fecha=" + fecha + ", estado=" + estado + ", total=" + total + ", metodoPago="
+>>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
                 + metodoPago + ", direccionEnvio=" + direccionEnvio + "]";
     }
 }
