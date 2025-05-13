@@ -1,0 +1,99 @@
+/* Contenedor general del menú */
+.menu-container {
+  position: relative;
+  width: 25%;
+  margin-left: 10%;
+  
+}
+
+/* Lista principal de categorías */
+.menu {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+#nombre-menu-nav {
+  padding: 10px;
+}
+
+.menu-item a {
+  color: black;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  display: inline-block;
+}
+
+
+
+.subfamilia{
+  font-size: 13px; 
+  margin-left: 15%;
+  padding: 5px;
+  color: rgb(65, 65, 65);
+}
+
+/* Submenú */
+.dropdown {
+  position: absolute;
+  left: 0;
+  background-color: white;
+  border: 1px solid black;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: none;
+  width: 100%; /* Ancho completo del contenedor */
+  max-height: 261px; /* Altura máxima del menú desplegable */
+  overflow-y: auto; /* Permite desplazamiento vertical si las opciones no caben */
+  scrollbar-width: thin; /* Estiliza la barra de desplazamiento para navegadores compatibles */
+  scrollbar-color: #eeeeee #ffffff; /* Color del scroll */
+}
+
+.dropdown li {
+  font-size: 13px;
+  padding: 0.5rem 1rem;
+}
+
+.dropdown a {
+  color: rgb(0, 0, 0);
+  margin-left: 20px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {
+  background-color: rgb(255, 255, 255);
+}
+
+/* Mostrar el submenú al hacer hover en la categoría */
+.menu-item:hover .dropdown {
+  display: block;
+}
+.menu:hover {
+  background-color: #eeeeee;
+  border: 1px solid black;
+  
+}
+
+/* Opcional: Estilizar la barra de desplazamiento para navegadores basados en WebKit */
+.dropdown::-webkit-scrollbar {
+  width: 8px; /* Ancho del scrollbar */
+}
+
+.dropdown::-webkit-scrollbar-thumb {
+  background-color: #aaa; /* Color del "thumb" (barra que se mueve) */
+  border-radius: 4px;
+}
+
+.dropdown::-webkit-scrollbar-track {
+  background-color: #fff; /* Fondo de la pista del scrollbar */
+}
+
+@media (max-width: 768px) {
+  .menu-container{
+    margin-left: 0%;
+    width: 100%;
+  }
+}
