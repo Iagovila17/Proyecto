@@ -4,10 +4,7 @@ import java.util.List;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-<<<<<<< HEAD
 import org.springframework.http.HttpMethod;
-=======
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 import org.springframework.security.authentication.AuthenticationManager;
 
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -54,12 +51,8 @@ public class SecurityConfig {
                 .requestMatchers("/auth/login", "/auth/register").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-<<<<<<< HEAD
                 .requestMatchers("/cesta" ).hasRole("USER")
                 .requestMatchers(HttpMethod.POST, "/checkout").hasRole("USER")
-=======
-                .requestMatchers("/cesta").hasRole("USER")
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
                 .requestMatchers("/auth/reset-password", "/auth/change-password").authenticated() 
                 .requestMatchers("/cesta/add/{productId}").hasRole("USER")  // Asegúrate de que esta ruta esté protegida
                 .anyRequest().authenticated()
@@ -68,10 +61,6 @@ public class SecurityConfig {
         return http.build();
         
     }
-<<<<<<< HEAD
-=======
-    
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {

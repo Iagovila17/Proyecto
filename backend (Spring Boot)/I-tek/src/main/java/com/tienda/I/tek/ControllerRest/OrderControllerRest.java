@@ -18,31 +18,20 @@ import com.tienda.I.tek.Entities.User;
 import com.tienda.I.tek.Service.OrderService;
 import com.tienda.I.tek.Service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
-<<<<<<< HEAD
 import com.tienda.I.tek.Repository.OrderRepository;
-=======
-
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 
 
 @RestController
 @RequestMapping("/order")
 public class OrderControllerRest{
-<<<<<<< HEAD
-=======
-
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
     
     @Autowired
     private OrderService orderService;
    
     @Autowired
     private UserService userService;
-<<<<<<< HEAD
     @Autowired
     private OrderRepository orderRepository;
-=======
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 
     @GetMapping("/user/{userId}")  
     public ResponseEntity<?> getOrdersByUser(@PathVariable Long userId) {
@@ -83,13 +72,4 @@ public class OrderControllerRest{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pedido no encontrado");
         }
     }
-<<<<<<< HEAD
-=======
-
-
-   
-
-
-
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 }

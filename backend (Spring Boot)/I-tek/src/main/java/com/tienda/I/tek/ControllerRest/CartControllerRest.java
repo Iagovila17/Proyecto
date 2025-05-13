@@ -1,9 +1,6 @@
 package com.tienda.I.tek.ControllerRest;
 
-<<<<<<< HEAD
 import java.util.HashMap;
-=======
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 import java.util.List;
 import java.util.Map;
 
@@ -13,18 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-<<<<<<< HEAD
 import com.tienda.I.tek.DTO.CheckoutRequest;
 import com.tienda.I.tek.Entities.Cart;
 import com.tienda.I.tek.Entities.Order;
 import com.tienda.I.tek.Entities.User;
 import com.tienda.I.tek.Repository.CartRepository;
-=======
-import com.tienda.I.tek.DTO.OrderDTO;
-import com.tienda.I.tek.Entities.Cart;
-import com.tienda.I.tek.Entities.Order;
-import com.tienda.I.tek.Entities.User;
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 import com.tienda.I.tek.Repository.UserRepository;
 import com.tienda.I.tek.Secutiry.JwtTokenProvider;
 import com.tienda.I.tek.Service.CartService;
@@ -34,11 +24,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-=======
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 
 import java.security.Principal;
 
@@ -53,11 +40,8 @@ public class CartControllerRest {
     @Autowired
     private CartService cartServi;
 
-<<<<<<< HEAD
     private CartRepository CartRepo;
 
-=======
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
     @Autowired
     private OrderService orderServi;
 
@@ -79,7 +63,6 @@ public class CartControllerRest {
         cartServi.deleteCarrito(id);;
     }
 
-<<<<<<< HEAD
     @PostMapping("/checkout")
     public ResponseEntity<?> checkout(@RequestBody CheckoutRequest request,@RequestHeader("Authorization") String token) {
         try {
@@ -105,20 +88,6 @@ public class CartControllerRest {
     }
 
 
-=======
-     @PostMapping("/checkout/{userId}")
-        public ResponseEntity<?> checkout(@PathVariable Long userId) {
-            try {
-                Order order = orderServi.checkout(userId);
-                return ResponseEntity.ok(new OrderDTO(order));
-            } catch (RuntimeException e) {
-                return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
-            }
-    }
-
-
-
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
     @GetMapping
     public ResponseEntity<Cart> getCart(Principal principal) {
         // Obtener el usuario a partir del nombre de usuario del Principal
@@ -160,7 +129,6 @@ public ResponseEntity<String> addProduct(@PathVariable Long productId, Principal
 
     @DeleteMapping("/clear")
     public ResponseEntity<String> clearCart(Principal principal) {
-<<<<<<< HEAD
          try {
              // Retrieve usuarioId from the Principal object
              User user = userRepo.findByEmail(principal.getName())
@@ -175,10 +143,6 @@ public ResponseEntity<String> addProduct(@PathVariable Long productId, Principal
          } catch (Exception e) {
              return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al vaciar el carrito: " + e.getMessage());
          }
-=======
-        cartServi.clearCart(principal.getName());
-        return ResponseEntity.ok("Cesta vaciada");
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
     }
 
 }

@@ -31,11 +31,7 @@ public class Cart {
     @JoinColumn(name = "usuario_id")
     private User usuario;
 
-<<<<<<< HEAD
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-=======
-    @ManyToMany(fetch = FetchType.EAGER)
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
     @JoinTable(
         name = "cart_product",
         joinColumns = @JoinColumn(name = "cart_id"),

@@ -32,15 +32,9 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(nullable = true) 
-<<<<<<< HEAD
     private String username; 
 
     @Column(unique =  true, nullable = false)
-=======
-    private String nombre; 
-
-    @Column(unique =  false, nullable = false)
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
     private String email; 
 
     @Column(nullable = false)
@@ -62,38 +56,18 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Cart> carts ;
 
-<<<<<<< HEAD
     public User() {
     }
 
-=======
-    // Constructor sin parámetros para JPA
-    public User() {
-    }
-
-    // Constructor con parámetros
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
     public User(String email, String password, Rol rol, String nombre, String telefono) {
         this.email = email;
         this.password = password;
         this.rol = rol;
-<<<<<<< HEAD
         this.username = nombre;
         this.telefono = telefono;
 
     }
     
-=======
-        this.nombre = nombre;
-        this.telefono = telefono;
-
-    }
-
-    // Otros constructores
-    
-    
-
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
     public Long getId() {
         return id;
     }
@@ -101,11 +75,7 @@ public class User implements UserDetails {
     public User(Long id, String nombre, String email, String password, String direccion, String telefono, Rol rol,
             Date fechaRegistro, List<Cart> carts) {
         this.id = id;
-<<<<<<< HEAD
         this.username = nombre;
-=======
-        this.nombre = nombre;
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
         this.email = email;
         this.password = password;
         this.direccion = direccion;
@@ -120,19 +90,11 @@ public class User implements UserDetails {
     }
 
     public String getNombre() {
-<<<<<<< HEAD
         return username;
     }
 
     public void setNombre(String nombre) {
         this.username = nombre;
-=======
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
     }
 
     public String getEmail() {
@@ -197,11 +159,7 @@ public class User implements UserDetails {
 
     @Override
     public String toString() {
-<<<<<<< HEAD
         return "User [id=" + id + ", nombre=" + username + ", email=" + email + ", password=" + password + ", direccion="
-=======
-        return "User [id=" + id + ", nombre=" + nombre + ", email=" + email + ", password=" + password + ", direccion="
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
                 + direccion + ", telefono=" + telefono + ", rol=" + rol + ", fechaRegistro=" + fechaRegistro
                 + ", carts=" + carts + "]";
     }

@@ -18,10 +18,6 @@ public interface IcartService {
     Cart getCartByUser(User usuario);
     void addProductToCart(String nombre, Long productId);
     void removeProductFromCart(String nombre, Long productId);
-<<<<<<< HEAD
     void clearCart(Long userId);
     
-=======
-    void clearCart(String nombre);
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 }

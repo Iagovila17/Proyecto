@@ -7,20 +7,12 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 import org.springframework.security.core.GrantedAuthority;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-<<<<<<< HEAD
 import com.tienda.I.tek.Entities.CustomUserDetails;
-=======
-
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 
 import java.util.Collection;
 import java.util.Date;
@@ -29,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -40,11 +31,6 @@ public class JwtTokenProvider {
     @Autowired
     private UserDetailsService userDetailsService;
 
-=======
-@Component
-public class JwtTokenProvider {
-
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
     private final String SECRET_KEY = "a-very-long-secret-string-with-at-least-256-bits-long-length-should-be-difficult-to-guess"; // Cambiar por una clave más segura
     private final long EXPIRATION_TIME = 2592000000L; // 30 días en milisegundos
 
@@ -73,11 +59,7 @@ public class JwtTokenProvider {
     public boolean validateToken(String token) {
     try {
         Jws<Claims> claims = Jwts.parser()
-<<<<<<< HEAD
             .setSigningKey(SECRET_KEY)  
-=======
-            .setSigningKey(SECRET_KEY)
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
             .parseClaimsJws(token);
         return !claims.getBody().getExpiration().before(new Date());
     } catch (JwtException | IllegalArgumentException e) {
@@ -87,7 +69,6 @@ public class JwtTokenProvider {
     }
 }
 
-<<<<<<< HEAD
 
     public String getEmailFromToken(String token) {
         Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
@@ -104,12 +85,6 @@ public class JwtTokenProvider {
         } else {
             throw new UsernameNotFoundException("No se pudo encontrar el usuario con email: " + username);
         }
-=======
-    // Obtener el nombre de usuario desde el token JWT
-    public String getUsernameFromToken(String token) {
-        Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
-        return claims.getSubject();
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
     }
 
     

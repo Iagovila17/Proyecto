@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
 import com.tienda.I.tek.DTO.CheckoutRequest;
 import com.tienda.I.tek.Entities.Cart;
 import com.tienda.I.tek.Entities.Order;
@@ -18,14 +17,6 @@ import com.tienda.I.tek.Enumerated.MetodoPago;
 import com.tienda.I.tek.Repository.OrderHistoryRepository;
 import com.tienda.I.tek.Repository.OrderRepository;
 import com.tienda.I.tek.Repository.UserRepository;
-=======
-import com.tienda.I.tek.Entities.Cart;
-import com.tienda.I.tek.Entities.Order;
-import com.tienda.I.tek.Entities.User;
-import com.tienda.I.tek.Enumerated.EstadoPedido;
-import com.tienda.I.tek.Enumerated.MetodoPago;
-import com.tienda.I.tek.Repository.OrderRepository;
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 
 import jakarta.transaction.Transactional;
 
@@ -36,7 +27,6 @@ public class OrderService implements IOrderService {
     private OrderRepository orderRepo;
 
     @Autowired
-<<<<<<< HEAD
     private IcartService cartService; 
     
      @Autowired
@@ -54,12 +44,6 @@ public class OrderService implements IOrderService {
     public User findById(Long id) {
         return userRepo.findById(id).orElse(null);
     }
-=======
-    private IUserService userService;
-
-    @Autowired
-    private IcartService cartService; 
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 
     @Override
     public List<Order> listOrdersForUser(User user) {
@@ -83,7 +67,6 @@ public class OrderService implements IOrderService {
 
 
     
-<<<<<<< HEAD
 @Transactional
 public Order checkout(User user, CheckoutRequest request) {
     // Obtener el carrito del usuario
@@ -124,39 +107,4 @@ public Order checkout(User user, CheckoutRequest request) {
 
 
 
-=======
-    @Transactional
-    public Order checkout(Long userId) {
-        // Obtener el usuario por su ID
-        User user = userService.idUser(userId);
-        if (user == null) throw new RuntimeException("Usuario no encontrado");
-    
-        // Obtener el carrito del usuario
-        Cart cart = cartService.getCartByUser(user);  // Pasa el objeto User, no el ID
-        if (cart == null || cart.getProductos().isEmpty()) throw new RuntimeException("El carrito está vacío");
-    
-        // Crear y configurar la nueva orden
-        Order order = new Order();
-        order.setUser(user);
-        order.setFecha(new Date());
-        order.setEstado(EstadoPedido.PENDIENTE);
-        order.setMetodoPago(MetodoPago.PAYPAL); 
-        order.setDireccionEnvio(user.getDireccion()); 
-    
-        // Calcular el total de la orden
-        double total = cart.getProductos().stream()
-                .mapToDouble(p -> p.getPrecio())
-                .sum();
-    
-        // Establecer el total y guardar la orden
-        order.setTotal(total);
-        orderRepo.save(order);
-    
-        // Limpiar el carrito después de realizar el pedido
-        cartService.clearCart(String.valueOf(user.getId()));  // No es necesario pasar el ID como String si el método ya está adaptado para recibir un User
-    
-        return order;
-    }
-    
->>>>>>> 517c7891977640a156f433b32dc57a6127fc3ef3
 }
