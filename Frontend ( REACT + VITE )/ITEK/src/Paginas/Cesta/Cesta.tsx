@@ -13,41 +13,42 @@ const Cesta = () => {
   }, []);
 
   const fetchCesta = async () => {
-    setCargando(true);
-    try {
-      const user = JSON.parse(localStorage.getItem("user") || "{}");
-      const token = user.token;
+  setCargando(true);
+  try {
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    const token = user.token;
 
-      const response = await fetch('http://192.168.68.100:8080/cesta', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+    const response = await fetch('http://192.168.68.100:8080/cesta', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-      const data = await response.json();
-      console.log("Respuesta completa de la API:", data); // Verifica toda la respuesta
+    const data = await response.json();
+    console.log("Respuesta completa de la API:", data); // Verifica toda la respuesta
 
-      if (data && Array.isArray(data.productos)) {
-        console.log("Productos originales:", data.productos);
-        const productosProcesados = data.productos.map((p: any) => ({
-          ...p,
-          precio: parseFloat(p.precio ?? 0),
-          cantidad: parseInt(p.cantidad ?? 1), // Establecer valor por defecto si no tiene cantidad
-        }));
+    if (data && Array.isArray(data.items)) {
+      console.log("Productos originales:", data.items);
+      const productosProcesados = data.items.map((item: any) => ({
+        ...item.product, // Extraemos datos del producto
+        cantidad: item.cantidad,
+        precio: parseFloat(item.product.precio ?? 0),
+        talla: item.talla ?? 'DEFAULT', // ✅ La talla está en el item directamente
+      }));
 
-        console.log("Productos procesados:", productosProcesados);
-        setProductos(productosProcesados);
-      } else {
-        console.error("La estructura de la respuesta es incorrecta");
-      }
-
-    } catch (err) {
-      console.error('Error al obtener la cesta:', err);
-      setError('Error de conexión con el servidor.');
-    } finally {
-      setCargando(false);
+      console.log("Productos procesados:", productosProcesados);
+      setProductos(productosProcesados);
+    } else {
+      console.error("La estructura de la respuesta es incorrecta");
     }
-  };
+
+  } catch (err) {
+    console.error('Error al obtener la cesta:', err);
+    setError('Error de conexión con el servidor.');
+  } finally {
+    setCargando(false);
+  }
+};
 
   const handleCantidadChange = (index: number, nuevaCantidad: number) => {
     const productosActualizados = [...productos];
