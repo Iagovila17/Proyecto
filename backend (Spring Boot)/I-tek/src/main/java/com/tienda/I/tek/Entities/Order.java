@@ -1,13 +1,11 @@
 package com.tienda.I.tek.Entities;
 
 import java.util.Date;
-import java.util.List;
 
 import com.tienda.I.tek.DTO.CheckoutRequest;
 import com.tienda.I.tek.Enumerated.EstadoPedido;
 import com.tienda.I.tek.Enumerated.MetodoPago;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -18,7 +16,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -49,15 +46,13 @@ public class Order {
     @Column(nullable = true)
     private String direccionEnvio;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderHistory> orderHistories;
-
+ 
     public Order() {
     }
 
 
         public Order(Long id, User user, Date fecha, EstadoPedido estado, Double total, MetodoPago metodoPago,
-            String direccionEnvio, List<OrderHistory> orderHistories) {
+            String direccionEnvio) {
         this.id = id;
         this.user = user;
         this.fecha = fecha;
@@ -65,7 +60,6 @@ public class Order {
         this.total = total;
         this.metodoPago = metodoPago;
         this.direccionEnvio = direccionEnvio;
-        this.orderHistories = orderHistories;
     }
 
 
@@ -134,20 +128,11 @@ public class Order {
         this.direccionEnvio = direccionEnvio;
     }
 
-    public List<OrderHistory> getOrderHistories() {
-        return orderHistories;
-    }
-
-
-    public void setOrderHistories(List<OrderHistory> orderHistories) {
-        this.orderHistories = orderHistories;
-    }
 
 
     @Override
     public String toString() {
         return "Order [id=" + id + ", user=" + user + ", fecha=" + fecha + ", estado=" + estado + ", total=" + total
-                + ", metodoPago=" + metodoPago + ", direccionEnvio=" + direccionEnvio + ", orderHistories="
-                + orderHistories + "]";
+                + ", metodoPago=" + metodoPago + ", direccionEnvio=" + direccionEnvio + "]";
     }
 }

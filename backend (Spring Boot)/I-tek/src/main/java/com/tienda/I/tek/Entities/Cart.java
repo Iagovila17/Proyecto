@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -12,10 +13,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,29 +30,21 @@ public class Cart {
     @JoinColumn(name = "usuario_id")
     private User usuario;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-        name = "cart_product",
-        joinColumns = @JoinColumn(name = "cart_id"),
-        inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    private List<Product> productos;
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Cartitem> items = new ArrayList<>();
     
 
     public Cart() {
     }
 
-    public Cart(Long id, User usuario, List<Product> productos) {
+    public Cart(Long id, User usuario, List<Cartitem> items) {
         this.id = id;
         this.usuario = usuario;
-        this.productos = productos;
+        this.items = items;
     }
 
-    public Cart(User usuario, Product producto) {
-        this.usuario = usuario;
-        this.productos = new ArrayList<>();
-        this.productos.add(producto);
-    }
+ 
 
     public Long getId() {
         return id;
@@ -67,23 +58,22 @@ public class Cart {
         return usuario;
     }
 
-    
 
     public void setUsuario(User usuario) {
         this.usuario = usuario;
     }
 
-    public List<Product> getProductos() {
-        return productos;
+   public List<Cartitem> getItems() {
+        return items;
     }
 
-    public void setProductos(List<Product> productos) {
-        this.productos = productos;
+    public void setItems(List<Cartitem> items) {
+        this.items = items;
     }
 
     @Override
     public String toString() {
-        return "Cart [id=" + id + ", usuario=" + usuario + ", productos=" + productos + "]";
+        return "Cart [id=" + id + ", usuario=" + usuario + ", items =" + items + "]";
     }
 
     

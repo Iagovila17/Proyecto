@@ -1,5 +1,6 @@
 package com.tienda.I.tek.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -9,14 +10,15 @@ import org.springframework.stereotype.Service;
 
 import com.tienda.I.tek.DTO.CheckoutRequest;
 import com.tienda.I.tek.Entities.Cart;
+import com.tienda.I.tek.Entities.Cartitem;
 import com.tienda.I.tek.Entities.Order;
-import com.tienda.I.tek.Entities.OrderHistory;
+import com.tienda.I.tek.Entities.OrderDetail;
 import com.tienda.I.tek.Entities.User;
 import com.tienda.I.tek.Enumerated.EstadoPedido;
 import com.tienda.I.tek.Enumerated.MetodoPago;
-import com.tienda.I.tek.Repository.OrderHistoryRepository;
 import com.tienda.I.tek.Repository.OrderRepository;
 import com.tienda.I.tek.Repository.UserRepository;
+import com.tienda.I.tek.Repository.orderDetailRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -28,15 +30,12 @@ public class OrderService implements IOrderService {
 
     @Autowired
     private IcartService cartService; 
-    
-     @Autowired
-    private OrderHistoryRepository historyRepo; 
-   
-    @Autowired
-    private OrderRepository orderRepository;
 
     @Autowired
-    private  UserService userService;
+    private orderDetailRepository orderDetailRepo;  // Añadir la anotación @Autowired
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private UserRepository userRepo;
@@ -50,7 +49,6 @@ public class OrderService implements IOrderService {
         return orderRepo.findByUser(user); 
     }
 
-   
     public List<Order> getOrdersByUser(User user) {
         return orderRepo.findByUser(user);
     }
@@ -62,49 +60,59 @@ public class OrderService implements IOrderService {
 
     @Override
     public Optional<Order> getOrderById(Long id) {
-    return orderRepo.findById(id);
+        return orderRepo.findById(id);
     }
 
+    // Elimina este constructor si ya no es necesario:
+    // public OrderService(OrderRepository orderRepository) {
+    //     this.orderRepository = orderRepository;
+    // }
 
-    
-@Transactional
-public Order checkout(User user, CheckoutRequest request) {
-    // Obtener el carrito del usuario
-    Cart cart = cartService.getCartByUser(user);
-    if (cart == null || cart.getProductos().isEmpty()) {
-        throw new RuntimeException("El carrito está vacío");
+    public List<Order> getOrdersByUserId(Long userId) {
+        return orderRepo.findByUserId(userId);  // Usamos el nombre correcto del campo
     }
 
-    // Crear y configurar la nueva orden
-    Order order = new Order();
-    order.setFecha(request.getFecha() != null ? request.getFecha() : new Date());
-    order.setEstado(EstadoPedido.PENDIENTE);
-    order.setMetodoPago(request.getMetodoPago() != null ? MetodoPago.valueOf(request.getMetodoPago().toUpperCase()) : MetodoPago.TARJETA);
-    order.setDireccionEnvio(request.getDireccionEnvio() != null ? request.getDireccionEnvio() : "Dirección no proporcionada");
-    order.setTotal(request.getTotal() != null ? request.getTotal() : 0.0);
-    order.setUser(user);  // Relacionar el pedido con el usuario
+    @Transactional
+    public Order checkout(User user, CheckoutRequest request) {
+        // Obtener el carrito del usuario
+        Cart cart = cartService.getCartByUser(user);
+        if (cart == null || cart.getItems().isEmpty()) {
+            throw new RuntimeException("El carrito está vacío");
+        }
 
-    // Guardar la orden
-    orderRepo.save(order);
+        // Crear y configurar la nueva orden
+        Order order = new Order();
+        order.setFecha(request.getFecha() != null ? request.getFecha() : new Date());
+        order.setEstado(EstadoPedido.PENDIENTE);
+        order.setMetodoPago(request.getMetodoPago() != null ? MetodoPago.valueOf(request.getMetodoPago().toUpperCase()) : MetodoPago.TARJETA);
+        order.setDireccionEnvio(request.getDireccionEnvio() != null ? request.getDireccionEnvio() : "Dirección no proporcionada");
+        order.setTotal(request.getTotal() != null ? request.getTotal() : 0.0);
+        order.setUser(user);
 
-    // Guardar la orden en el historial (HistoryCart)
-    OrderHistory orderHistory = new OrderHistory();
-    orderHistory.setUsuario(user);
-    orderHistory.setFecha(order.getFecha());
-    orderHistory.setMetodoPago(order.getMetodoPago().toString());
-    orderHistory.setDireccionEnvio(order.getDireccionEnvio());
-    orderHistory.setTotal(order.getTotal());
-    orderHistory.setOrder(order);  // Relacionar el historial con la orden
+        // Guardar la orden
+        orderRepo.save(order);
 
-    historyRepo.save(orderHistory); // Guardar en el historial
+        // Crear los detalles de la orden
+        List<OrderDetail> orderDetails = new ArrayList<>();
+        for (Cartitem item : cart.getItems()) {
+            OrderDetail detail = new OrderDetail();
+            detail.setOrder(order);
+            detail.setProduct(item.getProduct());
+            detail.setQuantity(item.getCantidad());
+            detail.setTalla(item.getTalla());
+            detail.setUnitPrice(item.getProduct().getPrecio());
+            detail.setTotalPrice(item.getCantidad() * item.getProduct().getPrecio());
 
-    // Limpiar el carrito después de realizar el pedido (vaciar productos pero no eliminar la entidad Cart)
-    cartService.clearCart(user.getId());
+            orderDetails.add(detail);
+        }
 
-    return order;  // Devolver el pedido
-}
+        // Guardar los detalles
+        orderDetailRepo.saveAll(orderDetails);
 
+        // Vaciar el carrito
+        cartService.clearCart(user.getId());
 
-
+        return order;
+    }
 
 }

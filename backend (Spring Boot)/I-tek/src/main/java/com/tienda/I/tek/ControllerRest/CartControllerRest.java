@@ -10,10 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tienda.I.tek.DTO.CartItemDTO;
 import com.tienda.I.tek.DTO.CheckoutRequest;
 import com.tienda.I.tek.Entities.Cart;
 import com.tienda.I.tek.Entities.Order;
 import com.tienda.I.tek.Entities.User;
+import com.tienda.I.tek.Enumerated.Talla;
 import com.tienda.I.tek.Repository.CartRepository;
 import com.tienda.I.tek.Repository.UserRepository;
 import com.tienda.I.tek.Secutiry.JwtTokenProvider;
@@ -106,12 +108,25 @@ public class CartControllerRest {
 
 
 @PostMapping("/add/{productId}")
-public ResponseEntity<String> addProduct(@PathVariable Long productId, Principal principal) {
+public ResponseEntity<String> addProduct(@PathVariable Long productId, 
+                                         @RequestBody CartItemDTO cartItemDTO, 
+                                         Principal principal) {
     try {
-        cartServi.addProductToCart(principal.getName(), productId);
+        // Obtener el nombre del usuario actual
+        String username = principal.getName();
+
+        // Convertir la talla de String a enum
+        Talla tallaEnum = Talla.valueOf(cartItemDTO.getTalla().toUpperCase());
+
+        int cantidad = cartItemDTO.getCantidad();
+
+        // Llamar al servicio para agregar el producto al carrito
+        cartServi.addProductToCart(username, productId, tallaEnum, cantidad);
+
         return ResponseEntity.ok("Producto añadido a la cesta");
     } catch (Exception e) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al añadir el producto");
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                             .body("Error al añadir el producto: " + e.getMessage());
     }
 }
 
@@ -120,10 +135,10 @@ public ResponseEntity<String> addProduct(@PathVariable Long productId, Principal
 
 
 
-
     @DeleteMapping("/delete/{productId}")
     public ResponseEntity<String> removeProduct(@PathVariable Long productId, Principal principal) {
-        cartServi.removeProductFromCart(principal.getName(), productId);
+        Talla talla = Talla.DEFAULT; // Replace with appropriate logic to determine Talla
+        cartServi.removeProductFromCart(principal.getName(), productId, talla);
         return ResponseEntity.ok("Producto eliminado de la cesta");
     }
 
@@ -136,7 +151,7 @@ public ResponseEntity<String> addProduct(@PathVariable Long productId, Principal
              Cart cart = CartRepo.findByUsuarioId(user.getId())
                      .orElseThrow(() -> new RuntimeException("Carrito no encontrado"));
              if (cart != null) {
-                 cart.getProductos().clear(); // Vacía los productos
+                 cart.getItems().clear(); // Vacía los productos
                  CartRepo.save(cart); // Guarda el carrito vacío (no lo borra)
              }
              return ResponseEntity.ok("Carrito vaciado correctamente");

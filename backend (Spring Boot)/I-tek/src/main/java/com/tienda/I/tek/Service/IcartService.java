@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.tienda.I.tek.Entities.Cart;
 import com.tienda.I.tek.Entities.User;
+import com.tienda.I.tek.Enumerated.Talla;
 
 public interface IcartService {
 
@@ -16,8 +17,8 @@ public interface IcartService {
 
     // CartService methods
     Cart getCartByUser(User usuario);
-    void addProductToCart(String nombre, Long productId);
-    void removeProductFromCart(String nombre, Long productId);
+    void addProductToCart(String email, Long productId, Talla talla, int cantidad);
+    void removeProductFromCart(String email, Long productId, Talla talla);
     void clearCart(Long userId);
     
 }

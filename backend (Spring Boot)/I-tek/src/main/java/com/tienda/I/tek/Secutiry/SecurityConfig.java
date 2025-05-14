@@ -53,6 +53,7 @@ public class SecurityConfig {
                 .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers("/cesta" ).hasRole("USER")
                 .requestMatchers(HttpMethod.POST, "/checkout").hasRole("USER")
+                .requestMatchers("/api/history**").authenticated()
                 .requestMatchers("/auth/reset-password", "/auth/change-password").authenticated() 
                 .requestMatchers("/cesta/add/{productId}").hasRole("USER")  // Asegúrate de que esta ruta esté protegida
                 .anyRequest().authenticated()

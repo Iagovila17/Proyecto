@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 
 
 import com.tienda.I.tek.Entities.Cart;
+import com.tienda.I.tek.Entities.Cartitem;
 import com.tienda.I.tek.Entities.Product;
 import com.tienda.I.tek.Entities.User;
+import com.tienda.I.tek.Enumerated.Talla;
 import com.tienda.I.tek.Repository.CartRepository;
 import com.tienda.I.tek.Repository.ProductRepository;
 import com.tienda.I.tek.Repository.UserRepository;
@@ -59,38 +61,63 @@ public class CartService implements IcartService {
         return cart;
     }
 
-    @Transactional
-    public void addProductToCart(String email, Long productId) {
-        // Obtener el usuario por su email
-        User usuario = userRepository.findByEmail(email)
-            .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 
-        // Obtener el producto
-        Product product = productRepository.findById(productId)
-            .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+    
+@Transactional
+public void addProductToCart(String email, Long productId, Talla talla, int cantidad) {
+    // Obtener el usuario por su email
+    User usuario = userRepository.findByEmail(email)
+        .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 
-        // Buscar el carrito del usuario
-        Cart cart = getOrCreateCart(usuario);  // Si no existe, crea uno nuevo
+    // Obtener el producto
+    Product product = productRepository.findById(productId)
+        .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
 
-        // Añadir el producto al carrito (suponiendo que tienes una lista de productos en el carrito)
-        cart.getProductos().add(product);
+    // Obtener o crear carrito
+    Cart cart = getOrCreateCart(usuario);
 
-        // Guardar el carrito con el producto añadido
-        cartRepo.save(cart);
+    // Buscar si ya existe un CartItem con ese producto y talla
+    Optional<Cartitem> existingItem = cart.getItems().stream()
+        .filter(item -> item.getProduct().getId().equals(productId) && item.getTalla().equals(talla))
+        .findFirst();
+
+    if (existingItem.isPresent()) {
+        // Si ya existe, aumentar la cantidad
+        Cartitem item = existingItem.get();
+        item.setCantidad(item.getCantidad() + cantidad);
+    } else {
+        // Si no existe, crear uno nuevo
+        Cartitem newItem = new Cartitem();
+        newItem.setProduct(product);
+        newItem.setTalla(talla);
+        newItem.setCantidad(cantidad);
+        newItem.setCart(cart);
+        cart.getItems().add(newItem);
     }
 
-    @Override
-    public void removeProductFromCart(String nombre, Long productId) {
-        // Obtener el carrito por nombre de usuario
-        User usuario = userRepository.findByEmail(nombre)
-            .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+    // Guardar el carrito
+    cartRepo.save(cart);
+}
 
-        Cart cart = getCartByUser(usuario);
-        
-        // Eliminar el producto del carrito
-        cart.getProductos().removeIf(p -> p.getId().equals(productId));
-        cartRepo.save(cart);
-    }
+
+   @Override
+public void removeProductFromCart(String email, Long productId, Talla talla) {
+    // Obtener el usuario
+    User usuario = userRepository.findByEmail(email)
+        .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+
+    // Obtener el carrito del usuario
+    Cart cart = getCartByUser(usuario);
+
+    // Filtrar y eliminar el CartItem correspondiente
+    cart.getItems().removeIf(item -> 
+        item.getProduct().getId().equals(productId) &&
+        item.getTalla().equals(talla)
+    );
+
+    // Guardar el carrito actualizado
+    cartRepo.save(cart);
+}
 
 
 @Transactional
@@ -98,10 +125,9 @@ public void clearCart(Long userId) {
     Cart cart = cartRepo.findByUsuario_Id(userId)
             .orElseThrow(() -> new RuntimeException("Carrito no encontrado para el usuario ID: " + userId));
 
-    cart.getProductos().clear();
+    cart.getItems().clear(); // "items" es la lista de CartItem
     cartRepo.save(cart);
 }
-
 
 
     public Cart getCartByUser(User usuario) {
@@ -113,5 +139,7 @@ public void clearCart(Long userId) {
             throw new EntityNotFoundException("No se encontró el carrito para el usuario.");
         }
     }
+
+   
 
 }

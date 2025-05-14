@@ -1,30 +1,43 @@
 package com.tienda.I.tek.DTO;
 
 import java.util.Date;
+import java.util.List;
 
 import com.tienda.I.tek.Entities.Order;
+import com.tienda.I.tek.Enumerated.EstadoPedido;
+import com.tienda.I.tek.Enumerated.MetodoPago;
 
 public class OrderDTO {
-
     private Long id;
     private Date fecha;
-   
     private Double total;
-    private String metodoPago;
+    private MetodoPago metodoPago;
     private String direccionEnvio;
-   
-    public OrderDTO() {
+    private EstadoPedido estado;
+    private List<OrderDetailDTO> products;
+
+    public OrderDTO(Long id, Date fecha, Double total, MetodoPago metodoPago, String direccionEnvio, EstadoPedido estado, List<OrderDetailDTO> products) {
+        this.id = id;
+        this.fecha = fecha;
+        this.total = total;
+        this.metodoPago = metodoPago;
+        this.direccionEnvio = direccionEnvio;
+        this.estado = estado;
+        this.products = products;
     }
 
-    public OrderDTO(Order order) {
+     public OrderDTO(Order order) {
         this.id = order.getId();
-        this.fecha = (Date) order.getFecha();
+        this.fecha = order.getFecha();
         this.total = order.getTotal();
-        this.metodoPago = order.getMetodoPago().toString();
+        this.metodoPago = order.getMetodoPago();
         this.direccionEnvio = order.getDireccionEnvio();
-    }
+        this.estado = order.getEstado();
 
-   
+        // Convertimos la lista de OrderDetail a OrderDetailDTO
+
+    }
+    
     public Long getId() {
         return id;
     }
@@ -41,7 +54,6 @@ public class OrderDTO {
         this.fecha = fecha;
     }
 
-
     public Double getTotal() {
         return total;
     }
@@ -50,11 +62,11 @@ public class OrderDTO {
         this.total = total;
     }
 
-    public String getMetodoPago() {
+    public MetodoPago getMetodoPago() {
         return metodoPago;
     }
 
-    public void setMetodoPago(String metodoPago) {
+    public void setMetodoPago(MetodoPago metodoPago) {
         this.metodoPago = metodoPago;
     }
 
@@ -66,9 +78,24 @@ public class OrderDTO {
         this.direccionEnvio = direccionEnvio;
     }
 
-    @Override
-    public String toString() {
-        return "OrderDTO [id=" + id + ", fecha=" + fecha + ", total=" + total + ", metodoPago="
-                + metodoPago + ", direccionEnvio=" + direccionEnvio + "]";
+
+    public List<OrderDetailDTO> getProducts() {
+        return products;
     }
+
+    public void setProducts(List<OrderDetailDTO> products) {
+        this.products = products;
+    }
+
+    public EstadoPedido getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoPedido estado) {
+        this.estado = estado;
+    }
+
+    // Getters and Setters
+
+
 }
