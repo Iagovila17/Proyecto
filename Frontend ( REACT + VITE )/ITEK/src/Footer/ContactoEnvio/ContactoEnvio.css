@@ -1,0 +1,93 @@
+/* ContactoEnvio.css */
+.contacto-envio-container {
+  font-family: sans-serif;
+  line-height: 1.6;
+  padding: 20px;
+  max-width: 960px;
+  margin: 20px auto;
+  color: #333;
+  background-color: #fefefe;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: -150px;
+}
+
+.contacto-envio-title {
+  font-size: 2.2em;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: left;
+  padding-bottom: 10px;
+}
+
+.seccion-titulo {
+  font-size: 1.6em;
+  color: #333;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+}
+
+.contacto-intro,
+.envio-intro,
+.informacion-adicional {
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.contacto-lista {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 20px;
+}
+
+.contacto-lista li {
+  margin-bottom: 8px;
+}
+
+.contacto-lista strong {
+  font-weight: bold;
+  color: #444;
+}
+
+.contacto-lista a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.contacto-lista a:hover {
+  text-decoration: underline;
+}
+
+.opciones-envio {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #fff;
+}
+
+.tipo-envio h3 {
+  font-size: 1.1em;
+  color: #555;
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.opciones-envio ul {
+  list-style: none;
+  padding-left: 15px;
+  margin-bottom: 10px;
+}
+
+.opciones-envio ul li {
+  margin-bottom: 3px;
+  color: #444;
+}
+
+.free {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.important {
+  font-weight: bold;
+}
+

@@ -4,8 +4,9 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 // Importación de componentes públicos
 import Header from "./component/Header/Header";
 import HeaderPaginas from "./component/HeaderPaginas/HeaderPaginas";
+import HeaderPaginasBasic from "./component/HeaderPaginasBasic/HeaderPaginasBasic";
 import HeaderSearch from "./component/HeaderSearch/HeaderSearch";
-import Footer from "./component/footer/Footer";
+import Footer from "./Footer/footer/Footer";
 import Inicio from "./Paginas/Inicio/Inicio";
 import ListaProductosPorCategoria from "./Product/ListarProductos/ListaProductosPorCategoria";
 import ProductDetail from "./Product/ProductDetail/ProductDetail";
@@ -13,6 +14,15 @@ import Login from "./RegistroyLogin/Login/Login";
 import Registro from "./RegistroyLogin/registro/registro";
 import Ayuda from "./Paginas/Ayuda/Ayuda";
 import Search from "./component/Search/Search";
+
+// Importaciones de el Footer
+import Bloq from "./Footer/Bloq/Bloq";
+import CondicionesCompra from "./Footer/CondicioneCompra/CondicionesCompra";
+import ConfiguracionCookies from "./Footer/ConfiguracionCookies/ConfiguracionCookies";
+import ContactoEnvio from "./Footer/ContactoEnvio/ContactoEnvio";
+import Itek from "./Footer/Itek/Itek";
+import PoliticaPrivacidad from "./Footer/PoliticaPrivacidad/PoliticasPrivacidad";
+import Tienda from "./Footer/Tienda/Tienda";
 
 
 // Importación de componentes Protegidos
@@ -53,7 +63,18 @@ const App: React.FC = () => {
         <Route path="/ayuda" element={<><Ayuda /> <Footer /></>} />
         <Route path="/search" element={<><HeaderSearch /><Search /><Footer /></>} />
         <Route path="/productos/:categoria/:familia" element={<><HeaderPaginas /><ListaProductosPorCategoria /><Footer /></>} />
-        <Route path="/:categoria/:familia/ProductDetail/:id" element={<><HeaderPaginas /> <ProductDetail /><Footer /></>} /> {/* Detalle del producto */}
+        <Route path="/:categoria/:familia/ProductDetail/:id" element={<><HeaderPaginas /> <ProductDetail /><Footer /></>} /> 
+
+        {/* Ruta deL footer */}
+        <Route path="/bloq" element={<><HeaderPaginasBasic /><Bloq /><Footer /></>} />
+        <Route path="/condiciones-compra" element={<><HeaderPaginasBasic /><CondicionesCompra /><Footer /></>} />
+        <Route path="/configuracion-cookies" element={<><HeaderPaginasBasic /><ConfiguracionCookies /><Footer /></>} />
+        <Route path="/contacto-envio" element={<><HeaderPaginasBasic /><ContactoEnvio /><Footer /></>} />
+        <Route path="/itek" element={<><HeaderPaginasBasic /><Itek /><Footer /></>} />
+        <Route path="/politica-privacidad" element={<><HeaderPaginasBasic /><PoliticaPrivacidad /><Footer /></>} />
+        <Route path="/tienda" element={<><HeaderPaginasBasic /><Tienda /><Footer /></>} />
+
+
         
         
 

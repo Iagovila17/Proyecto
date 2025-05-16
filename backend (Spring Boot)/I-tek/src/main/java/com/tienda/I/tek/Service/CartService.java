@@ -18,6 +18,7 @@ import com.tienda.I.tek.Enumerated.Talla;
 import com.tienda.I.tek.Repository.CartRepository;
 import com.tienda.I.tek.Repository.ProductRepository;
 import com.tienda.I.tek.Repository.UserRepository;
+import com.tienda.I.tek.Repository.CartItemRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -30,9 +31,11 @@ public class CartService implements IcartService {
 
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private CartItemRepository cartItemRepository;
 
     @Override
     public List<Cart> listcarrito() {
@@ -100,22 +103,16 @@ public void addProductToCart(String email, Long productId, Talla talla, int cant
 }
 
 
-   @Override
-public void removeProductFromCart(String email, Long productId, Talla talla) {
-    // Obtener el usuario
-    User usuario = userRepository.findByEmail(email)
-        .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+public void removeProductFromCart(String username, Long productId) {
+    User user = userRepository.findByEmail(username)
+        .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    Cart cart = cartRepo.findByUsuarioId(user.getId())
+        .orElseThrow(() -> new RuntimeException("Carrito no encontrado"));
+    
+    // Remover el item del carrito
+    cart.getItems().removeIf(item -> item.getProduct().getId().equals(productId));
 
-    // Obtener el carrito del usuario
-    Cart cart = getCartByUser(usuario);
-
-    // Filtrar y eliminar el CartItem correspondiente
-    cart.getItems().removeIf(item -> 
-        item.getProduct().getId().equals(productId) &&
-        item.getTalla().equals(talla)
-    );
-
-    // Guardar el carrito actualizado
+    // Guardar cambios en BD
     cartRepo.save(cart);
 }
 

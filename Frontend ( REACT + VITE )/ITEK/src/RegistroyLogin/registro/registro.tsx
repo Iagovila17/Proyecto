@@ -23,54 +23,33 @@ const Registro = () => {
   }
 
   const handleRegister = async () => {
-    try {
-      const response = await fetch('http://192.168.68.100:8080/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          password,
-          nombre,
-          telefono
-        }),
-      });
-  
-      if (response.ok) {
-        // Registro exitoso: ahora hacemos login automático
-        const loginResponse = await fetch('http://localhost:8080/auth/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email,
-            password
-          }),
-        });
-  
-        if (loginResponse.ok) {
-          const data = await loginResponse.json();
-          localStorage.setItem('user', JSON.stringify({
-            nombre: data.nombre,
-            token: data.token,
-          }));
-          navigate('/');
-        } else {
-          setError("Error al iniciar sesión después del registro");
-        }
-  
-      } else {
-        const text = await response.text();
-        setError(text);
-      }
-    } catch (error) {
-      console.error(error);
-      setError("Error del servidor");
-    }
-  };
+  try {
+    const response = await fetch('http://192.168.68.100:8080/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password, nombre, telefono }),
+    });
 
+    if (response.ok) {
+      const data = await response.json();
+
+      // Guarda todo el objeto usuario (token, email, nombre) en un solo ítem 'user'
+      localStorage.setItem('user', JSON.stringify({
+        token: data.token,
+        email: data.email,
+        nombre: data.nombre
+      }));
+
+      navigate('/inicio');
+    } else {
+      const errorData = await response.json();
+      setError(errorData.message || 'Error en el registro');
+    }
+  } catch (error) {
+    console.error('Error de red:', error);
+    setError('Error de red');
+  }
+};
 
   return (
     <div className="Regis-Login">

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-
+import "../../component/Buscador/Buscador.css";
 import Buscador from "../Buscador/Buscador";
 import "./HeaderPaginas.css";
 
@@ -53,7 +52,7 @@ const Header = () => {
         <div className="header-tools-paginas">
         {/* Condicional para mostrar el nombre del usuario o el botón de iniciar sesión */}
         {isAuthenticated ? (
-            <div>
+            <div className="nombre-cuenta">
               <Link to="/Cuenta">
                 <h4>{userName}</h4>
               </Link>
@@ -69,9 +68,9 @@ const Header = () => {
         <div className="Titulo-paginas">
         <Link to="/">I&TEK</Link>
         </div>
-        <div className="buscador-paginas">
-        <button title="Buscar"><Buscador /></button>
-        </div>
+            <div id="buscador-paginas" title="Buscar">
+              <Buscador />
+            </div>
     </div>
   );
 };

@@ -60,32 +60,37 @@ const Cesta = () => {
     // Guardar la cesta en el localStorage
     localStorage.setItem('productosCarrito', JSON.stringify(productos));
   };
+  
+const handleEliminarProducto = async (index: number) => {
+  const producto = productos[index];
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  const token = user.token;
 
-  const handleEliminarProducto = async (index: number) => {
-    const producto = productos[index];
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
-    const token = user.token;
-  
-    try {
-      const response = await fetch(`http://192.168.68.100:8080/cesta/delete/${producto.id}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-  
-      if (response.ok) {
-        // Si se eliminó correctamente del backend, lo quitamos del estado local
-        const nuevosProductos = [...productos];
-        nuevosProductos.splice(index, 1);
-        setProductos(nuevosProductos);
-      } else {
-        console.error('Error al eliminar el producto de la base de datos');
-      }
-    } catch (error) {
-      console.error('Error de conexión al eliminar el producto:', error);
-    }
+try {
+  const response = await fetch(`http://192.168.68.100:8080/cesta/delete/${producto.id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (response.ok) {
+    setProductos((prevProductos) =>
+      prevProductos.filter((_, i) => i !== index)
+    );
+
+    // 🔁 Notificar a otros componentes que el carrito ha cambiado
+    window.dispatchEvent(new Event('actualizar-carrito'));
+
+    console.log("Producto eliminado correctamente");
+  } else {
+    console.error('Error al eliminar el producto de la base de datos');
+  }
+} catch (error) {
+  console.error('Error de conexión al eliminar el producto:', error);
+}
   };
+
 
   
   const calcularTotal = () => {

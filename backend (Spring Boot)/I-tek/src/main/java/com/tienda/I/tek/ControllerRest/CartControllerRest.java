@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tienda.I.tek.DTO.CartItemDTO;
@@ -135,12 +136,19 @@ public ResponseEntity<String> addProduct(@PathVariable Long productId,
 
 
 
-    @DeleteMapping("/delete/{productId}")
-    public ResponseEntity<String> removeProduct(@PathVariable Long productId, Principal principal) {
-        Talla talla = Talla.DEFAULT; // Replace with appropriate logic to determine Talla
-        cartServi.removeProductFromCart(principal.getName(), productId, talla);
+@DeleteMapping("/delete/{productId}")
+public ResponseEntity<String> removeProduct(@PathVariable Long productId, Principal principal) {
+    try {
+        String username = principal.getName();
+        cartServi.removeProductFromCart(username, productId);
         return ResponseEntity.ok("Producto eliminado de la cesta");
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                             .body("Error al eliminar el producto: " + e.getMessage());
     }
+}
+
+
 
     @DeleteMapping("/clear")
     public ResponseEntity<String> clearCart(Principal principal) {

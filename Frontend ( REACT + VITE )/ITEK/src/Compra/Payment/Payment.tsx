@@ -117,7 +117,8 @@ try {
   }, [metodoSeleccionado, aceptaTerminos, productosDelCarrito]);
 
   return (
-    <div className="payment-container">
+    <div>
+      <div className="payment-container">
       <div className="metodo-pago-container">
         <h3>Dirección de Envío</h3>
         {direccionEnvio && (
@@ -134,7 +135,6 @@ try {
             </div>
           </div>
         )}
-
         <h3>Elige tu Método de Pago</h3>
         <form>
           {/* Tarjeta */}
@@ -221,9 +221,43 @@ try {
               />
               Apple Pay
             </label>
-            <img src="/Imagenes/MetodoPago/applepay.png" alt="Apple Pay" />
+            <img src="/Imagenes/MetodoPago/Pay.png" alt="Apple Pay" />
           </div>
         </form>
+        </div>
+        {/* Resumen de la cesta */}
+        <div className="resumen-cesta">
+          <h2>Resumen de la Cesta</h2>
+          <div className="productos">
+            {productosDelCarrito.map((producto, index) => (
+              <div key={index} className="producto-envio">
+                <img src={producto.imagen || "/default-image.jpg"} alt={producto.nombre} className="producto-img" />
+                <div className="producto-info">
+                  <p className="producto-nombre">{producto.nombre}</p>
+                  <p className="producto-detalle">Color: {producto.color}</p>
+                  <p className="producto-detalle">Talla: {producto.talla}</p>
+                  <div className="producto-footer">
+                    <span className="producto-precio">{producto.precio} EUR</span>
+                    <span className="producto-cantidad">Cantidad: {producto.cantidad}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="resumen-item">
+            <span>Subtotal</span>
+            <span>{calcularTotal().toFixed(2)} EUR</span>
+          </div>
+          <div className="resumen-item">
+            <span>Envío (4-6 días laborables)</span>
+            <span>Gratis</span>
+          </div>
+          <div className="resumen-total">
+            <span>Total</span>
+            <span>{calcularTotal().toFixed(2)} EUR</span>
+          </div>
+        </div>
+      
       </div>
     </div>
   );

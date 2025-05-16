@@ -1,0 +1,89 @@
+.condiciones-compra-container {
+  font-family: sans-serif;
+  line-height: 1.6;
+  padding: 20px;
+  max-width: 960px;
+  margin: 20px auto; 
+  color: #333;
+  background-color: #ffffff; /* Fondo más claro */
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Sombra sutil */
+  margin-bottom: -150px;
+}
+
+.condiciones-compra-title {
+  font-size: 2.2em; /* Ligeramente más pequeño */
+  color: #333; /* Texto principal más oscuro */
+  margin-bottom: 15px;
+  text-align: center; /* Alineación izquierda por defecto */
+  border-bottom: 1px solid #000000; /* Línea sutil inferior */
+  padding-bottom: 10px;
+}
+
+.condiciones-compra-intro {
+  margin-bottom: 15px;
+  color: #555; /* Texto secundario */
+}
+
+.seccion-titulo {
+  font-size: 1.6em; /* Ligeramente más pequeño */
+  color: #333;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+}
+
+.opciones-envio,
+.opciones-devolucion {
+  margin-bottom: 15px;
+  padding: 10px; /* Menos padding */
+}
+
+.tipo-envio h3,
+.tipo-devolucion h3 {
+  font-size: 1.1em; /* Más pequeño */
+  color: #555;
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.free {
+  color: #ff0000; 
+  font-weight: bold;
+}
+
+.important {
+  font-weight: bold;
+}
+
+.ubicacion,
+.hora,
+.nombre-tienda {
+  color: #6c757d; 
+}
+
+.opciones-envio ul,
+.opciones-devolucion ul {
+  list-style: none;
+  padding-left: 15px; 
+  margin-bottom: 10px;
+}
+
+.opciones-envio ul li,
+.opciones-devolucion ul li {
+  margin-bottom: 3px;
+  color: #444;
+}
+
+.informacion-adicional,
+.contacto {
+  margin-top: 15px;
+  font-size: 0.9em;
+  color: #777;
+}
+
+.informacion-adicional a,
+.contacto a {
+  color: #007bff;
+  text-decoration: underline;
+}

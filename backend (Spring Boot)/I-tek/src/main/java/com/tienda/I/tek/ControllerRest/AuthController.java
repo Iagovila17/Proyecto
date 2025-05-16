@@ -101,33 +101,30 @@ public class AuthController {
         System.out.println("Nombre: " + registerRequest.getNombre());
         System.out.println("Telefono: " + registerRequest.getTelefono());
     
-        // Comprobar si ya existe un usuario con ese correo
         if (userRepo.existsByEmail(registerRequest.getEmail())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Correo ya registrado");
         }
     
-        // Crear un nuevo usuario
         User newUser = new User();
         newUser.setEmail(registerRequest.getEmail());
-        newUser.setPassword(passwordEncoder.encode(registerRequest.getPassword())); // Encriptar la contraseña
+        newUser.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         newUser.setNombre(registerRequest.getNombre());
         newUser.setTelefono(registerRequest.getTelefono());
-        newUser.setRol(Rol.USER); // Asignar un rol por defecto (usuario registrado)
+        newUser.setRol(Rol.USER); 
     
-        // Guardar el usuario en la base de datos
-        userRepo.save(newUser);
+        User savedUser = userRepo.save(newUser);
 
-        // Crear un carrito para el nuevo usuario
-        Cart newCart = new Cart();
-        newCart.setUsuario(newUser);  // Asocia el carrito al usuario
+    Cart newCart = new Cart();
+    newCart.setUsuario(newUser);
+    cartRepository.save(newCart);
 
-        cartRepository.save(newCart); // GUARDAR EL CARRITO EN LA BASE DE DATOS
+    String token = jwtTokenProvider.generateToken(newUser);
 
-    
-        return ResponseEntity.status(HttpStatus.CREATED).body("Usuario registrado con éxito");
+    Map<String, String> response = new HashMap<>();
+    response.put("token", token);
+    response.put("email", newUser.getEmail());
+    response.put("nombre", newUser.getNombre());
+
+    return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
-
-
-
-
 }

@@ -1,7 +1,7 @@
 /* Contenedor general del menú */
 .menu-container {
   position: relative;
-  width: 25%;
+  width: 15%;
   margin-left: 10%;
   
 }
@@ -11,11 +11,13 @@
   list-style: none;
   display: flex;
   justify-content: space-around;
-  width: 100%;
+  width: 370px;
 }
 
 #nombre-menu-nav {
+  width: 100px;
   padding: 10px;
+  text-align: center;
 }
 
 .menu-item a {
@@ -35,7 +37,7 @@
 }
 
 /* Submenú */
-.dropdown {
+ .dropdown {
   position: absolute;
   left: 0;
   background-color: white;
@@ -44,12 +46,13 @@
   padding: 0;
   margin: 0;
   display: none;
-  width: 100%; /* Ancho completo del contenedor */
+  width: 370px; /* Ancho completo del contenedor */
   max-height: 261px; /* Altura máxima del menú desplegable */
   overflow-y: auto; /* Permite desplazamiento vertical si las opciones no caben */
   scrollbar-width: thin; /* Estiliza la barra de desplazamiento para navegadores compatibles */
   scrollbar-color: #eeeeee #ffffff; /* Color del scroll */
-}
+  z-index: 10; /* Asegura que el dropdown esté sobre otros elementos */
+ }
 
 .dropdown li {
   font-size: 13px;
@@ -91,9 +94,3 @@
   background-color: #fff; /* Fondo de la pista del scrollbar */
 }
 
-@media (max-width: 768px) {
-  .menu-container{
-    margin-left: 0%;
-    width: 100%;
-  }
-}

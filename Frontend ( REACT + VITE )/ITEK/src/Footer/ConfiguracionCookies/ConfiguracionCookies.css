@@ -1,0 +1,17 @@
+.configuracion-cookies {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  line-height: 1.6;
+  margin-bottom: -150px;
+}
+
+.configuracion-cookies h1,
+.configuracion-cookies h2 {
+  color: #333;
+}
+
+.configuracion-cookies a {
+  text-decoration: underline;
+  font-weight: bold;
+}

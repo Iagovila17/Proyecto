@@ -1,4 +1,4 @@
-@media (min-width: 768px) {
+
     .h3-detalles{
         color: rgb(0, 0, 0);
         font-size: 16px;
@@ -13,14 +13,15 @@
     }
     .product-detail img {
         margin-top: 1%;
-        width: 43%; 
+        margin-left: 50px;
+        width: 40%; 
         
     }
     .product-detail-name{
         margin-top: 0%;
         font-size: 24px;
         font-weight: bold;
-        color: rgb(53, 53, 53);
+        color: rgb(0, 0, 0);
     }
     .product-detail-price{
         margin-top: 3%;
@@ -36,7 +37,7 @@
     .info{
         margin-top: 10%;
         width: 35%;
-        margin-left: 5%;
+        margin-left: 2%;
         margin-right: 22%;
     }
     .info-product {
@@ -86,6 +87,8 @@
         width: 100%;
         background-color: rgb(255, 255, 255);
     }
+   
+
 
 
     .tallas-container{
@@ -104,11 +107,28 @@
         gap: 10px;
         margin-top: 2%;
         border: #ffffff 1px solid;
+        background-color: #ffffff;
         font-size: 15px;
+        color: rgb(0, 0, 0);
 
     }
 
+ 
 
+.imagenes-adicionales {
+  width: 60%;
+  margin-top: 100px;
+  display: flex; /* Coloca los elementos en fila */
+  gap: 100px; /* Espacio entre las imágenes */
+  align-items: flex-start; /* Alinea verticalmente las imágenes al inicio */
+  margin-left: auto; /* Centra horizontalmente */
+  margin-right: auto; /* Centra horizontalmente */
+ }
+ .imagenes-adicionales img {
+  width: 50%; /* Para que cada imagen ocupe la mitad del ancho */
+  height: auto; /* Mantiene la proporción de la imagen */
+  object-fit: contain; /* Asegura que la imagen completa se vea dentro del contenedor sin recortar, manteniendo la proporción */
+ }
 
     
 .Button-añadir{
@@ -138,107 +158,57 @@
         height: 35%;
        
     }
+
+.panel-cesta {
+  position: fixed;
+  top: 0; 
+  right: -400px; 
+  height: 96%; 
+  background-color: rgba(228, 228, 228, 0.568);
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column; 
+  width: 300px; 
+  transition: right 0.3s ease-in-out;
+  z-index: 1000; 
 }
 
-
-
-
-
-
-
-
-
-
-@media (max-width: 480px){ 
-.product-detail{
-    display: flex;
-    flex-direction: column;
-    padding: 0%;
-    margin: 0%;
-   
-}
-.product-detail img{
-    max-width: 390px;
-    height: 600px;
-    max-height: 600px;
-    margin-left: 5%;
-}
-.product-detail-name{
-    margin-right: 0%;
-    margin-left: 5%;
-    font-size: 16px;
-    margin-top: 2%;
-    font-weight: bold;
-    color: rgb(53, 53, 53);
-}
-.product-detail-price{
-    margin-right: 0%;
-    margin-left: 5%;
-    font-size: 15px;
-    margin-top: 2%;
-    font-weight: bold;
-    color: rgb(53, 53, 53);
-}
-.imagen-detalle-estilo{
-    display: flex;
-    margin-left: 5%;
-    margin-top: 6%;
-    gap: 4%;
-}
-.imagen-detalle-estilo img{
-   width: 185px;
-   height: 280px;
-}
-p{
-    margin-right: 2%;
-    margin-left: 5%;
-    font-size: 12px;
-    margin-top: 5%;
-    font-family: 'Neue-Helvetica', 'Helvetica', 'Arial', Sans-Serif;;
-}
-.referencia{
-    font-size: 12px;
-    margin-left: 5%;
-    margin-top: 4%;
-    color: rgb(63, 63, 63);
-}
-h3{
-    margin-top: 4%;
-    margin-left: 5%;
-    font-size: 16px;
-}
-.composicion{
-    margin-top: 2%;
-    margin-left: 5%;
-    font-size: 12px;
-    font-family: 'Neue-Helvetica', 'Helvetica', 'Arial', Sans-Serif;;
-}
-.cuidados{
-    margin-top: 2%;
-    margin-left: 5%;
-    font-size: 12px;
-    font-family: 'Neue-Helvetica', 'Helvetica', 'Arial', Sans-Serif;;
+.panel-cesta.activo {
+  right: 0; 
 }
 
-.Button-añadir{
-    position: fixed;
-    top: 94%;        
-    padding: 2%;
-    width: 99%;
-    height: 40px;
-    background-color: rgb(255, 255, 255);
-}
-#Button-Añadir{
-    margin-left: 2%;
-    width: 30%;
-    font-size: 16px;
-    padding: 2%;
-    font-family: 'Courier New', Courier, monospace;
-    background-color: white;
-    border: 1px solid black;
-}
+.panel-cesta h3 {
+  margin-top: 45px;
+  color: #525252;
+  text-align: center; 
 }
 
+.botones-cesta {
+  display: flex;
+  flex-direction: column; 
+  gap: 10px;
+  margin-top: auto; 
+}
 
+.botones-cesta {
+  display: flex;
+  flex-direction: column; 
+  gap: 10px;
+  margin-top: auto; 
+}
 
+.botones-cesta button {
+  padding: 15px 20px;
+  border: 1px solid black;
+  cursor: pointer;
+  background-color: rgba(228, 228, 228, 0.568);
+  color: black; 
+  font-weight: bold; 
+  transition: background-color 0.2s ease, color 0.2s ease; 
+}
 
+.botones-cesta button:hover {
+  background-color: black;
+  color: white; 
+}

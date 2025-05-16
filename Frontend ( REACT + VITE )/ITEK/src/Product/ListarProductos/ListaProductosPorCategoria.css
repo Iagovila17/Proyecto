@@ -33,6 +33,46 @@
     color: #464646;
 }
 
+.producto-item {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+ }
 
+ .producto-item a {
+  text-decoration: none;
+  display: block;
+ }
 
+ .producto-item img {
+  max-width: 80%;
+  height: auto;
+  display: block;
+  margin-bottom: 5px;
+ }
+ .precio-item{
+  font-size: 0.9em;
+  color: #3b3b3b;
+  margin-top: 5px;
+  font-weight: bold;
+  margin-left: 0px !important;
+}
 
+ .producto-item h4 {
+  font-size: 1em;
+  margin-top: 5px;
+  margin-bottom: 2px;
+  color: #3b3b3b;
+  font-weight: normal;
+  letter-spacing: 0.01em;
+ }
+
+ 
+
+ .coleccion-item img {
+  width: 70%;
+  display: block;
+  margin-bottom: 5px;
+  margin-left: auto;
+  margin-right: auto;
+ }

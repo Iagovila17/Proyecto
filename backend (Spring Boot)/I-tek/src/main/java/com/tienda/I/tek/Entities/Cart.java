@@ -25,7 +25,7 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY   )
     @JsonIgnore
     @JoinColumn(name = "usuario_id")
     private User usuario;

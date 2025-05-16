@@ -13,13 +13,7 @@ const Buscador: React.FC = () => {
 
   return (
     <form className="buscador-web" onSubmit={(e) => e.preventDefault()}>
-      <input
-        type="text"
-        value={query}
-        placeholder="BUSCAR"
-        onFocus={handleFocus}
-        onChange={(e) => setQuery(e.target.value)}
-      />
+      <input type="text" value={query} placeholder="BUSCAR" onFocus={handleFocus} onChange={(e) => setQuery(e.target.value)}/>
     </form>
   );
 };

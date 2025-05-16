@@ -2,6 +2,10 @@
     margin-left: 9%;
     margin-top: 2%;
   }
+  
+.nombre-cuenta{
+  margin-top: 40px;
+}
 
 .Titulo-paginas a{
         
@@ -27,26 +31,12 @@
       font-size: 1em;
   }
   
-  .header-paginas{
-      padding: 0%;
-      margin: 0%;
-      width: 100%;
-      height: 250px;
-  }
-.buscador-paginas{
-    margin-left: 65%;
+#buscador-paginas{
+  margin-left: 1200px;
+  width: 300px;
+  background-color: #ffffff00;
+  border-bottom: 1px solid rgb(0, 0, 0);
+  
 }
-/* En pantallas muy pequeñas (menos de 480px) */
-@media (max-width: 480px) {
-    .header-paginas{
-      width: 100%;
-      height: 200px;
-  }
-    .header-tools-paginas{
-      width: 97%;
-      margin-top: 2%;
-      margin-right: 3%;
-    }
-  }
   
   

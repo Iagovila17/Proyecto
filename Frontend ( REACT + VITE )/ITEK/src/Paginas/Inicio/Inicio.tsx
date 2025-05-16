@@ -1,33 +1,47 @@
-import "./Inicio.css";
+ import "./Inicio.css";
 
-const Inicio: React.FC = () => {
+ const Inicio = () => {
+  
   return (
+    <div className="wrapper">
     <div>
-      <div className="Chevrolet-cola">
-        <img src="/Imagenes/chevroletcha.webp" alt="chevroletcha" />
-        <img id="Centro" src="/Imagenes/chevroletgap.webp" alt="chevroletgap" />
-        <img src="/Imagenes/chevrolet.webp" alt="chevrolet" />
-      </div> 
-
-      <video autoPlay loop muted playsInline>
-        <source src="/Videos/ejemplo.mp4" type="video/mp4" />
-        Tu navegador no soporta la reproducción de video.
-      </video>
+      <div className="botones">
+        <img src="/Imagenes/Inicio/Botones.jpg" alt="botones" />
+      </div>
 
       <div className="imagenes-pares">
-        <img src="/Imagenes/sillaoscura.png" alt="Silla Oscura" />
-        <img src="/Imagenes/hombrecajonmadera.jpg" alt="Hombre con cajón de madera" />
+        <img src="/Imagenes/Inicio/florEspacio.jpg" alt="florEspacioa" />
+        <img src="/Imagenes/Inicio/florwhite.jpg" alt="florwhite" />
+      </div>
+      
+      <div className="contenedor">
+        <div className="circulo"></div>
+        <div className="circulo"></div>
+        <div className="circulo"></div>
+        <div className="circulo"></div>
+        <div className="circulo"></div>
+        <div className="circulo"></div>
       </div>
 
-      <div className="imagen-ninos-inicio">
-        <img src="/Imagenes/niñosRopa.png" alt="Imagen de niños pequeños" />
+      <div className="Bebedescripcion">
+        <img src="/Imagenes/Inicio/bebeRopa.jpg" alt="bebeRopa" />
+        <p className="text-beberopa">CONJUNTO camisa y braguita flores bordadas LIMITED EDITION. Detalle NIDO DE ABEJA y flores bordadas en CANESU. BRAGUITA con cinturilla elástica. bajo acabado en VOLANTES.</p>
       </div>
+
+      <div className="bañador-hombre">
+        <img src="/Imagenes/Inicio/003.svg" alt="florEspacioa" />
+        <img src="/Imagenes/Inicio/bañadorhombre.jpg" alt="florwhite" />
+      </div>
+    
+
+    
 
       <div className="text-container">
         Fight For It
       </div>
     </div>
+    </div>
   );
-};
+ };
 
-export default Inicio;
+ export default Inicio;
