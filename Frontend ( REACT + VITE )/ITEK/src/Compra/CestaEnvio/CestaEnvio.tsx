@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './CestaEnvio.css'; // Asegúrate de crear este archivo CSS con los estilos necesarios.
 import { useNavigate } from 'react-router-dom'; // Usamos `useNavigate` para redirigir a otra página
-import PasoCompraEnvio from '../PasoCompraEnvio/PasoCompraEnvio'; // Asegúrate de que la ruta sea correcta
 
 const CestaEnvio = () => {
   const [productosDelCarrito, setProductosDelCarrito] = useState<any[]>([]);
@@ -58,10 +57,8 @@ const CestaEnvio = () => {
   };
 
   return (
-    <div>
-      <div className='PasoCompraEnvio'>
-        <PasoCompraEnvio />
-      </div>
+    <div className="cesta-envio">
+     
       <div className='title-envio'>
       <h2>Formulario de Envío</h2>
       </div>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import AdminSidebar from '../sidebar/Sidebar';
+import AdminSidebar from '../../admin/sidebar/Sidebar';
 import './Usuarios.css';
 
 const Usuarios = () => {
@@ -18,6 +18,9 @@ const Usuarios = () => {
   const [paginaActual, setPaginaActual] = useState<number>(1);
   const usuariosPorPagina = 10;
 
+  // Roles permitidos para cambiar
+  const rolesDisponibles = ['USER', 'ADMIN'];
+
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     const token = storedUser ? JSON.parse(storedUser).token : null;
@@ -28,7 +31,6 @@ const Usuarios = () => {
     }
 
     axios.get('http://localhost:8080/User/list', {
-      method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -75,6 +77,36 @@ const Usuarios = () => {
     }
   };
 
+  const handleChangeRole = (id: number, nuevoRol: string) => {
+  const storedUser = localStorage.getItem('user');
+  const token = storedUser ? JSON.parse(storedUser).token : null;
+
+  if (!token) {
+    alert('No se encontró el token de autenticación.');
+    return;
+  }
+
+  axios.put(`http://localhost:8080/User/updateRole/${id}`, JSON.stringify(nuevoRol), {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  })
+  .then(() => {
+    setUsuarios((prevUsuarios) =>
+      prevUsuarios.map((usuario) =>
+        usuario.id === id ? { ...usuario, rol: nuevoRol } : usuario
+      )
+    );
+    alert('Rol actualizado correctamente');
+  })
+  .catch((error) => {
+    console.error('Error al actualizar el rol:', error);
+    alert('Error al actualizar el rol');
+  });
+};
+
+
   const totalPaginas = Math.ceil(usuarios.length / usuariosPorPagina);
   const indiceInicio = (paginaActual - 1) * usuariosPorPagina;
   const usuariosVisibles = usuarios.slice(indiceInicio, indiceInicio + usuariosPorPagina);
@@ -119,7 +151,18 @@ const Usuarios = () => {
                     <td>{usuario.email}</td>
                     <td>{usuario.direccion}</td>
                     <td>{usuario.telefono}</td>
-                    <td>{usuario.rol}</td>
+                    <td>
+                      <select
+                        value={usuario.rol}
+                        onChange={(e) => handleChangeRole(usuario.id, e.target.value)}
+                      >
+                        {rolesDisponibles.map((rol) => (
+                          <option key={rol} value={rol}>
+                            {rol}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
                     <td>{usuario.fechaRegistro}</td>
                     <td>
                       <button onClick={() => handleDelete(usuario.id)} className="eliminar">

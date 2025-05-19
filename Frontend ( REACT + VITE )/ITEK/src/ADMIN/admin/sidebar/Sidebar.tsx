@@ -37,7 +37,7 @@ const Sidebar = () => {
           </div>
         )}
         <ul className="categories">
-          <li><a href="/admin/usuarios">Usuarios</a></li>
+          <li><a href="/admin/usuarios">Usuarioss</a></li>
           <li><a href="/admin/productos">Productos</a></li>
           <li><a href="/admin/pedidos">Pedidos</a></li>
           <li><a href="/admin/clientes">Clientes</a></li>
@@ -45,7 +45,7 @@ const Sidebar = () => {
           <li><a href="/admin/promociones">Promociones</a></li>
           <li><a href="/admin/configuracion">Configuración</a></li>
           <li><a href="/admin/estadisticas">Estadísticas</a></li>
-          <li><a href="/admin/terminos">Términos y Condiciones</a></li>
+          <li><a href="/admin/terminos-condicones">Términos y Condiciones</a></li>
           <li className="logout-item">
             <button className="logout-button" onClick={handleLogout}>
               Cerrar sesión

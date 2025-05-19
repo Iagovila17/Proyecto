@@ -1,0 +1,15 @@
+.buscador {
+  margin-bottom: 20px;
+}
+
+.buscador input {
+  padding: 8px;
+  width: 100%;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.tabla-productos img {
+  border: 1px solid #ddd;
+}

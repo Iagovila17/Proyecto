@@ -1,0 +1,95 @@
+/* Contenedor principal */
+.page-container {
+  display: flex;
+}
+
+/* Sidebar (ya debería tener su propio estilo, pero lo dejamos claro) */
+
+
+/* Contenedor de estadísticas */
+.estadisticas-container {
+  flex: 1;
+  padding: 2rem;
+  background-color: #f4f6f9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Título */
+.estadisticas-container h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #2c3e50;
+  text-align: center;
+}
+
+/* Totales */
+.estadisticas-totales {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.tarjeta-total {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  flex: 1 1 260px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-left: 5px solid transparent;
+}
+
+.tarjeta-total:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.total-usuarios {
+  border-left-color: #4e73df;
+}
+
+.total-admins {
+  border-left-color: #1cc88a;
+}
+
+.tarjeta-total h3 {
+  font-size: 1.2rem;
+  color: #6c757d;
+  margin-bottom: 0.5rem;
+}
+
+.tarjeta-total p {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #343a40;
+}
+
+/* Gráficos */
+.graficos-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.grafico-item {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.grafico-item:hover {
+  transform: scale(1.01);
+}
+
+/* Error */
+.error {
+  color: #e74a3b;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 2rem;
+}

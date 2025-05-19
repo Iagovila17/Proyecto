@@ -1,0 +1,188 @@
+.usuarios-container {
+  display: flex;
+}
+
+.usuarios-main {
+  flex: 1;
+  padding: 16px;
+}
+
+.titulo-agregar {
+  color: #111;
+  margin-bottom: 16px;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.formulario-agregar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.formulario-agregar input,
+.formulario-agregar textarea,
+.formulario-agregar select {
+  padding: 8px;
+  border-bottom: 1px solid #000000;
+  box-sizing: border-box;
+  font-size: 0.9em;
+  background-color: #fff;
+  color: #111;
+}
+
+.formulario-agregar textarea {
+  resize: vertical;
+}
+
+.formulario-agregar input:focus,
+.formulario-agregar textarea:focus,
+.formulario-agregar select:focus {
+  outline: none;
+  border-color: #000000;
+}
+
+.formulario-agregar button {
+  padding: 8px 16px;
+  background-color: #1a1a1a;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: fit-content;
+  font-size: 0.9em;
+  transition: background-color 0.2s ease;
+}
+
+.formulario-agregar button:hover {
+  background-color: #000000;
+}
+
+.formulario-agregar button:active {
+  background-color: #1a1a1a;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2) inset;
+}
+
+.tallas-container {
+  margin-top: 12px;
+}
+
+.tallas-container label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.9em;
+  color: #424242;
+}
+
+
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.9em;
+  color: #424242;
+}
+
+.checkbox-item input[type="checkbox"] {
+  margin: 0;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.checkbox-item label {
+  margin-bottom: 0;
+}
+
+.categoria-familia-container {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.categoria-familia-container .input-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.categoria-familia-container .input-container input {
+  background-color: #f5f5f5;
+  color: #757575;
+}
+
+.categoria-familia-container .input-container label {
+  font-size: 0.9em;
+  color: #424242;
+  margin-bottom: 4px;
+}
+
+.image-inputs-container {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.image-inputs-container .input-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.image-inputs-container .input-container label {
+  font-size: 0.9em;
+  color: #424242;
+  margin-bottom: 4px;
+}
+
+.size-selection-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.size-category-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.size-category-name {
+  font-size: 0.9em;
+  font-weight: bold;
+  color: #424242;
+  margin-bottom: 0;
+}
+
+.size-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+
+.size-option {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.9em;
+  color: #424242;
+  margin-bottom: 0; /* Remove default margin-bottom from checkbox-item */
+}
+
+.size-option input[type="checkbox"] {
+  margin: 0;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.size-option label {
+  margin-bottom: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

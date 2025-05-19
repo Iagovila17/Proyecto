@@ -1,8 +1,4 @@
-.PasoCompraEnvio{
-  margin-left: 200px;
-  margin-top: 30px;
 
-}
 .title-envio{
   margin-left: 220px;
 }
@@ -24,7 +20,7 @@
 
 .envio-form h2 {
   text-align: left;
-  color: #333;
+  color: #000000;
   margin-bottom: 20px;
 }
 

@@ -1,6 +1,7 @@
 package com.tienda.I.tek.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.tienda.I.tek.DTO.UserDto;
 import com.tienda.I.tek.Entities.Cart;
 import com.tienda.I.tek.Entities.User;
+import com.tienda.I.tek.Enumerated.Rol;
 import com.tienda.I.tek.Repository.CartRepository;
 import com.tienda.I.tek.Repository.UserRepository;
 
@@ -83,6 +85,17 @@ public class UserService implements IUserService{
     }
 
      
+
+    public boolean updateUserRole(Long id, Rol nuevoRol) {
+    Optional<User> userOptional = UserRepo.findById(id);
+    if (userOptional.isPresent()) {
+        User user = userOptional.get();
+        user.setRol(nuevoRol);
+        UserRepo.save(user);
+        return true;
+    }
+    return false;
+}
     
 
 

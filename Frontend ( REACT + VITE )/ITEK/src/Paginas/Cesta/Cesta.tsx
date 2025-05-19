@@ -1,54 +1,56 @@
 import { useEffect, useState } from 'react';
-import PasoCompra from '../../Compra/PasoCompra/PasoCompra';
+import { useNavigate } from 'react-router-dom';
 import './Cesta.css';
 
 const Cesta = () => {
   const [productos, setProductos] = useState<any[]>([]);
   const [error, setError] = useState<string>('');
   const [cargando, setCargando] = useState<boolean>(true);
-  
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetchCesta();
-  }, []);
-
-  const fetchCesta = async () => {
-  setCargando(true);
-  try {
     const user = JSON.parse(localStorage.getItem("user") || "{}");
-    const token = user.token;
 
-    const response = await fetch('http://192.168.68.100:8080/cesta', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    const data = await response.json();
-    console.log("Respuesta completa de la API:", data); // Verifica toda la respuesta
-
-    if (data && Array.isArray(data.items)) {
-      console.log("Productos originales:", data.items);
-      const productosProcesados = data.items.map((item: any) => ({
-        ...item.product, // Extraemos datos del producto
-        cantidad: item.cantidad,
-        precio: parseFloat(item.product.precio ?? 0),
-        talla: item.talla ?? 'DEFAULT', // ✅ La talla está en el item directamente
-      }));
-
-      console.log("Productos procesados:", productosProcesados);
-      setProductos(productosProcesados);
-    } else {
-      console.error("La estructura de la respuesta es incorrecta");
+    if (!user.token) {
+      navigate('/login'); // Redirigir si no hay token
+      return;
     }
 
-  } catch (err) {
-    console.error('Error al obtener la cesta:', err);
-    setError('Error de conexión con el servidor.');
-  } finally {
-    setCargando(false);
-  }
-};
+    fetchCesta(user.token);
+  }, []);
+
+  const fetchCesta = async (token: string) => {
+    setCargando(true);
+    try {
+      const response = await fetch('http://192.168.68.100:8080/cesta', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await response.json();
+      console.log("Respuesta completa de la API:", data);
+
+      if (data && Array.isArray(data.items)) {
+        const productosProcesados = data.items.map((item: any) => ({
+          ...item.product,
+          cantidad: item.cantidad,
+          precio: parseFloat(item.product.precio ?? 0),
+          talla: item.talla ?? 'DEFAULT',
+        }));
+
+        setProductos(productosProcesados);
+      } else {
+        console.error("La estructura de la respuesta es incorrecta");
+      }
+
+    } catch (err) {
+      console.error('Error al obtener la cesta:', err);
+      setError('Error al cargar la cesta');
+    } finally {
+      setCargando(false);
+    }
+  };
 
   const handleCantidadChange = (index: number, nuevaCantidad: number) => {
     const productosActualizados = [...productos];
@@ -57,42 +59,37 @@ const Cesta = () => {
   };
 
   const handleValidarCarrito = () => {
-    // Guardar la cesta en el localStorage
     localStorage.setItem('productosCarrito', JSON.stringify(productos));
   };
-  
-const handleEliminarProducto = async (index: number) => {
-  const producto = productos[index];
-  const user = JSON.parse(localStorage.getItem("user") || "{}");
-  const token = user.token;
 
-try {
-  const response = await fetch(`http://192.168.68.100:8080/cesta/delete/${producto.id}`, {
-    method: 'DELETE',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const handleEliminarProducto = async (index: number) => {
+    const producto = productos[index];
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    const token = user.token;
 
-  if (response.ok) {
-    setProductos((prevProductos) =>
-      prevProductos.filter((_, i) => i !== index)
-    );
+    try {
+      const response = await fetch(`http://192.168.68.100:8080/cesta/delete/${producto.id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    // 🔁 Notificar a otros componentes que el carrito ha cambiado
-    window.dispatchEvent(new Event('actualizar-carrito'));
+      if (response.ok) {
+        setProductos((prevProductos) =>
+          prevProductos.filter((_, i) => i !== index)
+        );
 
-    console.log("Producto eliminado correctamente");
-  } else {
-    console.error('Error al eliminar el producto de la base de datos');
-  }
-} catch (error) {
-  console.error('Error de conexión al eliminar el producto:', error);
-}
+        window.dispatchEvent(new Event('actualizar-carrito'));
+        console.log("Producto eliminado correctamente");
+      } else {
+        console.error('Error al eliminar el producto de la base de datos');
+      }
+    } catch (error) {
+      console.error('Error de conexión al eliminar el producto:', error);
+    }
   };
 
-
-  
   const calcularTotal = () => {
     return productos.reduce((total, prod) => {
       const precio = Number(prod.precio);
@@ -105,10 +102,7 @@ try {
   };
 
   return (
-    <div>
-      <div className="indicador-container">
-        <PasoCompra />
-      </div>
+    <div className="cesta">
       <div className="cesta-container">
         {error && <p className="error">{error}</p>}
         {cargando ? (
@@ -120,7 +114,7 @@ try {
               <div className="productos">
                 {productos.map((producto, index) => (
                   <div key={index} className="producto-cesta">
-                    <img src={producto.imagen || "/default-image.jpg"} alt={producto.nombre} className="producto-img-cesta"/>
+                    <img src={producto.imagen || "/default-image.jpg"} alt={producto.nombre} className="producto-img-cesta" />
                     <div className="producto-info">
                       <p className="producto-nombre">{producto.nombre}</p>
                       <p className="producto-descripcion">Color: {producto.color}</p>
@@ -137,15 +131,13 @@ try {
                       </div>
                     </div>
                     <div className="producto-final">
-                    <button className="eliminar-producto"onClick={() => handleEliminarProducto(index)}> × </button>
-                    <span className="producto-precio">{producto.precio} EUR</span>
+                      <button className="eliminar-producto" onClick={() => handleEliminarProducto(index)}> × </button>
+                      <span className="producto-precio">{producto.precio} EUR</span>
                     </div>
-
                   </div>
                 ))}
               </div>
 
-              {/* Resumen de pedido */}
               <div className="resumen">
                 <h3>Resumen del pedido</h3>
                 <input type="text" placeholder="Cupón" className="input-cupon" />
@@ -178,27 +170,27 @@ try {
                 </div>
               </div>
             </div>
-            {/* Resumen de indicadores */}
+
             <div className="info-container">
-            <div className="info-item">
-              <img src="public\Imagenes\info\pagoSeg.png" alt="Pago seguro" className="info-icon" />
-              <span className="info-text">Pago seguro</span>
-            </div>
-            <div className="info-item">
-              <img src="public\Imagenes\info\entrega.png" alt="Entrega gratuita" className="info-icon"/>
-              <div className="info-text-container">
-                <span className="info-text">Entrega gratuita a partir de 100€</span>
-                <span className="info-subtext">En 4-6 días laborables</span>
+              <div className="info-item">
+                <img src="public/Imagenes/info/pagoSeg.png" alt="Pago seguro" className="info-icon" />
+                <span className="info-text">Pago seguro</span>
+              </div>
+              <div className="info-item">
+                <img src="public/Imagenes/info/entrega.png" alt="Entrega gratuita" className="info-icon" />
+                <div className="info-text-container">
+                  <span className="info-text">Entrega gratuita a partir de 100€</span>
+                  <span className="info-subtext">En 4-6 días laborables</span>
+                </div>
+              </div>
+              <div className="info-item">
+                <img src="public/Imagenes/info/devolucion.png" alt="Devoluciones gratuitas" className="info-icon" />
+                <div className="info-text-container">
+                  <span className="info-text">Devoluciones gratuitas</span>
+                  <span className="info-subtext">Dentro de los 15 días</span>
+                </div>
               </div>
             </div>
-            <div className="info-item">
-              <img src="public\Imagenes\info\devolucion.png" alt="Devoluciones gratuitas" className="info-icon"/>
-              <div className="info-text-container">
-                <span className="info-text">Devoluciones gratuitas</span>
-                <span className="info-subtext">Dentro de los 15 días</span>
-              </div>
-            </div>
-          </div>
           </div>
         )}
       </div>

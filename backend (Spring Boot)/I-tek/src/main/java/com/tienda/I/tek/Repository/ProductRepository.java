@@ -19,4 +19,6 @@ List<Product> findByNombreContainingIgnoreCaseOrReferenciaContainingIgnoreCaseAn
 @Query("SELECT p FROM Product p WHERE (LOWER(p.nombre) LIKE LOWER(CONCAT('%', :query, '%')) OR LOWER(p.referencia) LIKE LOWER(CONCAT('%', :query, '%'))) AND p.categoria = :categoria AND p.familia = :familia")
 List<Product> findByNombreOrReferenciaAndCategoriaAndFamilia(@Param("query") String query, @Param("categoria") String categoria, @Param("familia") String familia);
 
+
+List<Product> findAll();
 }

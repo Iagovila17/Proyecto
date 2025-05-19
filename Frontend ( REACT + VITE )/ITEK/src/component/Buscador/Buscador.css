@@ -1,11 +1,19 @@
 .buscador-web input {
     width: 280px; 
     height: 10px;
-    background-color: #ffffff00 !important;
-    border: none;
+    background-color: #00000000 !important;
+    border: 1px solid rgb(255, 255, 255);
+  }
+
+  @media screen and (max-width: 768px) {
+    .buscador-web input {
+      width: 100px;
+      height: 10px;
+      background-color: #ffffff00 !important;
+      border: none;
+    }
+    
   }
 
   
 
-  
-  

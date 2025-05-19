@@ -1,3 +1,9 @@
+
+@media screen and (min-width: 1200px) {
+ 
+  
+  
+
 #header-principal {
   position: fixed;
   top: 0;
@@ -23,16 +29,16 @@
 .logo-buscador {
   display: flex;
   align-items: center;
-  padding-left: 1%;
+  padding-left: 3%;
   padding-right: 1%;
 }
+
 .header-tools{
   width: 100%;
   margin-top: -100px;
-  margin-right: 2%;
   display: flex;
   justify-content: right;
-  gap: 2%;
+  gap: 5%;
   
 }
 .header-tools a{
@@ -51,6 +57,14 @@
   border-bottom: 1px solid rgb(0, 0, 0);
   
 }
+.header-tools-links{
+  margin-bottom: 20px;
+  margin-right: 10px;
+  margin-left: 60px;
+  display: flex;
+  gap: 10%;
+  width: 300px;
+}
 h1{
   margin-top: 3%;
   margin-left: 7%;
@@ -63,7 +77,63 @@ h1{
   border: 0px solid rgba(0, 0, 0, 0);
 
 }
+}
 
+@media screen and (max-width: 768px) {
+  #header-principal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff7e;
+  z-index: 1000;
+  box-shadow: none;
+  padding: 10px 20px;
+  transform: translateY(0);
+  transition: transform 0.8s ease-in-out;
+  }
+  #header-principal.hidden {
+    transform: translateY(-100%);
+  }
+  #Marca-Incio{
+    margin-top: 40px;
+    font-size: 1.5em;
+  }
+  .logo-buscador {
+    display: flex;
+    align-items: center;
+    padding-left: 1%;
+    padding-right: 1%;
+  }
+  .header-tools{
+    width: 150px;
+    margin-top: -100px;
+    margin-right: 2%;
+    display: flex;
+    justify-content: right;
+    gap: 2%;
+    
+  }
+  .header-tools a{
+    text-decoration: none;
+    font-family: serif;
+    color: black;
+    font-size: 1em;
+  }
+  .header-tools-links{
+    margin-bottom: 20px;
+    margin-right: 10px;
+    margin-left: 60px;
+    display: flex;
+    gap: 10%;
+    width: 300px;
+  }
+  .header-tools-links-user{
+    display: flex;
+    width: 80px;  
+
+  } 
+}
 
 
 

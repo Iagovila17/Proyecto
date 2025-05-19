@@ -1,0 +1,25 @@
+.promociones-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.contenido-principal {
+  flex: 1;
+  padding: 3rem;
+  text-align: center;
+  background-color: #73b8df;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.imagen-construccion {
+  max-width: 900px;
+  width: 100%;
+  height: auto;
+  opacity: 0.8;
+}

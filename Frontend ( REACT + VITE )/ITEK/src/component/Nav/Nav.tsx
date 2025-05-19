@@ -9,6 +9,7 @@ const Nav: React.FC = () => {
       <p id="nombre-menu-nav">HOMBRE</p>
       <ul className="dropdown">
         <li><Link to="/productos/hombre/todos">VER TODO</Link></li>
+        <li className="oferta"><Link to="/productos/hombre/todos">OFERTAS</Link></li>
         <li><Link to="/productos/hombre/lino">LINO</Link></li>
         <li><Link to="/productos/hombre/polo">POLOS</Link></li>
         <li><Link to="/productos/hombre/camiseta">CAMISETAS</Link></li>
@@ -21,6 +22,7 @@ const Nav: React.FC = () => {
       <p id="nombre-menu-nav">MUJER</p>
       <ul className="dropdown">
         <li><Link to="/productos/mujer/todos">VER TODO</Link></li>
+        <li className="oferta"><Link to="/productos/mujer/todos">OFERTAS</Link></li>
         <li><Link to="/productos/mujer/chaqueta">CHAQUETAS</Link></li>
         <li><Link to="/productos/mujer/blusa">BLUSAS</Link></li>
         <li><Link to="/productos/mujer/falda">FALDAS</Link></li>
@@ -33,6 +35,7 @@ const Nav: React.FC = () => {
       <p id="nombre-menu-nav">NIÑOS</p>
       <ul className="dropdown">
         <li><Link to="/productos/nina/todos">NIÑA</Link></li>
+        <li className="oferta"><Link to="/productos/nina/todos">OFERTAS</Link></li>
         <li><Link to="/productos/nino/todos">NIÑO</Link></li>
         <li><Link to="/productos/bebe/todos">BEBÉ</Link></li>
       </ul>

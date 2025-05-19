@@ -14,7 +14,13 @@
   width: 370px;
 }
 
+.oferta a{
+  color: blue !important;
+  font-weight: bold;
+}
+
 #nombre-menu-nav {
+  font-weight: bold;
   width: 100px;
   padding: 10px;
   text-align: center;
@@ -48,9 +54,9 @@
   display: none;
   width: 370px; /* Ancho completo del contenedor */
   max-height: 261px; /* Altura máxima del menú desplegable */
-  overflow-y: auto; /* Permite desplazamiento vertical si las opciones no caben */
+  overflow-y: auto; 
   scrollbar-width: thin; /* Estiliza la barra de desplazamiento para navegadores compatibles */
-  scrollbar-color: #eeeeee #ffffff; /* Color del scroll */
+  scrollbar-color: #ffffff #ffffff; /* Color del scroll */
   z-index: 10; /* Asegura que el dropdown esté sobre otros elementos */
  }
 
@@ -75,7 +81,7 @@
   display: block;
 }
 .menu:hover {
-  background-color: #eeeeee;
+  background-color: #ffffff;
   border: 1px solid black;
   
 }
@@ -92,5 +98,14 @@
 
 .dropdown::-webkit-scrollbar-track {
   background-color: #fff; /* Fondo de la pista del scrollbar */
+}
+
+@media screen and (max-width: 768px) {
+  .menu-container {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  
 }
 

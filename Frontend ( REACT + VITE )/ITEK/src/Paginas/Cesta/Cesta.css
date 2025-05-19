@@ -1,3 +1,7 @@
+.cesta{
+  margin-top: 60px;
+}
+
 .indicador-container {
     max-width: 1000px;
     margin-left: 550px;
@@ -60,6 +64,7 @@
   }
 
   .info-container {
+    margin-bottom: -100px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -80,7 +85,7 @@
   
   .info-text {
     font-weight: bold;
-    color: #535353; 
+    color: #383838; 
   }
   
   .info-subtext {
@@ -93,11 +98,11 @@
     flex-direction: column;
   }
   
-  @media (min-width: 768px) {
+
     .cesta-content {
       flex-direction: row;
     }
-  }
+  
   
   .productos {
     flex: 2;
@@ -175,6 +180,8 @@
   }
   
   .resumen {
+    margin-top: 40px;
+    width: 400px;
     margin-right: 200px;
     flex: 1;
     border: 1px solid #000000;
@@ -231,6 +238,6 @@
     margin-top: 20px;
     height: 22px;
     margin-right: 8px;
-    margin-left: 38px;
+    margin-left: 25px;
   }
   

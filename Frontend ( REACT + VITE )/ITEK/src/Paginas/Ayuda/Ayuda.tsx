@@ -7,7 +7,6 @@ const Ayuda = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   useEffect(() => {
-    // Recuperamos el usuario desde el localStorage
     const storedUser = localStorage.getItem("user");
     console.log("Stored user from localStorage:", storedUser);
 
@@ -20,7 +19,6 @@ const Ayuda = () => {
       setIsAuthenticated(false);
     }
 
-    // Escuchar cambios en el localStorage para actualizar el estado
     const handleStorageChange = () => {
       const storedUser = localStorage.getItem("user");
       if (storedUser) {
@@ -50,7 +48,7 @@ const Ayuda = () => {
         <div className="header-ayuda">
         <div className="header-tools-ayuda">
         {isAuthenticated ? (
-            <div>
+            <div className="user-info">
               <Link to="/Cuenta">
                 <h4>{userName}</h4>
               </Link>

@@ -8,12 +8,15 @@
   }
 
 .Titulo-ayuda a{
-        
       text-decoration: none;
       color: rgb(0, 0, 0);
       font-weight: bold;
       font-family: "Didot", serif;
       font-size: 6em;
+    }
+
+    .user-info{
+        margin-top: 2%;
     }
 
 .header-tools-ayuda{
@@ -44,6 +47,7 @@
   }
 
 #preguntas-ayuda{
+    color: black;
       margin-top: 3%;
       margin-left: 2%;
       font-size: 16px;
@@ -73,7 +77,16 @@
   
     }
     .consulta-item {
-      
+      width: 80%;
+      height: 80px;
+      text-align: center;
+      padding: 10px;
+      margin-left: 20%;
+      margin-top: 5%;
+      font-size: 11px;
+      border: 1px solid black;
+    }
+       .consulta-item a {
       width: 80%;
       height: 80px;
       text-align: center;
@@ -147,14 +160,12 @@
         background-color: #ffffff;  
     }
     
-    /* Contenedor de preguntas adicionales */
     .Consultasvarias-container {
         display: flex;
         flex-direction: column; 
         margin: 10px;
     }
     
-    /* Estilos de cada pregunta */
     .consulta-item {
         width: 90%; 
         text-align: center;

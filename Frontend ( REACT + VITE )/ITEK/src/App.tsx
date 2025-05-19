@@ -33,9 +33,19 @@ import Payment  from "./Compra/Payment/Payment";
 
 // Importación de componentes de administración
 import AdminDashboard from './ADMIN/admin/Dashboard/AdminDashboard';
-import AdminUsuarios from './ADMIN/admin/Usuarios/Usuarios';
-import AdminProductos from './ADMIN/admin/Productos/Productos';
-import AdminNewProduct from './ADMIN/admin/Productos/AgregarProductos/AdminNewProduct';
+import AdminUsuarios from './ADMIN/PAGINAS/Usuarios/Usuarios';
+import AdminProductos from './ADMIN/PAGINAS/Productos/Productos';
+import ListadoProductos from "./ADMIN/PAGINAS/Productos/ListaProductos/ListaProductos";
+import Pedidos from './ADMIN/PAGINAS/Pedidos/Pedidos';
+import Clientes from './ADMIN/PAGINAS/Clientes/Clientes';
+import Estadistica from "./ADMIN/PAGINAS/Estadisticas/Estacistica";
+import Promociones from "./ADMIN/PAGINAS/Promociones/Promociones";
+import TerminosCondiciones from "./ADMIN/PAGINAS/TerminosCondiciones/TerminosCondiciones";
+import Inventario from "./ADMIN/PAGINAS/Inventario/Inventario";
+import Configuracion from "./ADMIN/PAGINAS/Configuracion/Configuracion";
+import AdminNewProduct from './ADMIN/PAGINAS/Productos/AgregarProductos/AdminNewProduct';
+import AdminUpdateProduct from './ADMIN/PAGINAS/Productos/EditarProductos/EditarProductos';
+
 
 const App: React.FC = () => {
 
@@ -90,7 +100,16 @@ const App: React.FC = () => {
             <Route path="/admin/dashboard" element={<><AdminDashboard /></>} />
             <Route path="/admin/usuarios" element={<><AdminUsuarios /></>} /> {/* Asegúrate de tener este componente */}
             <Route path="/admin/productos" element={<><AdminProductos /></>} />
+            <Route path="/admin/productos/:categoria/:familia/listado" element={<ListadoProductos />} />
+            <Route path="/admin/productos/:categoria/:subcategoria/editar/:id" element={<AdminUpdateProduct />} />
             <Route path="/admin/productos/:categoria/:familia/nuevo" element={<AdminNewProduct />} />
+            <Route path="/admin/pedidos" element={<><Pedidos /></>} />
+            <Route path="/admin/promociones" element={<><Promociones /></>} />
+            <Route path="/admin/terminos-condiciones" element={<><TerminosCondiciones /></>} />
+            <Route path="/admin/inventario" element={<><Inventario /></>} />
+            <Route path="/admin/estadisticas" element={<><Estadistica /></>} />
+            <Route path="/admin/configuracion" element={<><Configuracion /></>} />
+            <Route path="/admin/clientes" element={<><Clientes /></>} />
           </>
         )}
       </Routes>

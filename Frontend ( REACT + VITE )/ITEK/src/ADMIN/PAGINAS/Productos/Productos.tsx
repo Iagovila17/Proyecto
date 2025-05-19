@@ -1,4 +1,4 @@
-import AdminSidebar from '../sidebar/Sidebar';
+import AdminSidebar from '../../admin/sidebar/Sidebar';
 import './Productos.css';
 
 const Productos = () => {
@@ -38,7 +38,7 @@ const Productos = () => {
                   <tr key={i}>
                     <td>{familia}</td>
                     <td>
-                      <a href={`/admin/productos/${cat.titulo.toLowerCase()}/${familia.toLowerCase()}`}>Ver productos</a>
+                      <a href={`/admin/productos/${cat.titulo.toLowerCase()}/${familia.toLowerCase()}/listado`}>Ver productos</a>
                       {" | "}
                       <a href={`/admin/productos/${cat.titulo.toLowerCase()}/${familia.toLowerCase()}/nuevo`}>Agregar nuevo</a>
                     </td>

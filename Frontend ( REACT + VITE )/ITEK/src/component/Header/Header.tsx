@@ -76,20 +76,21 @@ const Header = () => {
               <Buscador />
             </div>
           </div>
+            <div className="header-tools-links">
+            {isAuthenticated ? (
+              <div className="header-tools-links-user">
+                <Link to="/Cuenta">
+                  <h4>{userName}</h4>
+                </Link>
+              </div>
+            ) : (
+              <Link to="/login">INICIAR SESIÓN</Link>
+            )}
 
-          {isAuthenticated ? (
-            <div>
-              <Link to="/Cuenta">
-                <h4>{userName}</h4>
-              </Link>
+            <Link to="/Ayuda">AYUDA</Link>
+            <Link to="/Cesta">CESTA</Link>
             </div>
-          ) : (
-            <Link to="/login">INICIAR SESIÓN</Link>
-          )}
-
-          <Link to="/Ayuda">AYUDA</Link>
-          <Link to="/Cesta">CESTA</Link>
-        </div>
+          </div>
       </div>
       <nav>
         <Nav />
