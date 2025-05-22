@@ -3,19 +3,19 @@ import './Productos.css';
 
 const Productos = () => {
   const categorias = [
-    {
-      titulo: 'Hombre',
-      familias: ['Lino', 'Polo', 'Camiseta', 'Pantalone', 'Zapato', 'Accesorio']
-    },
-    {
-      titulo: 'Mujer',
-      familias: ['chaqueta', 'Blusa', 'Falda', 'Vestido', 'Zapato', 'Accesorio']
-    },
-    {
-      titulo: 'Niños',
-      familias: ['niña', 'niño', 'bebe']
-    }
-  ];
+  {
+    titulo: 'Hombre',
+    familias: ['Lino', 'Polo', 'Camiseta', 'Pantalone', 'Zapato', 'Accesorio']
+  },
+  {
+    titulo: 'Mujer',
+    familias: ['chaqueta', 'Blusa', 'Falda', 'Vestido', 'Zapato', 'Accesorio']
+  },
+  {
+    titulo: 'NINO',
+    familias: ['niña', 'niño', 'bebe']
+  }
+];
 
   return (
     <div className="usuarios-container">

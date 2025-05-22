@@ -32,24 +32,8 @@ form label {
   color: #555;
 }
 
-form input[type="text"],
-form input[type="number"],
-form textarea {
-  width: 100%;
-  box-sizing: border-box;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
-  font-family: inherit;
-  resize: vertical;
-}
 
-form input[type="text"]:focus,
-form input[type="number"]:focus,
-form textarea:focus {
-  outline: none;
-  border-color: #4caf50;
-  box-shadow: 0 0 6px rgba(76, 175, 80, 0.4);
-}
+
 
 .categoria-familia-container {
   display: flex;

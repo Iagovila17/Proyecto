@@ -90,38 +90,43 @@ const Estadisticas = () => {
     ],
   };
 
-  // Usuarios registrados por mes (últimos 12 meses)
-  const mesesLabels = Array.from({ length: 12 }, (_, i) => {
-    const d = new Date();
-    d.setMonth(d.getMonth() - (11 - i));
-    return d.toLocaleString('es-ES', { month: 'short', year: '2-digit' });
-  });
+ const hoy = new Date();
+const mesActual = hoy.getMonth();    // 0 = enero
+const añoActual = hoy.getFullYear();
 
-  const registrosPorMes = Array(12).fill(0);
+// Obtener días en el mes actual
+const diasEnMes = new Date(añoActual, mesActual + 1, 0).getDate();
 
-  usuarios.forEach((u) => {
-    const fecha = new Date(u.fechaRegistro);
-    const ahora = new Date();
-    const mesesDiferencia =
-      (ahora.getFullYear() - fecha.getFullYear()) * 12 + (ahora.getMonth() - fecha.getMonth());
-    if (mesesDiferencia >= 0 && mesesDiferencia < 12) {
-      registrosPorMes[11 - mesesDiferencia]++;
-    }
-  });
+// Crear etiquetas del día 1 al último día del mes
+const diasLabels = Array.from({ length: diasEnMes }, (_, i) => {
+  const d = new Date(añoActual, mesActual, i + 1);
+  return d.toLocaleDateString('es-ES', { day: '2-digit', month: 'short' });
+});
 
-  const registrosMesData = {
-    labels: mesesLabels,
-    datasets: [
-      {
-        label: 'Nuevos registros por mes',
-        data: registrosPorMes,
-        borderColor: '#4e73df',
-        backgroundColor: 'rgba(78, 115, 223, 0.2)',
-        fill: true,
-        tension: 0.3,
-      },
-    ],
-  };
+// Inicializar el array de registros diarios
+const registrosPorDia = Array(diasEnMes).fill(0);
+
+// Contar registros por día del mes actual
+usuarios.forEach((u) => {
+  const fecha = new Date(u.fechaRegistro);
+  if (fecha.getMonth() === mesActual && fecha.getFullYear() === añoActual) {
+    registrosPorDia[fecha.getDate() - 1]++;
+  }
+});
+
+const registrosDiaData = {
+  labels: diasLabels,
+  datasets: [
+    {
+      label: `Nuevos registros en ${diasLabels[0].split(' ')[1]} ${añoActual}`,
+      data: registrosPorDia,
+      borderColor: '#4e73df',
+      backgroundColor: 'rgba(78, 115, 223, 0.2)',
+      fill: true,
+      tension: 0.3,
+    },
+  ],
+};
 
   // Usuarios por dominio de email (top 5 + otros)
   const dominiosCount: Record<string, number> = {};
@@ -184,9 +189,9 @@ const Estadisticas = () => {
         </div>
 
         <div className="grafico-item">
-          <Line data={registrosMesData} options={{
+          <Line data={registrosDiaData} options={{
             responsive: true,
-            plugins: { legend: { position: 'top' }, title: { display: true, text: 'Nuevos registros por mes' } },
+            plugins: { legend: { position: 'top' }, title: { display: true, text: 'Nuevos registros por día' } },
           }} />
         </div>
 

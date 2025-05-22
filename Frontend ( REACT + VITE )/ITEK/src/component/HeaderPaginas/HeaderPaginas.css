@@ -39,4 +39,45 @@
   
 }
   
+  @media (max-width: 768px) {
+   .Titulo-paginas {  
+    margin-left: 9%;
+    margin-top: 2%;
+  }
   
+.nombre-cuenta{
+  margin-top: 40px;
+}
+
+.Titulo-paginas a{
+        
+      text-decoration: none;
+      color: rgb(0, 0, 0);
+      font-weight: bold;
+      font-family: "Didot", serif;
+      font-size: 6em;
+    }
+
+.header-tools-paginas{
+      width: 98%;
+      display: flex;
+      justify-content: right;
+      gap: 2%;  
+  }
+  .header-tools-paginas a{
+      
+      margin-top: 2%;
+      text-decoration: none;
+      font-family: serif;
+      color: black;
+      font-size: 1em;
+  }
+  
+#buscador-paginas{
+  margin-left: 250px;
+  width: 150px;
+  background-color: #ffffff00;
+  border-bottom: 1px solid rgb(0, 0, 0);
+  
+}
+  }

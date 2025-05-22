@@ -6,6 +6,7 @@ public class RegisterRequest {
     private String password;
     private String telefono;
     private String nombre;
+    private String fechaRegistro;
 
     // Getters y setters
     public String getEmail() {
@@ -38,5 +39,13 @@ public class RegisterRequest {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(String fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 }

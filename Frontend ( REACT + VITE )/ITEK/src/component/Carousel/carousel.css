@@ -1,0 +1,87 @@
+.zara-carousel {
+    width: 97%;
+    height: 600px;
+  background-color: rgb(255, 255, 255);
+  margin-top: 100px;
+  scroll-behavior: smooth;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 20px;
+  padding: 20px;
+  cursor: grab;
+  user-select: none;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.zara-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.zara-carousel.dragging {
+  cursor: grabbing;
+}
+
+.zara-product-card {
+  flex: 0 0 calc(25% - 15px); /* 4 por fila en escritorio */
+  scroll-snap-align: start;
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.3s;
+  height: 500px; /* fijo para que todas tengan misma altura */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.zara-product-card:hover {
+  transform: scale(1.03);
+}
+
+.zara-product-card img {
+  width: 100%;
+  height: 100%;       /* que llene el contenedor */
+  object-fit: cover;  /* rellena sin deformar, recortando si hace falta */
+  display: block;
+}
+
+.zara-product-info {
+  padding: 10px;
+  font-size: 14px;
+  color: #222;
+}
+
+.zara-product-info p {
+  margin: 0;
+  font-weight: 500;
+}
+
+.zara-product-info span {
+  color: #888;
+  font-size: 13px;
+}
+
+/* Media query para pantallas pequeñas (móviles) */
+@media (max-width: 768px) {
+.zara-carousel {
+  width: 90%;
+  height: 300px;
+  margin-top: 50px;
+  scroll-behavior: smooth;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 20px;
+  padding: 20px;
+  cursor: grab;
+  user-select: none;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+  .zara-product-card {
+    flex: 0 0 calc(55% - 13.3333px); /* 3 por fila en móviles */
+    height: 250px; /* altura un poco menor para móvil */
+  }
+}

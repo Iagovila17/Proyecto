@@ -20,27 +20,23 @@ const handleLogin = async () => {
 
     if (response.ok) {
       const data = await response.json();
-
-      // Guarda el nombre, el rol y el token en localStorage
       localStorage.setItem('user', JSON.stringify({
         nombre: data.nombre,
-        email: data.email,  // Asegúrate de que el backend envíe el email
-        telefono: data.telefono,  // Asegúrate de que el backend envíe el teléfono
+        email: data.email,  
+        telefono: data.telefono,  
         direccion: data.direccion,
         role: data.role,
         token: data.token,
-        isAuthenticated: true,  // Marcamos que el usuario está autenticado
+        isAuthenticated: true, 
       }));
 
-      localStorage.setItem('role', data.role);  // Aquí guardas el rol
+      localStorage.setItem('role', data.role); 
 
-      localStorage.setItem('isAuthenticated', 'true');  // Indicamos que el usuario está autenticado
-
-      // Redirigir según el rol
+      localStorage.setItem('isAuthenticated', 'true');  
       if (data.role === 'ADMIN') {
-        navigate('/admin/dashboard');  // Redirige a admin si es un administrador
+        navigate('/admin/dashboard'); 
       } else {
-        navigate('/');  // Redirige a inicio si es un usuario común
+        navigate('/');  
       }
     } else {
       setError("Correo o contraseña incorrectos");
@@ -93,5 +89,4 @@ const handleLogin = async () => {
     </div>
   );
 };
-
 export default Login;

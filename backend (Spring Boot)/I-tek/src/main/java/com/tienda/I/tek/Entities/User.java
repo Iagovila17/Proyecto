@@ -1,7 +1,7 @@
 package com.tienda.I.tek.Entities;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -50,7 +50,7 @@ public class User implements UserDetails {
     private Rol rol; 
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaRegistro;
+    private LocalDateTime fechaRegistro;
 
     @JsonIgnore
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
@@ -73,7 +73,7 @@ public class User implements UserDetails {
     }
 
     public User(Long id, String nombre, String email, String password, String direccion, String telefono, Rol rol,
-            Date fechaRegistro, List<Cart> carts) {
+            LocalDateTime fechaRegistro, List<Cart> carts) {
         this.id = id;
         this.username = nombre;
         this.email = email;
@@ -137,11 +137,11 @@ public class User implements UserDetails {
         this.rol = rol;
     }
 
-    public Date getFechaRegistro() {
+    public LocalDateTime  getFechaRegistro() {
         return fechaRegistro;
     }
 
-    public void setFechaRegistro(Date fechaRegistro) {
+    public void setFechaRegistro(LocalDateTime fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
 
@@ -153,10 +153,6 @@ public class User implements UserDetails {
         this.carts = carts;
     }
 
-    
-
-    // Métodos de la interfaz UserDetails
-
     @Override
     public String toString() {
         return "User [id=" + id + ", nombre=" + username + ", email=" + email + ", password=" + password + ", direccion="
@@ -166,32 +162,31 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Devolver las autoridades (roles) del usuario, asumiendo que Rol es un enum
-        return List.of(() -> "ROLE_" + rol.name());  // Asumiendo que el Rol tiene valores como USER, ADMIN, etc.
+        return List.of(() -> "ROLE_" + rol.name());  
     }
 
     @Override
     public String getUsername() {
-        return email;  // El nombre de usuario es el email
+        return email;  
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;  // Suponemos que la cuenta no ha expirado
+        return true;  
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;  // Suponemos que la cuenta no está bloqueada
+        return true;  
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;  // Las credenciales no han expirado
+        return true; 
     }
 
     @Override
     public boolean isEnabled() {
-        return true;  // El usuario está habilitado
+        return true;  
     }
 }

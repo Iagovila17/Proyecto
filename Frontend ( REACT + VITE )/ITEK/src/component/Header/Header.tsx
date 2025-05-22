@@ -84,7 +84,9 @@ const Header = () => {
                 </Link>
               </div>
             ) : (
+              <div className="header-tools-links-session">
               <Link to="/login">INICIAR SESIÓN</Link>
+              </div>
             )}
 
             <Link to="/Ayuda">AYUDA</Link>

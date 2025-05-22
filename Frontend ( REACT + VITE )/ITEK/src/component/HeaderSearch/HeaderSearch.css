@@ -18,6 +18,10 @@
       justify-content: right;
       gap: 2%;  
   }
+.header-tools-paginas h4{
+      margin-top: -33px;
+      margin-right: 5px;
+  }
   .header-tools-paginas a{
       
       margin-top: 2%;

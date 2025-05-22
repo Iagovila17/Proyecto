@@ -36,7 +36,7 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(request -> {
                 
                 CorsConfiguration config = new CorsConfiguration();
-                config.setAllowedOriginPatterns(List.of("*")); // <-- Usa allowedOriginPatterns para permitir todos los orígenes 
+                config.setAllowedOriginPatterns(List.of("*"));
                 config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                 config.setAllowedHeaders(List.of("*"));
                 config.setAllowCredentials(true);
@@ -57,10 +57,10 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/checkout").hasRole("USER")
                 .requestMatchers("/api/history**").authenticated()
                 .requestMatchers("/auth/reset-password", "/auth/change-password").authenticated() 
-                .requestMatchers("/cesta/add/{productId}").hasRole("USER")  // Asegúrate de que esta ruta esté protegida
-                .anyRequest().authenticated()
+                .requestMatchers("/cesta/add/{productId}").hasRole("USER") 
+                .anyRequest().permitAll()  
             )
-             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // <-- Añadir esto
+             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); 
         return http.build();
         
     }

@@ -1,6 +1,7 @@
 package com.tienda.I.tek.Service;
 
 import java.util.List;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class ProductService implements IProductService{
     Categoria categoria;
 
     try {
-        categoria = Categoria.valueOf(categoriaStr.toUpperCase()); // Convertir a Enum
+        categoria = Categoria.valueOf(categoriaStr.toUpperCase());
     } catch (IllegalArgumentException e) {
         throw new RuntimeException("Categoría no válida: " + categoriaStr);
     }
@@ -81,14 +82,6 @@ public class ProductService implements IProductService{
     productRepo.deleteById(id);
 }
 
-    public List<Product> buscarPorNombreReferenciaYCategoria(String query, String categoria) {
-        return productRepo.findByNombreContainingIgnoreCaseOrReferenciaContainingIgnoreCaseAndCategoria(query, query, categoria);
-    }
-
-    public List<Product> searchByNombreOrReferencia(String query) {
-        return productRepo.findByNombreContainingIgnoreCaseOrReferenciaContainingIgnoreCase(query, query);
-    }
-
 
     public List<ProductDTO> getAllProducts() {
         List<Product> productos = productRepo.findAll();
@@ -100,10 +93,26 @@ public class ProductService implements IProductService{
         dto.setNombre(product.getNombre());
         dto.setPrecio(product.getPrecio());
         dto.setImagen(product.getImagen());
-        // Add other fields as needed
         return dto;
     }
 
+
+
+
+        public List<Product> buscarPorNombreReferenciaYCategoria(String query, String categoriaStr) {
+    Categoria categoriaEnum;
+    try {
+        categoriaEnum = Categoria.valueOf(categoriaStr.toUpperCase());
+    } catch (IllegalArgumentException e) {
+        return Collections.emptyList();
+    }
+
+    return productRepo.findByNombreOrReferenciaAndCategoria(query, categoriaEnum);
+}
+
+    public List<Product> buscarPorNombreOReferencia(String query) {
+        return productRepo.buscarPorNombreOReferencia(query);
+    }
 	
 
 	

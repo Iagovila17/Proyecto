@@ -38,19 +38,20 @@ const Navsecundario: React.FC = () => {
             ))}
           </div>
         )}
-{(categoriaActual === "nina" || categoriaActual === "nino" || categoriaActual === "bebe") && (
-  <div className="zona-familias">
-    {["nina", "nino", "bebe"].map((familia) => (
-      <li
-        key={familia}
-        className={`lista-familias ${categoriaActual === familia ? "activa" : ""}`}
-      >
-        <Link to={`/productos/${familia}/todos`}>{familia.toUpperCase()}</Link>
+        {categoriaActual === "nino" && (
+          <div className="zona-familias">
+            {["nina", "nino", "bebe"].map((familia) => (
+            <li
+                key={familia}
+                className={`lista-familias ${familiaActual === familia ? "activa" : ""}`}
+              >
+            <Link to={`/productos/nino/${familia}`}>{familia.toUpperCase()}</Link>
       </li>
     ))}
   </div>
-        )}  
-      </ul>
+)}
+  
+      </ul> 
     </nav>
   );
 };

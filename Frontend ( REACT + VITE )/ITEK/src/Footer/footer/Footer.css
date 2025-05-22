@@ -59,7 +59,13 @@ footer a{
 }
 @media (max-width: 480px) {
     footer{
-        margin-top: 2%;
-        margin-bottom: 7%;
+        margin-top: 40%;
+        margin-bottom: 0px;
+    }
+    .Pagina{
+        margin-left: 20px;
+    }
+    .Legal{
+        margin-left: -26px;
     }
 }

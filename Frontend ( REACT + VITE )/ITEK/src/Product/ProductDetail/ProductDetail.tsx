@@ -109,8 +109,11 @@ export default function ProductDetail() {
           <div className="lineaproduct"></div>
 
           <div className="info-product">
-            <div className="referencia">Ref: {producto.referencia}</div>
-
+            <div className="product-detail-referencia">
+            <div className="color">{producto.color}</div>
+            <div className="color">|</div>
+            <div className="referencia"> Ref: {producto.referencia}</div>
+            </div>
             <div className="Button-añadir">
               <button
                 id="Button-Añadir"

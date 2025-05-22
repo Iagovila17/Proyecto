@@ -41,3 +41,28 @@
 .lista-familias.activa a {
   color: white;
 }
+
+/* Media Queries para móvil */
+@media (max-width: 600px) {
+ .menu-familia {
+  margin-left: 15px;
+  width: 95%;
+  padding: 8px 0;
+}
+
+.menu-personalizado {
+  gap: 10px;
+}
+
+.zona-familias {
+  gap: 10px;
+}
+
+.lista-familias {
+  padding: 4px 8px;      /* Menos padding para que sean más pequeños */
+  min-width: 70px;       /* Más estrechos */
+  font-size: 12px;       /* Texto más pequeño */
+  text-align: center;    /* Texto centrado */
+}
+
+}

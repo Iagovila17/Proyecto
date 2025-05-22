@@ -32,14 +32,14 @@ const Nav: React.FC = () => {
       </ul>
     </li>
     <li className="menu-item">
-      <p id="nombre-menu-nav">NIÑOS</p>
-      <ul className="dropdown">
-        <li><Link to="/productos/nina/todos">NIÑA</Link></li>
-        <li className="oferta"><Link to="/productos/nina/todos">OFERTAS</Link></li>
-        <li><Link to="/productos/nino/todos">NIÑO</Link></li>
-        <li><Link to="/productos/bebe/todos">BEBÉ</Link></li>
-      </ul>
-    </li>
+  <p id="nombre-menu-nav">NIÑOS</p>
+  <ul className="dropdown">
+    <li><Link to="/productos/nino/nina">NIÑA</Link></li>
+    <li><Link to="/productos/nino/nino">NIÑO</Link></li>
+    <li><Link to="/productos/nino/bebe">BEBÉ</Link></li>
+  </ul>
+</li>
+
   </ul>
  </nav>
   );

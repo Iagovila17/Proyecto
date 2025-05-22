@@ -1,9 +1,4 @@
-
-@media screen and (min-width: 1200px) {
- 
-  
-  
-
+/* ========= ESTILOS GENERALES ========= */
 #header-principal {
   position: fixed;
   top: 0;
@@ -21,119 +16,106 @@
   transform: translateY(-100%);
 }
 
-#Marca-Incio{
-  margin-top: 30px;
-  font-size: 2.5em;
-}
-
-.logo-buscador {
-  display: flex;
-  align-items: center;
-  padding-left: 3%;
-  padding-right: 1%;
-}
-
-.header-tools{
-  width: 100%;
-  margin-top: -100px;
-  display: flex;
-  justify-content: right;
-  gap: 5%;
-  
-}
-.header-tools a{
-  text-decoration: none;
-  font-family: serif;
-  color: black;
-  font-size: 1em;
-}
-.header-tools-buscador{
-  margin-right: 3%;
-}
-
-#buscador-Inicial{
-  width: 300px;
-  background-color: #ffffff00;
-  border-bottom: 1px solid rgb(0, 0, 0);
-  
-}
-.header-tools-links{
-  margin-bottom: 20px;
-  margin-right: 10px;
-  margin-left: 60px;
-  display: flex;
-  gap: 10%;
-  width: 300px;
-}
-h1{
-  margin-top: 3%;
-  margin-left: 7%;
-}
-
-#chartButton {
-  background-color: #ffffff00; 
-  color: rgb(0, 0, 0);
-  padding: 1px 20px;
-  border: 0px solid rgba(0, 0, 0, 0);
-
-}
-}
-
-@media screen and (max-width: 768px) {
-  #header-principal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: #ffffff7e;
-  z-index: 1000;
-  box-shadow: none;
-  padding: 10px 20px;
-  transform: translateY(0);
-  transition: transform 0.8s ease-in-out;
+/* ========= DESKTOP (≥1200px) ========= */
+@media screen and (min-width: 1200px) {
+  #Marca-Incio {
+    margin-top: 30px;
+    font-size: 2.5em;
   }
-  #header-principal.hidden {
-    transform: translateY(-100%);
-  }
-  #Marca-Incio{
-    margin-top: 40px;
-    font-size: 1.5em;
-  }
+
   .logo-buscador {
     display: flex;
     align-items: center;
-    padding-left: 1%;
-    padding-right: 1%;
+    padding: 0 3%;
   }
-  .header-tools{
-    width: 150px;
+
+  .header-tools {
+    width: 100%;
     margin-top: -100px;
-    margin-right: 2%;
     display: flex;
-    justify-content: right;
-    gap: 2%;
-    
+    justify-content: flex-end;
+    gap: 5%;
   }
-  .header-tools a{
+
+  .header-tools a {
     text-decoration: none;
     font-family: serif;
     color: black;
     font-size: 1em;
   }
-  .header-tools-links{
-    margin-bottom: 20px;
-    margin-right: 10px;
-    margin-left: 60px;
+
+  .header-tools-buscador {
+    margin-right: 3%;
+  }
+
+  #buscador-Inicial {
+    width: 300px;
+    background-color: transparent;
+    border-bottom: 1px solid black;
+  }
+
+  .header-tools-links {
     display: flex;
     gap: 10%;
     width: 300px;
+    margin: 0 10px 20px 60px;
   }
-  .header-tools-links-user{
-    display: flex;
-    width: 80px;  
 
-  } 
+  h1 {
+    margin-top: 3%;
+    margin-left: 7%;
+  }
+
+  #chartButton {
+    background-color: transparent;
+    color: black;
+    padding: 1px 20px;
+    border: none;
+  }
 }
 
+/* ========= MOBILE (≤768px) ========= */
+@media screen and (max-width: 768px) {
+  #Marca-Incio {
+    margin-top: 40px;
+    font-size: 1.5em;
+  }
 
+  .logo-buscador {
+    display: flex;
+    align-items: center;
+    padding: 0 1%;
+  }
 
+  .header-tools {
+    width: 145px;
+    margin-top: -100px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .header-tools a {
+    text-decoration: none;
+    font-family: serif;
+    color: black;
+    font-size: 1em;
+  }
+
+  .header-tools-links {
+    display: flex;
+    gap: 6%;
+    width: 310px;
+    margin: 0 10px 20px 60px;
+  }
+
+  .header-tools-links-user {
+    display: flex;
+    width: 90px;
+    margin-right: -25px;
+  }
+  .header-tools-links-session {
+    display: flex;
+    width: 150px;
+    margin-right: -25px;
+  }
+}

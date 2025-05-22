@@ -1,26 +1,47 @@
 import { useParams, Link } from 'react-router-dom';
- import { useEffect, useState } from 'react';
- import axios from 'axios';
- import Navsecundario from '../../component/Navsecundario/Navsecundario';
- import './ListaProductosPorCategoria.css'; // Asegúrate de tener este archivo CSS para estilos
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import Navsecundario from '../../component/Navsecundario/Navsecundario';
+import './ListaProductosPorCategoria.css';
 
- const ListaProductosPorCategoria = () => {
+const ListaProductosPorCategoria = () => {
   const { categoria, familia } = useParams();
-  const [productos, setProductos] = useState([]);
-  const [columnas, setColumnas] = useState(2); // valor por defecto: 2 columnas
+  const [productos, setProductos] = useState<any[]>([]);
+  const [columnas, setColumnas] = useState(2);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768); // pantalla pequeña
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const fetchProductos = async () => {
       try {
-        const res = await axios.get(`http://192.168.68.100:8080/Product/byCategoriaFamilia`, {
+        const res = await axios.get('http://192.168.68.100:8080/Product/byCategoriaFamilia', {
           params: {
             categoria: categoria?.toUpperCase(),
             familia: familia?.toUpperCase()
+          },
+          headers: {
+            'Accept': 'application/json'
           }
         });
-        setProductos(res.data);
+        console.log("Datos recibidos:", res.data);
+        if (Array.isArray(res.data)) {
+          setProductos(res.data);
+        } else if (Array.isArray(res.data.productos)) {
+          setProductos(res.data.productos);
+        } else {
+          console.error("Formato inesperado de respuesta:", res.data);
+          setProductos([]);
+        }
       } catch (error) {
         console.error('Error al obtener productos:', error);
+        setProductos([]);
       }
     };
 
@@ -29,19 +50,22 @@ import { useParams, Link } from 'react-router-dom';
 
   const getWidth = () => {
     switch (columnas) {
+      case 1: return '98%';
       case 2: return '48%';
       case 4: return '23%';
       case 6: return '15%';
-      default: return '48%'; // fallback
+      default: return '48%';
     }
   };
 
+  const opcionesColumnas = isMobile ? [1, 2] : [2, 4, 6];
+
   return (
     <div>
-      <Navsecundario/>
+      <Navsecundario />
       <div className="selector-columnas">
         <div className='text-vista'>VISTA :</div>
-        {[2, 4, 6].map((num) => (
+        {opcionesColumnas.map((num) => (
           <button
             key={num}
             onClick={() => setColumnas(num)}
@@ -52,7 +76,6 @@ import { useParams, Link } from 'react-router-dom';
         ))}
       </div>
 
-      {/* Lista de productos */}
       <div className={`lista-product columnas-${columnas}`}>
         {productos.map((producto: any) => (
           <div key={producto.id} className="producto-item" style={{ width: getWidth() }}>
@@ -69,6 +92,7 @@ import { useParams, Link } from 'react-router-dom';
             )}
           </div>
         ))}
+        {productos.length === 0 && <p style={{ padding: '1rem' }}>No hay productos disponibles.</p>}
       </div>
     </div>
   );

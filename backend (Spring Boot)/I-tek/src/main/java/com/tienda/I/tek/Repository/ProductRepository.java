@@ -13,12 +13,22 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
 List<Product> findByCategoria(Categoria categoria);
 List<Product> findByCategoriaAndFamilia(Categoria categoria, String familia);
 List<Product> findByNombreContainingIgnoreCaseOrReferenciaContainingIgnoreCase(String nombre, String referencia);
-// Si no usas native query, asegúrate de tener estos métodos:
-List<Product> findByNombreContainingIgnoreCaseOrReferenciaContainingIgnoreCaseAndCategoria(String nombre, String referencia, String categoria);
-
-@Query("SELECT p FROM Product p WHERE (LOWER(p.nombre) LIKE LOWER(CONCAT('%', :query, '%')) OR LOWER(p.referencia) LIKE LOWER(CONCAT('%', :query, '%'))) AND p.categoria = :categoria AND p.familia = :familia")
-List<Product> findByNombreOrReferenciaAndCategoriaAndFamilia(@Param("query") String query, @Param("categoria") String categoria, @Param("familia") String familia);
-
-
 List<Product> findAll();
+
+
+
+    @Query("SELECT p FROM Product p WHERE " +
+           "(LOWER(p.nombre) LIKE LOWER(CONCAT('%', :query, '%')) " +
+           "OR LOWER(p.referencia) LIKE LOWER(CONCAT('%', :query, '%'))) " +
+           "AND p.categoria = :categoria")
+    List<Product> buscarPorNombreReferenciaYCategoria(@Param("query") String query, @Param("categoria") String categoria);
+
+    @Query("SELECT p FROM Product p WHERE " +
+           "LOWER(p.nombre) LIKE LOWER(CONCAT('%', :query, '%')) " +
+           "OR LOWER(p.referencia) LIKE LOWER(CONCAT('%', :query, '%'))")
+    List<Product> buscarPorNombreOReferencia(@Param("query") String query);
+
+
+    @Query("SELECT p FROM Product p WHERE (LOWER(p.nombre) LIKE LOWER(CONCAT('%', :query, '%')) OR LOWER(p.referencia) LIKE LOWER(CONCAT('%', :query, '%'))) AND p.categoria = :categoria")
+    List<Product> findByNombreOrReferenciaAndCategoria(@Param("query") String query, @Param("categoria") Categoria categoria);
 }

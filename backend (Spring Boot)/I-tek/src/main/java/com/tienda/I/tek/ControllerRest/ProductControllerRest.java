@@ -3,7 +3,6 @@ package com.tienda.I.tek.ControllerRest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,7 +52,10 @@ public class ProductControllerRest {
         }
     }
 
-    @GetMapping("/Product/search")
+
+
+    // Búsqueda con categoría
+    @GetMapping("/search")
     public List<Product> buscarProductos(
         @RequestParam String query,
         @RequestParam String categoria
@@ -61,12 +63,10 @@ public class ProductControllerRest {
         return ProductServi.buscarPorNombreReferenciaYCategoria(query, categoria);
     }
 
-
-    @GetMapping("/search")
-    public List<Product> searchProducts(@RequestParam String query) {
-        return ProductServi.searchByNombreOrReferencia(query);
+    @GetMapping("/search/all")
+    public List<Product> buscarProductosSinCategoria(@RequestParam String query) {
+        return ProductServi.buscarPorNombreOReferencia(query);
     }
-
 
    
 

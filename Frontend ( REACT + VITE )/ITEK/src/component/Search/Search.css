@@ -1,35 +1,98 @@
-.search-page{
-    width: 100%;
-    height: 100%;
-    padding: 20px;
-}
-.sidebar-busqueda{
-    color: #666666;
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    width: 35%;
-    padding: 10px;
+/* Contenedor principal */
+.search-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
 }
 
-.contenido-busqueda{
-    margin-left: 40%;
-    gap: 10px;
-    width: 20%;
-    height: 100%;
+/* Sidebar de categorías */
+.sidebar-busqueda {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+  flex-wrap: wrap;
 }
-.resultados-busqueda{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-    height: 100%;
-    flex-wrap: wrap;
-    padding: 10px;
-    font-size: 13px;
-}
-.resultados-busqueda img{
-    width: 27%;
 
+.sidebar-item {
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 20px;
+  background-color: #f2f2f2;
+  color: #333;
+  font-weight: 600;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar-item:hover {
+  background-color: #d8d8d8;
+}
+
+.sidebar-item.selected {
+  background-color: #333;
+  color: #fff;
+}
+
+/* Barra de búsqueda */
+.contenido-busqueda form {
+  width: 100%;
+  max-width: 500px;
+}
+
+.contenido-busqueda input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.contenido-busqueda input:focus {
+  border-color: #333;
+}
+
+/* Resultados */
+.resultados-busqueda {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  padding: 30px 20px;
+}
+
+.producto {
+  width: 200px;
+  text-align: center;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  padding: 15px;
+  background-color: #fff;
+  transition: box-shadow 0.3s;
+}
+
+.producto img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.producto div {
+  margin-top: 8px;
+  font-size: 0.95em;
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+  .producto {
+    width: 150px;
+    padding: 10px;
+  }
+
+  .contenido-busqueda input {
+    font-size: 0.9rem;
+    padding: 10px 14px;
+  }
 }

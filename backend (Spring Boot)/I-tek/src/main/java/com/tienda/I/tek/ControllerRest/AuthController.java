@@ -1,5 +1,6 @@
 package com.tienda.I.tek.ControllerRest;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +30,7 @@ import com.tienda.I.tek.Repository.UserRepository;
 import com.tienda.I.tek.Secutiry.CustomUserDetailsService;
 import com.tienda.I.tek.Secutiry.JwtTokenProvider;
 
+import java.time.OffsetDateTime;
 
 @RestController
 @RequestMapping("/auth")
@@ -61,70 +63,72 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
         this.cartRepository = cartRepository;
     }
-
-    // Endpoint para login
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        // Autenticación del usuario
         Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(request.getEmail().trim(), request.getPassword())
         );
     
-        // Buscar al usuario en la base de datos
         User user = userRepo.findByEmail(request.getEmail())
             .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
     
-        // Generar el token JWT
         String token = jwtTokenProvider.generateToken(user);
-    
-        // Crear la respuesta con los datos del usuario y el token
         Map<String, Object> response = new HashMap<>();
-        response.put("nombre", user.getNombre());  // Nombre del usuario
-        response.put("email", user.getEmail());    // Email del usuario
-        response.put("telefono", user.getTelefono()); // Teléfono del usuario
-        response.put("id", user.getId());          // ID del usuario
-        response.put("direccion", user.getDireccion()); // ID del carrito del usuario
-        response.put("role", user.getRol().name());  // Rol del usuario
-        response.put("token", token);  // El token JWT generado
-    
-        // Devolver la respuesta con los datos
+        response.put("nombre", user.getNombre());  
+        response.put("email", user.getEmail());   
+        response.put("telefono", user.getTelefono()); 
+        response.put("id", user.getId());   
+        response.put("direccion", user.getDireccion()); 
+        response.put("role", user.getRol().name()); 
+        response.put("token", token);  
         return ResponseEntity.ok(response);
     }
 
 
 
-    // Endpoint de registro de usuarios
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) {
-        System.out.println("Datos recibidos: ");
-        System.out.println("Email: " + registerRequest.getEmail());
-        System.out.println("Nombre: " + registerRequest.getNombre());
-        System.out.println("Telefono: " + registerRequest.getTelefono());
-    
-        if (userRepo.existsByEmail(registerRequest.getEmail())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Correo ya registrado");
-        }
-    
-        User newUser = new User();
-        newUser.setEmail(registerRequest.getEmail());
-        newUser.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
-        newUser.setNombre(registerRequest.getNombre());
-        newUser.setTelefono(registerRequest.getTelefono());
-        newUser.setRol(Rol.USER); 
-    
-        User savedUser = userRepo.save(newUser);
+   
+
+@PostMapping("/register")
+public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) {
+    System.out.println("Datos recibidos: ");
+    System.out.println("Email: " + registerRequest.getEmail());
+    System.out.println("Nombre: " + registerRequest.getNombre());
+    System.out.println("Telefono: " + registerRequest.getTelefono());
+    System.out.println("FechaRegistro: " + registerRequest.getFechaRegistro());
+
+    if (userRepo.existsByEmail(registerRequest.getEmail())) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Correo ya registrado");
+    }
+
+    User newUser = new User();
+    newUser.setEmail(registerRequest.getEmail());
+    newUser.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+    newUser.setNombre(registerRequest.getNombre());
+    newUser.setTelefono(registerRequest.getTelefono());
+    newUser.setRol(Rol.USER);
+
+    if (registerRequest.getFechaRegistro() != null && !registerRequest.getFechaRegistro().isEmpty()) {
+        OffsetDateTime odt = OffsetDateTime.parse(registerRequest.getFechaRegistro());
+        LocalDateTime ldt = odt.toLocalDateTime();
+        newUser.setFechaRegistro(ldt);
+    } else {
+        newUser.setFechaRegistro(LocalDateTime.now());
+    }
+
+    User savedUser = userRepo.save(newUser);
 
     Cart newCart = new Cart();
-    newCart.setUsuario(newUser);
+    newCart.setUsuario(savedUser);
     cartRepository.save(newCart);
 
-    String token = jwtTokenProvider.generateToken(newUser);
+    String token = jwtTokenProvider.generateToken(savedUser);
 
     Map<String, String> response = new HashMap<>();
     response.put("token", token);
-    response.put("email", newUser.getEmail());
-    response.put("nombre", newUser.getNombre());
+    response.put("email", savedUser.getEmail());
+    response.put("nombre", savedUser.getNombre());
 
     return ResponseEntity.status(HttpStatus.CREATED).body(response);
-    }
+}
+
 }

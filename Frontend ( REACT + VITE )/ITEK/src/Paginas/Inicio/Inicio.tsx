@@ -1,4 +1,5 @@
- import "./Inicio.css";
+import Carousel from "../../component/Carousel/carousel";
+import "./Inicio.css";
 
  const Inicio = () => {
   
@@ -33,7 +34,9 @@
         <img src="/Imagenes/Inicio/bañadorhombre.jpg" alt="florwhite" />
       </div>
     
-
+      <div>
+        <Carousel />
+      </div>
     
 
       <div className="text-container">
