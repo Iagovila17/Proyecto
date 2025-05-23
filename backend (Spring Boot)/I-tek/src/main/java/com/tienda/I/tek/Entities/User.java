@@ -52,6 +52,9 @@ public class User implements UserDetails {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime fechaRegistro;
 
+    @Column(nullable = false)
+    private boolean enabled = false;
+
     @JsonIgnore
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Cart> carts ;
@@ -153,14 +156,7 @@ public class User implements UserDetails {
         this.carts = carts;
     }
 
-    @Override
-    public String toString() {
-        return "User [id=" + id + ", nombre=" + username + ", email=" + email + ", password=" + password + ", direccion="
-                + direccion + ", telefono=" + telefono + ", rol=" + rol + ", fechaRegistro=" + fechaRegistro
-                + ", carts=" + carts + "]";
-    }
-
-    @Override
+     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(() -> "ROLE_" + rol.name());  
     }
@@ -187,6 +183,17 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;  
+        return enabled;
     }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", nombre=" + username + ", email=" + email + ", password=" + password
+                + ", direccion=" + direccion + ", telefono=" + telefono + ", rol=" + rol + ", fechaRegistro="
+                + fechaRegistro + "]";
+    }  
 }

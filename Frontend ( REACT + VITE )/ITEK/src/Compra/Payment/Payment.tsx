@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Payment.css';
-
 const Payment = () => {
+  const navigate = useNavigate();
   const [productosDelCarrito, setProductosDelCarrito] = useState<any[]>([]);
   const [direccionEnvio, setDireccionEnvio] = useState<any | null>(null);
   const [metodoSeleccionado, setMetodoSeleccionado] = useState('');
@@ -64,7 +65,7 @@ try {
     body: JSON.stringify(checkoutData),
   });
 
-  const responseData = await response.json(); // ✅ Solo una vez
+  const responseData = await response.json(); 
 
   if (!response.ok) {
     throw new Error(responseData.error || "Error desconocido");
@@ -72,7 +73,7 @@ try {
 
   alert("¡Pedido realizado con éxito!");
   console.log("Orden:", responseData);
-  // Aquí podrías redirigir a la página de historial
+  navigate('/inicio'); 
 
 } catch (error: any) {
   console.error("Error al realizar el checkout:", error);

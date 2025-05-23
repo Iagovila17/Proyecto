@@ -12,6 +12,7 @@ import ListaProductosPorCategoria from "./Product/ListarProductos/ListaProductos
 import ProductDetail from "./Product/ProductDetail/ProductDetail";
 import Login from "./RegistroyLogin/Login/Login";
 import Registro from "./RegistroyLogin/registro/registro";
+import ConfirmEmail from "./RegistroyLogin/ConfirmarCuenta/ConfirmEmail";
 import Ayuda from "./Paginas/Ayuda/Ayuda";
 import Search from "./component/Search/Search";
 
@@ -71,6 +72,7 @@ const App: React.FC = () => {
         <Route path="/inicio" element={<><Header /> <Inicio /><Footer /></>} /> 
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
+        <Route path="/confirmar-cuenta" element={<ConfirmEmail />} />
         <Route path="/ayuda" element={<><Ayuda /> <Footer /></>} />
         <Route path="/search" element={<><HeaderSearch /><Search /><Footer /></>} />
         <Route path="/productos/:categoria/:familia" element={<><HeaderPaginas /><ListaProductosPorCategoria /><Footer /></>} />

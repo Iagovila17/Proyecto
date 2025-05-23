@@ -40,7 +40,8 @@ protected void doFilterInternal(HttpServletRequest request,
         path.equals("/Product/search") ||
         path.matches("/search/.*") ||
         path.equals("/auth/login") ||
-        path.equals("/auth/register")) {
+        path.equals("/auth/register") ||
+        path.equals("/auth/confirm")) {
         filterChain.doFilter(request, response);
         return;
     }

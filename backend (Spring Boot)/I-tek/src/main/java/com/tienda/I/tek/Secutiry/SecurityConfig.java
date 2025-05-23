@@ -44,6 +44,7 @@ public class SecurityConfig {
             }))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/auth/confirm").permitAll()
                 .requestMatchers("/Product/byCategoriaFamilia").permitAll()
                 .requestMatchers("/Product/*").permitAll()
                 .requestMatchers("/search/*").permitAll()
