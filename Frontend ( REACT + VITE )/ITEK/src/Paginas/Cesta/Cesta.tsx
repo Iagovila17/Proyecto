@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './Cesta.css';
 
@@ -109,7 +110,14 @@ const Cesta = () => {
           <p>Cargando...</p>
         ) : (
           <div>
-            <h2 className='Cesta-Cantidad'>Mi cesta | {productos.length} artículo(s)</h2>
+            <div className="Cesta-Favoritos">
+                    <Link to="/cesta" className="Cesta-Enlace">
+                        CESTA [{productos.length}]
+                    </Link>
+                    <Link to="/favoritos" className="Favoritos-Enlace">
+                        FAVORITOS
+                    </Link>
+            </div>          
             <div className="cesta-content">
               <div className="productos">
                 {productos.map((producto, index) => (

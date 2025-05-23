@@ -5,6 +5,22 @@
         font-weight: bold;
     }
     
+.product-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; 
+}
+
+.add-to-favorites-icon {
+  color: #000000;
+  font-size: 20px;
+  transition: transform 0.2s;
+}
+
+.add-to-favorites-icon:hover {
+  transform: scale(1.2);
+}
+
     .product-detail {
         display: flex;
         margin-left: 17%;
@@ -18,6 +34,8 @@
         
     }
     .product-detail-name{
+        display: flex;
+        width: 500px;
         margin-top: 0%;
         font-size: 24px;
         font-weight: bold;

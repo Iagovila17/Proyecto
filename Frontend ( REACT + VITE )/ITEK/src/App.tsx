@@ -28,6 +28,7 @@ import Tienda from "./Footer/Tienda/Tienda";
 // Importación de componentes Protegidos
 import Cuenta from "./Paginas/Cuenta/Cuenta";
 import Cesta from "./Paginas/Cesta/Cesta";
+import Favorito from "./Paginas/Favoritos/Favoritos";
 import CestaEnvio  from "./Compra/CestaEnvio/CestaEnvio";
 import Payment  from "./Compra/Payment/Payment";
 
@@ -93,6 +94,9 @@ const App: React.FC = () => {
         <Route path="/CestaEnvio" element={<><HeaderPaginas /> <CestaEnvio /> <Footer /></>} />
         <Route path="/Payment" element={<><HeaderPaginas /> <Payment /> <Footer /></>} />
         <Route path="/cuenta" element={<><HeaderPaginas /> <Cuenta /> <Footer /></>} />
+        <Route path="/favoritos" element={<><HeaderPaginas /> <Favorito productos={[]} /> <Footer /></>} />
+
+        {/* Ruta protegida para usuarios autenticados */}
 
         
         {role === 'ADMIN' && (
