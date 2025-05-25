@@ -3,15 +3,16 @@ import './Carousel.css';
 
 const products = [
   {
-    image: 'https://res.cloudinary.com/deabexp8e/image/upload/v1747738305/ITEK%20Front/ROPA%20HOMBRE/lino/wx29goa2plnggcg22axd.jpg',
-    url: '/hombre/todos/ProductDetail/1',
+    image: 'https://res.cloudinary.com/deabexp8e/image/upload/v1747908281/ITEK%20Front/ROPA%20MUJER/Chaquetas/y5hqwobeflcvadtolxt9.jpg',
+    url: '/mujer/vestido/ProductDetail/13',
   },
   {
-    image: 'https://res.cloudinary.com/deabexp8e/image/upload/v1746101881/ITEK%20Front/ROPA%20HOMBRE/lino/l3tdiuop20xmygs8nmdf.jpg',
-   
+    image: 'https://res.cloudinary.com/deabexp8e/image/upload/v1747908392/ITEK%20Front/ROPA%20MUJER/Chaquetas/m1ul21n5jrqhy52jrici.jpg',
+    url: '/mujer/vestido/ProductDetail/14',
   },
   {
-    image: 'https://res.cloudinary.com/deabexp8e/image/upload/v1739791283/ITEK%20Front/ROPA%20HOMBRE/Camisetas/kj5g2lpvmdze0j2gmjvw.png',
+    image: 'https://res.cloudinary.com/deabexp8e/image/upload/v1747918604/ITEK%20Front/ROPA%20MUJER/Chaquetas/qxmz80zcoquezbmwuz3b.jpg',
+    url: '/mujer/vestido/ProductDetail/20',
  
   },
   {

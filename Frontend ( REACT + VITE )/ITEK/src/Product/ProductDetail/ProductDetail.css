@@ -240,3 +240,94 @@
   background-color: black;
   color: white; 
 }
+
+@media (max-width: 768px) {
+  .product-detail {
+    flex-direction: column;
+    margin: 5% 5%;
+    align-items: center;
+  }
+
+  .product-detail img {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .product-detail-name {
+    font-size: 20px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .product-detail-price {
+    font-size: 16px;
+  }
+
+  .info {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .lineaproduct {
+    margin-top: 2rem;
+  }
+
+  .tallas-container {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .talla-boton {
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 14px;
+  }
+
+  .imagenes-adicionales {
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+    margin-top: 50px;
+    align-items: center;
+  }
+
+  .imagenes-adicionales img {
+    width: 90%;
+  }
+
+  .imagen-detalle-estilo {
+    flex-direction: column;
+    width: 100%;
+    margin-left: 0;
+    align-items: center;
+  }
+
+  .imagen-detalle-estilo img {
+    width: 80%;
+    height: auto;
+  }
+
+  .Button-añadir, #Button-Añadir {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .panel-cesta {
+    width: 100%;
+    right: -100%;
+  }
+
+  .panel-cesta.activo {
+    right: 0;
+  }
+
+  .panel-cesta h3 {
+    font-size: 18px;
+  }
+
+  .botones-cesta button {
+    font-size: 14px;
+    padding: 12px;
+  }
+}

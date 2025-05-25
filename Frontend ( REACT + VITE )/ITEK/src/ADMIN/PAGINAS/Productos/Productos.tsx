@@ -5,7 +5,7 @@ const Productos = () => {
   const categorias = [
   {
     titulo: 'Hombre',
-    familias: ['Lino', 'Polo', 'Camiseta', 'Pantalone', 'Zapato', 'Accesorio']
+    familias: ['Lino', 'Polo', 'Camiseta', 'Pantalon', 'Zapato', 'Accesorio']
   },
   {
     titulo: 'Mujer',
