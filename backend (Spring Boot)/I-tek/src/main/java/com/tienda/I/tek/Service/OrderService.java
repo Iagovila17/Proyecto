@@ -4,19 +4,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tienda.I.tek.DTO.CheckoutRequest;
+import com.tienda.I.tek.DTO.OrderDTO;
 import com.tienda.I.tek.Entities.Cart;
 import com.tienda.I.tek.Entities.Cartitem;
 import com.tienda.I.tek.Entities.Order;
 import com.tienda.I.tek.Entities.OrderDetail;
+import com.tienda.I.tek.Entities.Product;
 import com.tienda.I.tek.Entities.User;
 import com.tienda.I.tek.Enumerated.EstadoPedido;
 import com.tienda.I.tek.Enumerated.MetodoPago;
 import com.tienda.I.tek.Repository.OrderRepository;
+import com.tienda.I.tek.Repository.ProductRepository;
 import com.tienda.I.tek.Repository.UserRepository;
 import com.tienda.I.tek.Repository.orderDetailRepository;
 
@@ -39,6 +43,11 @@ public class OrderService implements IOrderService {
 
     @Autowired
     private UserRepository userRepo;
+
+    @Autowired
+    private ProductRepository productRepository;
+
+
 
     public User findById(Long id) {
         return userRepo.findById(id).orElse(null);
@@ -63,56 +72,94 @@ public class OrderService implements IOrderService {
         return orderRepo.findById(id);
     }
 
-    // Elimina este constructor si ya no es necesario:
-    // public OrderService(OrderRepository orderRepository) {
-    //     this.orderRepository = orderRepository;
-    // }
+  
 
     public List<Order> getOrdersByUserId(Long userId) {
-        return orderRepo.findByUserId(userId);  // Usamos el nombre correcto del campo
+        return orderRepo.findByUserId(userId);  
     }
 
-    @Transactional
-    public Order checkout(User user, CheckoutRequest request) {
-        // Obtener el carrito del usuario
-        Cart cart = cartService.getCartByUser(user);
-        if (cart == null || cart.getItems().isEmpty()) {
-            throw new RuntimeException("El carrito está vacío");
+@Transactional
+public Order checkout(User user, CheckoutRequest request) {
+    Cart cart = cartService.getCartByUser(user);
+    if (cart == null || cart.getItems().isEmpty()) {
+        throw new RuntimeException("El carrito está vacío");
+    }
+
+    Order order = new Order();
+    order.setFecha(request.getFecha() != null ? request.getFecha() : new Date());
+    order.setEstado(EstadoPedido.PENDIENTE);
+    order.setMetodoPago(request.getMetodoPago() != null ? MetodoPago.valueOf(request.getMetodoPago().toUpperCase()) : MetodoPago.TARJETA);
+    order.setDireccionEnvio(request.getDireccionEnvio() != null ? request.getDireccionEnvio() : "Dirección no proporcionada");
+    order.setTotal(request.getTotal() != null ? request.getTotal() : 0.0);
+    order.setUser(user);
+    orderRepo.save(order);
+
+    List<OrderDetail> orderDetails = new ArrayList<>();
+    for (Cartitem item : cart.getItems()) {
+        Product producto = item.getProduct();
+
+        if (producto.getStock() < item.getCantidad()) {
+            throw new RuntimeException("No hay suficiente stock para el producto: " + producto.getNombre());
         }
 
-        // Crear y configurar la nueva orden
-        Order order = new Order();
-        order.setFecha(request.getFecha() != null ? request.getFecha() : new Date());
-        order.setEstado(EstadoPedido.PENDIENTE);
-        order.setMetodoPago(request.getMetodoPago() != null ? MetodoPago.valueOf(request.getMetodoPago().toUpperCase()) : MetodoPago.TARJETA);
-        order.setDireccionEnvio(request.getDireccionEnvio() != null ? request.getDireccionEnvio() : "Dirección no proporcionada");
-        order.setTotal(request.getTotal() != null ? request.getTotal() : 0.0);
-        order.setUser(user);
+        producto.setStock(producto.getStock() - item.getCantidad());
+        productRepository.save(producto);
 
-        // Guardar la orden
+        OrderDetail detail = new OrderDetail();
+        detail.setOrder(order);
+        detail.setProduct(producto);
+        detail.setQuantity(item.getCantidad());
+        detail.setTalla(item.getTalla());
+        detail.setUnitPrice(producto.getPrecio());
+        detail.setTotalPrice(item.getCantidad() * producto.getPrecio());
+
+        orderDetails.add(detail);
+    }
+
+    orderDetailRepo.saveAll(orderDetails);
+    cartService.clearCart(user.getId());
+
+    return order;
+}
+
+
+
+//ADMIN PEDIDOS 
+     @Override   
+    public List<OrderDTO> getAllOrders() {
+        List<Order> orders = orderRepo.findAll();
+
+        return orders.stream().map(order -> {
+            OrderDTO dto = new OrderDTO();
+            dto.setId(order.getId());
+            dto.setFecha(order.getFecha());
+            dto.setEstado(order.getEstado());
+            dto.setTotal(order.getTotal());
+            dto.setDireccionEnvio(order.getDireccionEnvio());
+
+            if (order.getUser() != null) {
+                dto.setUsername(order.getUser().getUsername());
+                dto.setEmail(order.getUser().getEmail());
+            }
+
+            return dto;
+        }).collect(Collectors.toList());
+    }
+
+
+
+
+    @Override
+    public void actualizarEstado(Long orderId, String nuevoEstado) {
+    Order order = orderRepo.findById(orderId)
+        .orElseThrow(() -> new IllegalArgumentException("Pedido no encontrado"));
+
+    try {
+        EstadoPedido estado = EstadoPedido.valueOf(nuevoEstado.toUpperCase());
+        order.setEstado(estado);
         orderRepo.save(order);
-
-        // Crear los detalles de la orden
-        List<OrderDetail> orderDetails = new ArrayList<>();
-        for (Cartitem item : cart.getItems()) {
-            OrderDetail detail = new OrderDetail();
-            detail.setOrder(order);
-            detail.setProduct(item.getProduct());
-            detail.setQuantity(item.getCantidad());
-            detail.setTalla(item.getTalla());
-            detail.setUnitPrice(item.getProduct().getPrecio());
-            detail.setTotalPrice(item.getCantidad() * item.getProduct().getPrecio());
-
-            orderDetails.add(detail);
-        }
-
-        // Guardar los detalles
-        orderDetailRepo.saveAll(orderDetails);
-
-        // Vaciar el carrito
-        cartService.clearCart(user.getId());
-
-        return order;
+    } catch (IllegalArgumentException e) {
+        throw new IllegalArgumentException("Estado no válido: " + nuevoEstado);
     }
-
+}
 }

@@ -1,11 +1,13 @@
 package com.tienda.I.tek.Entities;
 
 import java.util.Date;
+import java.util.List;
 
 import com.tienda.I.tek.DTO.CheckoutRequest;
 import com.tienda.I.tek.Enumerated.EstadoPedido;
 import com.tienda.I.tek.Enumerated.MetodoPago;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -16,6 +18,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -27,7 +30,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = true)
     private User user;  
 
@@ -45,6 +48,9 @@ public class Order {
 
     @Column(nullable = true)
     private String direccionEnvio;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<OrderDetail> orderDetails;
 
  
     public Order() {
@@ -71,6 +77,20 @@ public class Order {
         this.direccionEnvio = request.getDireccionEnvio() != null ? request.getDireccionEnvio() : "Dirección no proporcionada"; // Si no hay dirección, poner valor por defecto
         this.total = request.getTotal() != null ? request.getTotal() : 0.0; // Si no hay total, poner valor por defecto
     }
+
+    public Order(Long id, User user, Date fecha, EstadoPedido estado, Double total, MetodoPago metodoPago,
+            String direccionEnvio, List<OrderDetail> orderDetails) {
+        this.id = id;
+        this.user = user;
+        this.fecha = fecha;
+        this.estado = estado;
+        this.total = total;
+        this.metodoPago = metodoPago;
+        this.direccionEnvio = direccionEnvio;
+        this.orderDetails = orderDetails;
+    }
+
+ 
 
     public Long getId() {
         return id;
@@ -128,6 +148,13 @@ public class Order {
         this.direccionEnvio = direccionEnvio;
     }
 
+     public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
 
 
     @Override

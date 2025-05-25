@@ -81,12 +81,12 @@ public class CartControllerRest {
             return ResponseEntity.ok(order);
 
         } catch (Exception e) {
-    e.printStackTrace(); // 👈 imprime el stacktrace completo en consola
+        e.printStackTrace(); // 👈 imprime el stacktrace completo en consola
 
-    Map<String, String> errorResponse = new HashMap<>();
-    errorResponse.put("error", "Error al realizar el checkout: " + e.getMessage());
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
-}
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("error", "Error al realizar el checkout: " + e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+        }
     }
 
 

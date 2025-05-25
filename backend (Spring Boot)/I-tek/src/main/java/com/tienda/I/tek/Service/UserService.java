@@ -38,7 +38,13 @@ public class UserService implements IUserService{
 	@Override
     public User idUser(Long id) {
     return UserRepo.findById(id).orElseThrow(() -> new RuntimeException("Usuario no encontrado con el ID: " + id));
-}
+    }
+
+
+    public Long findUserIdByEmail(String email) {
+            Optional<User> usuarioOpt = UserRepo.findByEmail(email);
+            return usuarioOpt.map(User::getId).orElse(null);
+        }
 
 
 

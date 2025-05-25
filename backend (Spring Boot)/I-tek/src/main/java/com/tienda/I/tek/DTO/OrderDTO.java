@@ -2,6 +2,7 @@ package com.tienda.I.tek.DTO;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.tienda.I.tek.Entities.Order;
 import com.tienda.I.tek.Enumerated.EstadoPedido;
@@ -15,6 +16,13 @@ public class OrderDTO {
     private String direccionEnvio;
     private EstadoPedido estado;
     private List<OrderDetailDTO> products;
+    private Long userId;
+    private String username;
+    private String email;
+
+
+    public OrderDTO() {
+    }
 
     public OrderDTO(Long id, Date fecha, Double total, MetodoPago metodoPago, String direccionEnvio, EstadoPedido estado, List<OrderDetailDTO> products) {
         this.id = id;
@@ -37,10 +45,34 @@ public class OrderDTO {
         // Convertimos la lista de OrderDetail a OrderDetailDTO
 
     }
-    
-    public Long getId() {
-        return id;
+
+
+    public OrderDTO(Order order, boolean simple) {
+    this.id = order.getId();
+    this.fecha = order.getFecha();
+    this.total = order.getTotal();
+    this.metodoPago = order.getMetodoPago();
+    this.direccionEnvio = order.getDireccionEnvio();
+    this.estado = order.getEstado();
+
+    if (order.getUser() != null) {
+        this.userId = order.getUser().getId();
+        this.username = order.getUser().getNombre();  // o getUsername(), según tu entidad
+        this.email = order.getUser().getEmail();
     }
+
+    if (order.getOrderDetails() != null) {
+        this.products = order.getOrderDetails().stream()
+                    .map(OrderDetailDTO::new) // Asegúrate de tener un constructor OrderDetailDTO(OrderDetail)
+                    .collect(Collectors.toList());
+        }
+    }
+    
+        
+        
+        public Long getId() {
+            return id;
+        }
 
     public void setId(Long id) {
         this.id = id;
@@ -95,7 +127,46 @@ public class OrderDTO {
         this.estado = estado;
     }
 
-    // Getters and Setters
+    
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderDTO{" +
+                "id=" + id +
+                ", fecha=" + fecha +
+                ", total=" + total +
+                ", metodoPago=" + metodoPago +
+                ", direccionEnvio='" + direccionEnvio + '\'' +
+                ", estado=" + estado +
+                ", products=" + products +
+                ", userId=" + userId +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 
 
 }

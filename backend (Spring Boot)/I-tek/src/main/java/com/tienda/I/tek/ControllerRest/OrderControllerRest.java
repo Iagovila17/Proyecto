@@ -18,8 +18,12 @@ import com.tienda.I.tek.Entities.User;
 import com.tienda.I.tek.Service.OrderService;
 import com.tienda.I.tek.Service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
-import com.tienda.I.tek.Repository.OrderRepository;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.Map;
+
+import com.tienda.I.tek.Repository.OrderRepository;
 
 @RestController
 @RequestMapping("/order")
@@ -72,4 +76,24 @@ public class OrderControllerRest{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pedido no encontrado");
         }
     }
+
+    @GetMapping("/admin/orders")
+    public ResponseEntity<List<OrderDTO>> getAllOrdersForAdmin() {
+        List<OrderDTO> orders = orderService.getAllOrders();
+        return ResponseEntity.ok(orders);
+    }
+
+    @PutMapping("/admin/orders/{id}")
+    public ResponseEntity<?> actualizarEstadoPedido(@PathVariable Long id, @RequestBody Map<String, String> body) {
+        String nuevoEstado = body.get("estado");
+
+        try {
+            orderService.actualizarEstado(id, nuevoEstado);
+            return ResponseEntity.ok("Estado del pedido actualizado correctamente.");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    
+
 }

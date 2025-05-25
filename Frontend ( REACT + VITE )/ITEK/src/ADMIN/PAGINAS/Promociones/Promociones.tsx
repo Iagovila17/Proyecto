@@ -6,7 +6,7 @@ const Promociones: React.FC = () => {
   return (
     <div className="promociones-container">
       <AdminSidebar />
-      <div className="contenido-principal">
+      <div className="contenido-principal-promociones">
         <img
           src="/public\pagina-contruccion.png"
           alt="Página en construcción"

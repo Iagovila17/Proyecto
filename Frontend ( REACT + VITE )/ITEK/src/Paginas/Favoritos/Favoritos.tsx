@@ -59,7 +59,7 @@ const Favoritos: React.FC = () => {
     <div className="favoritos-container">
       <div className="Cesta-Favoritos">
         <Link to="/cesta" className="Cesta-Enlace">
-          CESTA [{productos.length}]
+          CESTA
         </Link>
         <Link to="/favoritos" className="Favoritos-Enlace">
           FAVORITOS

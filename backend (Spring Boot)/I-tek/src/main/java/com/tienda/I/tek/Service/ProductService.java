@@ -113,6 +113,27 @@ public class ProductService implements IProductService{
     public List<Product> buscarPorNombreOReferencia(String query) {
         return productRepo.buscarPorNombreOReferencia(query);
     }
+
+
+
+
+    // ADMIN 
+    public List<ProductDTO> getAllProductsStock() {
+        List<Product> products = productRepo.findAll();
+        return products.stream()
+                .map(p -> new ProductDTO(p.getId(),p.getReferencia(), p.getNombre(), p.getStock()))
+                .collect(Collectors.toList());
+    }
+
+    public ProductDTO updateProductStock(Long id, int nuevoStock) {
+        Product product = productRepo.findById(id)
+            .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+
+        product.setStock(nuevoStock);
+        productRepo.save(product);
+
+        return new ProductDTO(product.getId(), product.getReferencia(), product.getNombre(), product.getStock());
+    }
 	
 
 	

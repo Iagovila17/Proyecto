@@ -1,6 +1,7 @@
 package com.tienda.I.tek.ControllerRest;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tienda.I.tek.DTO.ProductDTO;
 import com.tienda.I.tek.Entities.Product;
 import com.tienda.I.tek.Service.ProductService;
 
@@ -91,5 +93,25 @@ public class ProductControllerRest {
     @DeleteMapping("/delete/{id}")
     public void deleteProduct(@PathVariable("id")Long id) {
         ProductServi.deleteProduct(id);
+    }
+
+
+
+    // ADMIN 
+     @GetMapping("/stock")
+    public ResponseEntity<List<ProductDTO>> getAllProductsStock() {
+        List<ProductDTO> products = ProductServi.getAllProductsStock();
+        return ResponseEntity.ok(products);
+    }
+
+    // Actualizar stock de un producto
+    @PutMapping("/stock/{id}")
+    public ResponseEntity<ProductDTO> updateProductStock(@PathVariable Long id, @RequestBody Map<String, Integer> stockMap) {
+        if (!stockMap.containsKey("stock")) {
+            return ResponseEntity.badRequest().build();
+        }
+        int nuevoStock = stockMap.get("stock");
+        ProductDTO updatedProduct = ProductServi.updateProductStock(id, nuevoStock);
+        return ResponseEntity.ok(updatedProduct);
     }
 }

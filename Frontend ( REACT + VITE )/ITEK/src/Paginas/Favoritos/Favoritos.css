@@ -13,7 +13,6 @@
   margin-top: 30px;
   padding: 0.5rem;
   text-align: center;
-  background-color: #fafafa;
 }
 .favorito-nombre a{
   text-decoration: none;
@@ -25,7 +24,6 @@
   max-width: 250px;
   object-fit: contain; /* Para que la imagen no se distorsione */
   margin-bottom: 0.5rem;
-  border-radius: 4px;
 }
 
 

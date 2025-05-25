@@ -15,7 +15,7 @@ const ConfirmEmail = () => {
     }
 
     // Redirigir el navegador a la URL backend para confirmar cuenta
-    window.location.href = `http://192.168.68.100:8080/auth/confirm?token=${token}`;
+    window.location.href = `http://92.168.68.100:8080/auth/confirm?token=${token}`;
   }, [token]);
 
   return (

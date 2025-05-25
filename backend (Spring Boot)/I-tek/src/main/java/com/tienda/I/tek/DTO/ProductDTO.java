@@ -1,13 +1,16 @@
 package com.tienda.I.tek.DTO;
 
 public class ProductDTO {
+    private Long id;
     private String nombre;
     private Double precio;
     private Integer cantidad;
     private String talla;
     private String imagen;
+    private String referencia;
     private Integer quantity;
     private Double totalPrice;
+    private int stock;
     
     public ProductDTO() {
     }
@@ -25,6 +28,13 @@ public class ProductDTO {
         this.talla = talla;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
+    }
+
+    public ProductDTO(Long id,String referencia, String nombre, int stock) {
+        this.id = id;
+        this.referencia = referencia;
+        this.nombre = nombre;
+        this.stock = stock;
     }
 
     
@@ -70,10 +80,43 @@ public class ProductDTO {
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }
+
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public int getStock() {
+        return stock;
+    }
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
+    }
+
+
     @Override
     public String toString() {
-        return "ProductDTO [nombre=" + nombre + ", precio=" + precio + ", cantidad=" + cantidad + ", talla=" + talla
-                + ", imagen=" + imagen + ", quantity=" + quantity + ", totalPrice=" + totalPrice + "]";
+        return "ProductDTO{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", precio=" + precio +
+                ", cantidad=" + cantidad +
+                ", talla='" + talla + '\'' +
+                ", imagen='" + imagen + '\'' +
+                ", referencia='" + referencia + '\'' +
+                ", quantity=" + quantity +
+                ", totalPrice=" + totalPrice +
+                ", stock=" + stock +
+                '}';
     }
    
     

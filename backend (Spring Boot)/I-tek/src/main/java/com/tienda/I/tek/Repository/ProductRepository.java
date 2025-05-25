@@ -13,7 +13,7 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
 List<Product> findByCategoria(Categoria categoria);
 List<Product> findByCategoriaAndFamilia(Categoria categoria, String familia);
 List<Product> findByNombreContainingIgnoreCaseOrReferenciaContainingIgnoreCase(String nombre, String referencia);
-List<Product> findAll();
+//List<Product> findAll();
 
 
 

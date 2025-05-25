@@ -1,0 +1,124 @@
+/* Contenedor principal del inventario */
+.stock-admin-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+/* Contenido al lado del sidebar */
+.contenido-principal {
+  flex: 1;
+  padding: 20px;
+  overflow-x: auto;
+}
+
+/* Título */
+.contenido-principal h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Campo de búsqueda */
+.input-busqueda {
+  margin-bottom: 16px;
+  padding: 10px;
+  width: 100%;
+  max-width: 300px;
+  border-bottom: 1px solid #000000;
+  font-size: 16px;
+}
+
+/* Tabla de productos */
+.tabla-productos-stock {
+  width: 100%;
+  height: 700px;
+  border-collapse: collapse;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+/* Cabecera de la tabla */
+table thead {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+}
+
+
+
+/* Celdas de la cabecera */
+table thead th {
+  padding: 12px;
+  font-weight: normal;
+}
+
+/* Filas del cuerpo de la tabla */
+table tbody tr {
+  font-size: 0.9em;
+}
+
+table tbody tr:hover {
+  background-color: #f0f8ff;
+}
+
+/* Celdas del cuerpo */
+table tbody td {
+  padding: 10px;
+}
+
+/* Input para stock */
+table input[type="number"] {
+  width: 80px;
+  padding: 6px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Botón Guardar */
+table button {
+  background-color: #000000;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+table button:hover {
+  background-color: #494949;
+}
+
+/* Zona de paginación */
+.paginacion {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Botones de paginación */
+.paginacion button {
+  padding: 6px 12px;
+  border: none;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.paginacion button:hover {
+  background-color: #c7c7c7;
+}
+
+/* Botón activo */
+.pagina-activa {
+  background-color: #000000;
+  color: white;
+}
+
+/* Error o mensajes */
+.text-danger {
+  color: rgb(235, 15, 15);
+}

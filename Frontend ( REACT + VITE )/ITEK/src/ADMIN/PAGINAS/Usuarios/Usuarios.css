@@ -1,52 +1,52 @@
-/* Estilos para la página de usuarios */
-.usuarios-container {
-  display: flex;
-}
+  /* Estilos para la página de usuarios */
+  .usuarios-container {
+    display: flex;
+  }
 
-.usuarios-main {
-  margin-left: 20px;
-  padding: 20px;
-  width: calc(100% - 250px);
-}
+  .usuarios-main {
+    margin-left: 20px;
+    padding: 20px;
+    width: calc(100% - 250px);
+  }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-}
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
 
-th, td {
-  padding: 10px;
-  text-align: center;
-  border-bottom: 1px solid #ddd;
-}
+  th, td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
 
-th {
-  background-color: #f4f4f4;
-}
+  th {
+    background-color: #f4f4f4;
+  }
 
-td {
-  background-color: #fff;
-}
+  td {
+    background-color: #fff;
+  }
 
-button.eliminar {
-  background-color: #ff4d4d;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 5px;
-}
+  button.eliminar {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
 
-button.eliminar:hover {
-  background-color: #e04343;
-}
+  button.eliminar:hover {
+    background-color: #e04343;
+  }
 
-h1 {
-  margin-bottom: 20px;
-}
+  h1 {
+    margin-bottom: 20px;
+  }
 
-.no-usuarios {
-  font-size: 16px;
-  color: #555;
-}
+  .no-usuarios {
+    font-size: 16px;
+    color: #555;
+  }

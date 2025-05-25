@@ -28,7 +28,6 @@ const Payment = () => {
     }, 0);
   };
 
-  
 
   const handleMetodoCambio = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMetodoSeleccionado(e.target.value);
