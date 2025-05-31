@@ -4,6 +4,8 @@ import axios from 'axios';
 import AdminSidebar from '../../../admin/sidebar/Sidebar';
 import './EditarProductos.css';
 
+const baseUrl = import.meta.env.VITE_API_URL;
+
 interface Producto {
   id: number;
   nombre: string;
@@ -54,7 +56,7 @@ const EditarProductos: React.FC = () => {
         const token = storedUser ? JSON.parse(storedUser).token : null;
         if (!token) throw new Error('Token no encontrado');
 
-        const response = await axios.get(`http://192.168.68.100:8080/Product/${id}`, {
+        const response = await axios.get(`${baseUrl}/Product/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -114,7 +116,7 @@ const EditarProductos: React.FC = () => {
         stock: parseInt(producto.stock as string),
       };
 
-      await axios.put(`http://192.168.68.100:8080/Product/${producto.id}`, dataToSend, {
+      await axios.put(`${baseUrl}/Product/${producto.id}`, dataToSend, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -138,7 +140,7 @@ const EditarProductos: React.FC = () => {
         return;
       }
 
-      await axios.delete(`http://192.168.68.100:8080/Product/${producto.id}`, {
+      await axios.delete(`${baseUrl}/Product/${producto.id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

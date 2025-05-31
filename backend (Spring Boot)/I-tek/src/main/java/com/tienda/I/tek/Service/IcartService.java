@@ -13,8 +13,6 @@ public interface IcartService {
     public void savecarrito(Cart cart);
     public void deleteCarrito(Long id);
 
-     
-
     // CartService methods
     Cart getCartByUser(User usuario);
     void addProductToCart(String email, Long productId, Talla talla, int cantidad);

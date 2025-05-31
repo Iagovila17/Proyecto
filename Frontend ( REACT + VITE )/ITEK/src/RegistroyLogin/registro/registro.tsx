@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import "./registro.css";
 
+const baseUrl = import.meta.env.VITE_API_URL;
+
 const Registro = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,16 +22,14 @@ const Registro = () => {
 
     try {
       const fechaRegistro = new Date().toISOString();
-      const response = await fetch('http://192.168.68.100:8080/auth/register', {
+      const response = await fetch(`${baseUrl}/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password, nombre, telefono, fechaRegistro }),
       });
 
       if (response.ok) {
-        // No guardar token, sólo informar que debe confirmar por email
         setMensaje('Registro exitoso. Revisa tu correo para activar la cuenta.');
-        // Limpiar formulario si quieres
         setEmail('');
         setPassword('');
         setConfirmPassword('');

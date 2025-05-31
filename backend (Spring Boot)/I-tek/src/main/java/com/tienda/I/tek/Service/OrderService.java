@@ -36,7 +36,7 @@ public class OrderService implements IOrderService {
     private IcartService cartService; 
 
     @Autowired
-    private orderDetailRepository orderDetailRepo;  // Añadir la anotación @Autowired
+    private orderDetailRepository orderDetailRepo; 
 
     @Autowired
     private UserService userService;

@@ -4,11 +4,13 @@ import axios from 'axios';
 import Navsecundario from '../../component/Navsecundario/Navsecundario';
 import './ListaProductosPorCategoria.css';
 
+const baseUrl = import.meta.env.VITE_API_URL;
+
 const ListaProductosPorCategoria = () => {
   const { categoria, familia } = useParams();
   const [productos, setProductos] = useState<any[]>([]);
   const [columnas, setColumnas] = useState(2);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768); // pantalla pequeña
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768); 
 
   useEffect(() => {
     const handleResize = () => {
@@ -21,7 +23,7 @@ const ListaProductosPorCategoria = () => {
   useEffect(() => {
     const fetchProductos = async () => {
       try {
-        const res = await axios.get('http://192.168.68.100:8080/Product/byCategoriaFamilia', {
+        const res = await axios.get(`${baseUrl}/Product/byCategoriaFamilia`, {
           params: {
             categoria: categoria?.toUpperCase(),
             familia: familia?.toUpperCase()

@@ -15,7 +15,5 @@ public class PasswordReset {
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
     }
-
-    // Getters y setters
     
 }

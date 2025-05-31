@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import './Favoritos.css';
 
+const baseUrl = import.meta.env.VITE_API_URL;
+
 interface Producto {
   id?: number | string;
   imagen?: string;
@@ -34,7 +36,7 @@ const Favoritos: React.FC = () => {
           return;
         }
 
-        const response = await axios.get('http://192.168.68.100:8080/favoritos', {
+        const response = await axios.get(`${baseUrl}/favoritos`, {
           headers: {
             Authorization: `Bearer ${tokenLocal}`,
           },
@@ -70,7 +72,6 @@ const Favoritos: React.FC = () => {
       ) : (
         <div className="favoritos-lista">
           {productos.map((producto) => {
-            // Usa el categoria y familia del producto si están, si no el del URL params
             const cat = producto.categoria || categoria || '';
             const fam = producto.familia || familia || '';
 

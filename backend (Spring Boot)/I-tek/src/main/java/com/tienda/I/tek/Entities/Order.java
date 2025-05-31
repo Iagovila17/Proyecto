@@ -71,11 +71,11 @@ public class Order {
 
         public Order(User user, CheckoutRequest request) {
         this.user = user;
-        this.fecha = request.getFecha() != null ? request.getFecha() : new Date(); // Si no hay fecha, usar la fecha actual
-        this.estado = EstadoPedido.PENDIENTE; // Asignar un estado por defecto
+        this.fecha = request.getFecha() != null ? request.getFecha() : new Date(); 
+        this.estado = EstadoPedido.PENDIENTE; 
         this.metodoPago = MetodoPago.valueOf(request.getMetodoPago().toUpperCase());
-        this.direccionEnvio = request.getDireccionEnvio() != null ? request.getDireccionEnvio() : "Dirección no proporcionada"; // Si no hay dirección, poner valor por defecto
-        this.total = request.getTotal() != null ? request.getTotal() : 0.0; // Si no hay total, poner valor por defecto
+        this.direccionEnvio = request.getDireccionEnvio() != null ? request.getDireccionEnvio() : "Dirección no proporcionada"; 
+        this.total = request.getTotal() != null ? request.getTotal() : 0.0; 
     }
 
     public Order(Long id, User user, Date fecha, EstadoPedido estado, Double total, MetodoPago metodoPago,

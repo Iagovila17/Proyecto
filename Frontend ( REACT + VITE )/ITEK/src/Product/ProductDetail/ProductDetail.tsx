@@ -5,6 +5,8 @@ import "./ProductDetail.css";
 import ResumenCesta from '../../component/ProducCart/ProductoCarrito';
 import { FaBookmark } from "react-icons/fa";
 
+const baseUrl = import.meta.env.VITE_API_URL;
+
 interface Producto {
   id: number;
   nombre: string;
@@ -37,7 +39,7 @@ export default function ProductDetail() {
   useEffect(() => {
     const fetchProducto = async () => {
       try {
-        const res = await axios.get<Producto>(`http://192.168.68.100:8080/Product/${id}`);
+        const res = await axios.get<Producto>(`${baseUrl}/Product/${id}`);
         setProducto(res.data);
       } catch (error) {
         console.error("Error al obtener producto:", error);
@@ -68,7 +70,7 @@ export default function ProductDetail() {
 
     try {
       const response = await axios.post(
-        `http://192.168.68.100:8080/cesta/add/${producto.id}`,
+        `${baseUrl}/cesta/add/${producto.id}`,
         { talla, cantidad: 1 },
         { headers: { Authorization: `Bearer ${tokenLocal}` } }
       );
@@ -128,9 +130,8 @@ export default function ProductDetail() {
 
     try {
       if (yaExiste) {
-        // Eliminar favorito
         const response = await axios.delete(
-          `http://192.168.68.100:8080/favoritos/${producto.id}`,
+          `${baseUrl}/favoritos/${producto.id}`,
           { headers: { Authorization: `Bearer ${tokenLocal}` } }
         );
 
@@ -141,9 +142,8 @@ export default function ProductDetail() {
           console.log("Eliminado de favoritos:", producto);
         }
       } else {
-        // Añadir favorito
         const response = await axios.post(
-          `http://192.168.68.100:8080/favoritos/${producto.id}`,
+          `${baseUrl}/favoritos/${producto.id}`,
           {},
           { headers: { Authorization: `Bearer ${tokenLocal}` } }
         );

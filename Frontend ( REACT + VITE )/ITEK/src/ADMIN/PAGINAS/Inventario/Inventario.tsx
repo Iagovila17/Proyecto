@@ -3,6 +3,8 @@ import axios from 'axios';
 import AdminSidebar from '../../admin/sidebar/Sidebar';
 import './Inventario.css';
 
+const baseUrl = import.meta.env.VITE_API_URL;
+
 interface Product {
   id: number;
   referencia: string;
@@ -29,7 +31,7 @@ const Inventario: React.FC = () => {
       return;
     }
 
-    axios.get('http://192.168.68.100:8080/Product/stock', {
+    axios.get(`${baseUrl}/Product/stock`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(res => {
@@ -55,7 +57,7 @@ const Inventario: React.FC = () => {
       return;
     }
 
-    axios.put(`http://192.168.68.100:8080/Product/stock/${id}`, { stock: nuevoStock }, {
+    axios.put(`${baseUrl}/Product/stock/${id}`, { stock: nuevoStock }, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json'

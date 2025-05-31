@@ -18,7 +18,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "carts") // carrito compra
+@Table(name = "carts") 
 public class Cart {
 
     @Id

@@ -63,7 +63,7 @@
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.2) inset;
 }
 
-.tallas-container {
+.tallas-container-admin {
   margin-top: 12px;
 }
 
@@ -170,7 +170,7 @@
   gap: 5px;
   font-size: 0.9em;
   color: #424242;
-  margin-bottom: 0; /* Remove default margin-bottom from checkbox-item */
+  margin-bottom: 0; 
 }
 
 .size-option input[type="checkbox"] {

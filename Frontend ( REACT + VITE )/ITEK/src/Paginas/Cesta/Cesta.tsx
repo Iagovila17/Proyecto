@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './Cesta.css';
 
+const baseUrl = import.meta.env.VITE_API_URL;
+
+
 const Cesta = () => {
   const [productos, setProductos] = useState<any[]>([]);
   const [error, setError] = useState<string>('');
@@ -13,7 +16,7 @@ const Cesta = () => {
     const user = JSON.parse(localStorage.getItem("user") || "{}");
 
     if (!user.token) {
-      navigate('/login'); // Redirigir si no hay token
+      navigate('/login'); 
       return;
     }
 
@@ -23,7 +26,7 @@ const Cesta = () => {
   const fetchCesta = async (token: string) => {
     setCargando(true);
     try {
-      const response = await fetch('http://192.168.68.100:8080/cesta', {
+      const response = await fetch(`${baseUrl}/cesta`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -69,7 +72,7 @@ const Cesta = () => {
     const token = user.token;
 
     try {
-      const response = await fetch(`http://192.168.68.100:8080/cesta/delete/${producto.id}`, {
+      const response = await fetch(`${baseUrl}/cesta/delete/${producto.id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,

@@ -8,7 +8,6 @@ public class RegisterRequest {
     private String nombre;
     private String fechaRegistro;
 
-    // Getters y setters
     public String getEmail() {
         return email;
     }

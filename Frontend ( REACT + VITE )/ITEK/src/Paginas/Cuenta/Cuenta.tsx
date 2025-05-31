@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Cuenta.css';
 
+const baseUrl = import.meta.env.VITE_API_URL;
+
 interface Product {
   productId: number;
   productName: string;
@@ -35,7 +37,7 @@ const Cuenta = () => {
   }, []);
 
   const fetchOrderHistory = async (userToken: string) => {
-    const response = await fetch('http://localhost:8080/api/history', {
+    const response = await fetch(`${baseUrl}/api/history`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${userToken}`,
@@ -76,7 +78,7 @@ const Cuenta = () => {
       return;
     }
 
-    const response = await fetch('http://localhost:8080/auth/change-password', {
+    const response = await fetch(`${baseUrl}/auth/change-password`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

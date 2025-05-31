@@ -59,8 +59,14 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 30px;
+  gap: 150px;
   padding: 30px 20px;
+}
+.producto-search{
+  width: 200px;
+}
+.producto-search img{
+  width: 250px;
 }
 
 .producto {

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AdminSidebar from '../sidebar/Sidebar'; // Asegúrate de que la ruta sea correcta
-import './AdminDashboard.css'; // Importa tus estilos
+import AdminSidebar from '../sidebar/Sidebar'; 
+import './AdminDashboard.css'; 
 import {
   FaBoxOpen,
   FaChartBar,
@@ -56,7 +56,6 @@ const AdminDashboard = () => {
       }
     }
 
-    // Simulación de obtención de estadísticas (reemplaza con tu lógica real)
     const obtenerEstadisticas = async () => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       setEstadisticas({
@@ -71,7 +70,6 @@ const AdminDashboard = () => {
     obtenerEstadisticas();
   }, []);
 
-  // Datos de ejemplo para el gráfico de ventas
   const salesData = {
     labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
     datasets: [
@@ -90,7 +88,6 @@ const AdminDashboard = () => {
     maintainAspectRatio: false,
   };
 
-  // Datos de ejemplo para el gráfico de productos más vendidos
   const topProductsData = {
     labels: ['Camiseta', 'Pantalón', 'Zapatillas', 'Vestido', 'Sudadera'],
     datasets: [
@@ -119,7 +116,7 @@ const AdminDashboard = () => {
   const topProductsOptions = {
     responsive: true,
     maintainAspectRatio: false,
-    indexAxis: 'y' as const, // Gráfico de barras horizontal
+    indexAxis: 'y' as const, 
   };
 
   return (

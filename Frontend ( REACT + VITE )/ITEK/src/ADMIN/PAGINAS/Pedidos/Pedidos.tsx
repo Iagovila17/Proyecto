@@ -3,6 +3,8 @@ import axios from 'axios';
 import AdminSidebar from '../../admin/sidebar/Sidebar';
 import './Pedidos.css';
 
+const baseUrl = import.meta.env.VITE_API_URL;
+
 interface Pedido {
   id: number;
   username: string;
@@ -33,7 +35,7 @@ const Pedido: React.FC = () => {
       return;
     }
 
-    axios.get('http://192.168.68.100:8080/order/admin/orders', {
+    axios.get(`${baseUrl}/order/admin/orders`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -58,7 +60,7 @@ const Pedido: React.FC = () => {
       return;
     }
 
-    axios.put(`http://192.168.68.100:8080/order/admin/orders/${id}`, { estado: nuevoEstado }, {
+    axios.put(`${baseUrl}/order/admin/orders/${id}`, { estado: nuevoEstado }, {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
@@ -109,11 +111,11 @@ const Pedido: React.FC = () => {
             setBusquedaID(e.target.value);
             setPaginaActual(1);
           }}
-          className="input-busqueda"
+          className="input-busqueda-order"
         />
 
-        <table className="table-pedidos table-striped">
-          <thead className="table-dark">
+        <table className="table-pedidos">
+          <thead>
             <tr>
               <th>ID</th>
               <th>Cliente</th>
@@ -158,7 +160,7 @@ const Pedido: React.FC = () => {
         </table>
 
         {totalPaginas > 1 && (
-          <div className="paginacion">
+          <div className="paginacion-order">
             <button onClick={() => cambiarPagina(paginaActual - 1)} disabled={paginaActual === 1}>
               Anterior
             </button>

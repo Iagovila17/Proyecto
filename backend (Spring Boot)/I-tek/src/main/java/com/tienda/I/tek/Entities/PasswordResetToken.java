@@ -26,8 +26,6 @@ public class PasswordResetToken {
         this.createdAt = LocalDateTime.now();
     }
 
-
-    // Getters y Setters
     public Long getId() {
         return id;
     }

@@ -14,7 +14,6 @@ public interface IOrderService {
     public void saveOrder(Order order); 
     public Optional<Order> getOrderById(Long id);
 
-    // Método para obtener pedidos por usuario ADMIN
     List<OrderDTO> getAllOrders();
     void actualizarEstado(Long orderId, String nuevoEstado);
     

@@ -9,78 +9,77 @@
 body {
     margin: 0;
     padding: 0;
-    color: #333; /* Color de texto principal */
+    color: #333; 
 }
 
 .botones  {
     margin-top: 13%;
     margin-left: 460px;
     margin-bottom: 50px;
-    display: block; /* Evita espacios extra debajo de las imágenes */
-    width: 40%; /* Las imágenes ocupan todo el ancho de su contenedor */
-    height: auto; /* Mantiene la proporción de la imagen */
+    display: block; 
+    width: 40%; 
+    height: auto; 
 }
 
 .imagenes-pares {
-    display: flex; /* Para mostrar las imágenes en línea */
-    gap: 15px; /* Espacio entre las imágenes pares */
+    display: flex; 
+    gap: 15px; 
 }
 
 .imagenes-pares img {
     margin-left: 50px;
     margin-right: 50px;
-    width: calc(50% - 5px); /* Cada imagen ocupa la mitad del ancho menos el espacio */
+    width: calc(50% - 5px);
 }
 
 
 
 .Bebedescripcion {
-  display: flex; /* Activa Flexbox para el contenedor */
-  width: 95%; /* Ocupa el 100% del ancho de su contenedor padre */
-  position: relative; /* Necesario para posicionar el texto absolutamente dentro */
+  display: flex; 
+  width: 95%; 
+  position: relative; 
 }
 
 .Bebedescripcion img {
   margin-left: 150px;
-  display: block; /* Evita espacios extra debajo de la imagen */
-  width: 100%; /* La imagen ocupa todo el ancho del contenedor */
-  height: auto; /* Mantiene la proporción de la imagen */
+  display: block; 
+  width: 100%; 
+  height: auto; 
 }
 
 .Bebedescripcion .text-beberopa {
-   font: 2rem "AmstelvarAlpha",sans-serif;
+   font: 0.8rem "AmstelvarAlpha",sans-serif;
   font-style: oblique 23deg;
   width: 250px;
-  font-size: 14px;
-  position: absolute; /* Posiciona el texto absolutamente */
-  top: 88%; /* Centra verticalmente el texto (aproximadamente) */
-  right: 390px; /* Lo alinea a la derecha con un pequeño margen */
-  transform: translateY(-50%); /* Ajusta el centrado vertical */
-  color: #000000; /* Color del texto */
-  padding: 10px; /* Espacio alrededor del texto */
-  z-index: 1; /* Asegura que el texto esté encima de la imagen */
+  position: absolute;
+  top: 88%;
+  right: 390px; 
+  transform: translateY(-50%);
+  color: #000000;
+  padding: 10px;
+  z-index: 1; 
 }
 
 .bañador-hombre {
-    display: flex; /* Para mostrar las imágenes en línea */
-    gap: 15px; /* Espacio entre las imágenes pares */
+    display: flex;
+    gap: 15px; 
 }
 
 .bañador-hombre img{
     margin-top: 130px;
     margin-left: 50px;
     margin-right: 50px;
-    width: calc(40% - 5px); /* Cada imagen ocupa la mitad del ancho menos el espacio */
+    width: calc(40% - 5px); 
 }
 
 
 .contenedor {
     display: flex;
-    gap: 15px; /* Espacio entre los círculos */
-    justify-content: center; /* Centra los círculos horizontalmente */
-    align-items: center; /* Centra los círculos verticalmente */
-    padding: 20px; /* Un poco de espacio alrededor de los círculos */
-    background-color: #fff; /* Fondo blanco para la sección de círculos */
+    gap: 15px; 
+    justify-content: center; 
+    align-items: center; 
+    padding: 20px;
+    background-color: #fff; 
 }
 
 .contenedor .circulo {
@@ -106,18 +105,18 @@ body {
 .contenedor {
     margin-left: 620px;
     width: 650px; 
-    height: 200px; /* Ajusta el tamaño del contenedor según necesites */
+    height: 200px;
     display: flex;
-    justify-content: center; /* Centra horizontalmente el círculo */
-    align-items: center; /* Centra verticalmente el círculo */
+    justify-content: center; 
+    align-items: center; 
     }
 
 .circulo {
     margin-right: 30px;
-    width: 100px; /* Ajusta el diámetro del círculo */
-    height: 100px; /* Ajusta el diámetro del círculo */
+    width: 100px; 
+    height: 100px; 
     background-color: black;
-    border-radius: 50%; /* Convierte el cuadrado en un círculo */
+    border-radius: 50%;
 }
 
  @media screen and (max-width: 768px) {
@@ -128,24 +127,24 @@ body {
     margin-bottom: 50px;
     }
     .botones img {
-        width: 350px; /* Las imágenes ocupan todo el ancho de su contenedor */
+        width: 350px; 
     }
 
     .imagenes-pares {
-        width: 350px; /* Las imágenes ocupan todo el ancho de su contenedor */
-    display: flex; /* Para mostrar las imágenes en línea */
+        width: 350px; 
+    display: flex; 
     }
 
     .imagenes-pares img {
         margin-left: 0px;
         margin-right: 0px;
-        width: calc(200px); /* Cada imagen ocupa la mitad del ancho menos el espacio */
+        width: calc(200px); 
     }
 
     .contenedor {
         margin-left: 20px;
-        width: 354px; /* Ajusta el tamaño del contenedor según necesites */
-        height: 40px; /* Ajusta el tamaño del contenedor según necesites */
+        width: 354px; 
+        height: 40px; 
         display: flex;
     }
 
@@ -158,9 +157,9 @@ body {
 
     .Bebedescripcion img {
         margin-left: 40px;
-        display: block; /* Evita espacios extra debajo de la imagen */
-        width: 350px; /* La imagen ocupa todo el ancho del contenedor */
-        height: auto; /* Mantiene la proporción de la imagen */
+        display: block; 
+        width: 350px; 
+        height: auto; 
     }
 
     .Bebedescripcion .text-beberopa {
@@ -168,20 +167,20 @@ body {
         font-style: oblique 23deg;
         width: 110px;
         font-size: 5px;
-        position: absolute; /* Posiciona el texto absolutamente */
-        top: 88%; /* Centra verticalmente el texto (aproximadamente) */
-        right: 0px; /* Lo alinea a la derecha con un pequeño margen */
-        transform: translateY(-50%); /* Ajusta el centrado vertical */
-        color: #000000; /* Color del texto */
-        padding: 10px; /* Espacio alrededor del texto */
-        z-index: 1; /* Asegura que el texto esté encima de la imagen */
+        position: absolute; 
+        top: 88%; 
+        right: 0px; 
+        transform: translateY(-50%); 
+        color: #000000; 
+        padding: 10px;
+        z-index: 1; 
     }
 
     .bañador-hombre img{
         margin-top: 40px;
         margin-left: 0px;
         margin-right: 0px;
-        width: calc(45%); /* Cada imagen ocupa la mitad del ancho menos el espacio */
+        width: calc(45%); 
     }
 
     .bañador-hombre {

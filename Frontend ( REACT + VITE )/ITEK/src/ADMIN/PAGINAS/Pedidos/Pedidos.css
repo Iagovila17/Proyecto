@@ -1,11 +1,17 @@
+
 .pedido-confirmado-container {
   display: flex;
+  min-height: 100vh;
   background-color: #ffffff;
 }
 
-.contenido-principal-pedido{
-  width: 100%;
+.contenido-principal-pedido {
+  flex: 1;
+  padding: 20px;
+  overflow-x: auto;
 }
+
+
 
 .table-pedidos{
   width: 100%;
@@ -15,13 +21,34 @@
   overflow: hidden;
 }
 
-.table-dark {
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+.input-busqueda-order {
+  margin-bottom: 16px;
+  padding: 10px;
+  width: 100%;
+  max-width: 300px;
+  border-bottom: 1px solid #000000;
+  font-size: 16px;
 }
 
-h2 {
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
+.paginacion-order {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Botones de paginación */
+.paginacion-order button {
+  padding: 6px 12px;
+  border: none;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.paginacion-order button:hover {
+  background-color: #c7c7c7;
 }

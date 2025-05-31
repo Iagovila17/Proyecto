@@ -1,5 +1,4 @@
-import React from 'react';
- import './Tienda.css'; // Importa el archivo CSS para estilos
+ import './Tienda.css'; 
 
  const Tienda = () => {
 

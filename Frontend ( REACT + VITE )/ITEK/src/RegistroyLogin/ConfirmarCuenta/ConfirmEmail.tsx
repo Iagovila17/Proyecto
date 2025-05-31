@@ -1,33 +1,30 @@
-import { useEffect, useState } from "react";
-import { useSearchParams, Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const ConfirmEmail = () => {
-  const [searchParams] = useSearchParams();
-  const token = searchParams.get("token");
-  const [message, setMessage] = useState("Confirmando cuenta...");
-  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    if (!token) {
-      setError("Token de confirmación no proporcionado.");
-      setMessage("");
-      return;
-    }
+    const params = new URLSearchParams(location.search);
+    const token = params.get("token");
+    const error = params.get("error");
 
-    // Redirigir el navegador a la URL backend para confirmar cuenta
-    window.location.href = `http://92.168.68.100:8080/auth/confirm?token=${token}`;
-  }, [token]);
+    if (token) {
+      localStorage.setItem("token", token);
+      navigate("/login", { replace: true });
+    } else if (error) {
+      alert("Error al confirmar cuenta: " + error);
+      navigate("/login", { replace: true });
+    } else {
+      alert("Token no proporcionado");
+      navigate("/login", { replace: true });
+    }
+  }, [location, navigate]);
 
   return (
-    <div className="confirm-email-container">
-      {message && <p className="success-message">{message}</p>}
-      {error && <p className="error-message">{error}</p>}
-      {/* Solo mostrar botón si hay error */}
-      {error && (
-        <Link to="/login">
-          <button>Ir a Iniciar Sesión</button>
-        </Link>
-      )}
+    <div>
+      <p>Confirmando cuenta...</p>
     </div>
   );
 };

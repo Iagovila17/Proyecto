@@ -38,7 +38,7 @@ public class ProductControllerRest {
         return ProductServi.getByCategoriaAndFamilia(categoria.toUpperCase(), familia.toUpperCase());
     }
 
-     @GetMapping("/listar") // primero rutas literales
+     @GetMapping("/listar") 
     public ResponseEntity<List<Product>> obtenerProductos() {
         List<Product> productos = ProductServi.obtenerTodosLosProductos();
         return ResponseEntity.ok(productos);
@@ -54,9 +54,6 @@ public class ProductControllerRest {
         }
     }
 
-
-
-    // Búsqueda con categoría
     @GetMapping("/search")
     public List<Product> buscarProductos(
         @RequestParam String query,
@@ -95,8 +92,6 @@ public class ProductControllerRest {
         ProductServi.deleteProduct(id);
     }
 
-
-
     // ADMIN 
      @GetMapping("/stock")
     public ResponseEntity<List<ProductDTO>> getAllProductsStock() {
@@ -104,7 +99,6 @@ public class ProductControllerRest {
         return ResponseEntity.ok(products);
     }
 
-    // Actualizar stock de un producto
     @PutMapping("/stock/{id}")
     public ResponseEntity<ProductDTO> updateProductStock(@PathVariable Long id, @RequestBody Map<String, Integer> stockMap) {
         if (!stockMap.containsKey("stock")) {

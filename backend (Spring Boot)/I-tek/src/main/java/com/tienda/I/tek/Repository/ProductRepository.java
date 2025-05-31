@@ -13,9 +13,6 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
 List<Product> findByCategoria(Categoria categoria);
 List<Product> findByCategoriaAndFamilia(Categoria categoria, String familia);
 List<Product> findByNombreContainingIgnoreCaseOrReferenciaContainingIgnoreCase(String nombre, String referencia);
-//List<Product> findAll();
-
-
 
     @Query("SELECT p FROM Product p WHERE " +
            "(LOWER(p.nombre) LIKE LOWER(CONCAT('%', :query, '%')) " +
@@ -27,7 +24,6 @@ List<Product> findByNombreContainingIgnoreCaseOrReferenciaContainingIgnoreCase(S
            "LOWER(p.nombre) LIKE LOWER(CONCAT('%', :query, '%')) " +
            "OR LOWER(p.referencia) LIKE LOWER(CONCAT('%', :query, '%'))")
     List<Product> buscarPorNombreOReferencia(@Param("query") String query);
-
 
     @Query("SELECT p FROM Product p WHERE (LOWER(p.nombre) LIKE LOWER(CONCAT('%', :query, '%')) OR LOWER(p.referencia) LIKE LOWER(CONCAT('%', :query, '%'))) AND p.categoria = :categoria")
     List<Product> findByNombreOrReferenciaAndCategoria(@Param("query") String query, @Param("categoria") Categoria categoria);

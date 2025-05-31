@@ -51,7 +51,6 @@ import AdminUpdateProduct from './ADMIN/PAGINAS/Productos/EditarProductos/Editar
 
 const App: React.FC = () => {
 
-  // Estado de autenticación
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [role, setRole] = useState('');
 
@@ -104,7 +103,7 @@ const App: React.FC = () => {
         {role === 'ADMIN' && (
           <>
             <Route path="/admin/dashboard" element={<><AdminDashboard /></>} />
-            <Route path="/admin/usuarios" element={<><AdminUsuarios /></>} /> {/* Asegúrate de tener este componente */}
+            <Route path="/admin/usuarios" element={<><AdminUsuarios /></>} />
             <Route path="/admin/productos" element={<><AdminProductos /></>} />
             <Route path="/admin/productos/:categoria/:familia/listado" element={<ListadoProductos />} />
             <Route path="/admin/productos/:categoria/:subcategoria/editar/:id" element={<AdminUpdateProduct />} />

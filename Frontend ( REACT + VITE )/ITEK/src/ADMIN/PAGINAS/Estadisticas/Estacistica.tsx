@@ -16,6 +16,8 @@ import { Bar, Line, Pie } from 'react-chartjs-2';
 import './Estadistica.css';
 import AdminSidebar from '../../../ADMIN/admin/sidebar/Sidebar';
 
+const baseUrl = import.meta.env.VITE_API_URL;
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -54,7 +56,7 @@ const Estadisticas = () => {
           return;
         }
 
-        const response = await axios.get<Usuario[]>('http://localhost:8080/User/list', {
+        const response = await axios.get<Usuario[]>(`${baseUrl}/User/list`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

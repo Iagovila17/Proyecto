@@ -54,7 +54,7 @@ public class Product {
     private int stock;
 
     @Column(nullable = true)
-    private String imagen; // Imagen principal
+    private String imagen; 
 
     @Column(nullable = false)
     private String imagen2;

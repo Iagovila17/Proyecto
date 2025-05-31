@@ -84,7 +84,6 @@ public class UserService implements IUserService{
     @Override
     public List<UserDto> listUserDto() {
          List<User> users = UserRepo.findAll();
-        // Transformamos cada usuario en un UserDTO
         return users.stream()
                     .map(user -> new UserDto())
                     .collect(Collectors.toList());

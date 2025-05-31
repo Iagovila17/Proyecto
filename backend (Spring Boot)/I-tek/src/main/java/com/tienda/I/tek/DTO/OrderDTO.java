@@ -42,7 +42,7 @@ public class OrderDTO {
         this.direccionEnvio = order.getDireccionEnvio();
         this.estado = order.getEstado();
 
-        // Convertimos la lista de OrderDetail a OrderDetailDTO
+
 
     }
 
@@ -57,13 +57,13 @@ public class OrderDTO {
 
     if (order.getUser() != null) {
         this.userId = order.getUser().getId();
-        this.username = order.getUser().getNombre();  // o getUsername(), según tu entidad
+        this.username = order.getUser().getNombre();  
         this.email = order.getUser().getEmail();
     }
 
     if (order.getOrderDetails() != null) {
         this.products = order.getOrderDetails().stream()
-                    .map(OrderDetailDTO::new) // Asegúrate de tener un constructor OrderDetailDTO(OrderDetail)
+                    .map(OrderDetailDTO::new) 
                     .collect(Collectors.toList());
         }
     }

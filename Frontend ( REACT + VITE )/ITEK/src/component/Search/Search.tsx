@@ -3,6 +3,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "./Search.css";
 
+const baseUrl = import.meta.env.VITE_API_URL;
+
 export default function Search({ familia }: { familia: string }) {
   const [query, setQuery] = useState("");
   const [categoria, setCategoria] = useState("MUJER");
@@ -15,7 +17,7 @@ export default function Search({ familia }: { familia: string }) {
         setResultados([]);
         return;
       }
-      const res = await axios.get("http://192.168.68.100:8080/Product/search", {
+      const res = await axios.get(`${baseUrl}/Product/search`, {
         params: { query, categoria },
       });
       setResultados(res.data);
@@ -34,7 +36,7 @@ export default function Search({ familia }: { familia: string }) {
 
   const buscarConParametros = async (q: string, cat: string) => {
     try {
-      const res = await axios.get("http://192.168.68.100:8080/Product/search", {
+      const res = await axios.get(`${baseUrl}/Product/search`, {
         params: { query: q, categoria: cat },
       });
       setResultados(res.data);
@@ -88,7 +90,7 @@ export default function Search({ familia }: { familia: string }) {
       <div className="resultados-busqueda">
         {resultados.length > 0 ? (
           resultados.map((producto: any) => (
-            <div key={producto.id} className="producto">
+            <div key={producto.id} className="producto-search">
               <Link to={`/${categoria}/${familia}/ProductDetail/${producto.id}`}>                <img src={producto.imagen} alt={producto.nombre} />
               </Link>
               <div>{producto.nombre}</div>

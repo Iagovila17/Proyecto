@@ -22,7 +22,7 @@
 
 .favorito-imagen {
   max-width: 250px;
-  object-fit: contain; /* Para que la imagen no se distorsione */
+  object-fit: contain; 
   margin-bottom: 0.5rem;
 }
 

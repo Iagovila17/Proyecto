@@ -2,22 +2,22 @@
   padding: 1rem 0;
   font-size: 1.3rem;
   font-weight: 600;
-  color: #2c3e50; /* Un gris azulado oscuro */
-  border-bottom: 2px solid #3498db; /* Un azul más vibrante para el acento */
+  color: #2c3e50; 
+  border-bottom: 2px solid #3498db; 
   margin-bottom: 2rem;
-  text-align: left; /* Volvemos a alinear a la izquierda */
+  text-align: left;
 }
 
 .categoria-section {
   margin-bottom: 1.8rem;
   padding: 1.2rem;
-  background-color: #f9f9f9; /* Un gris muy claro de fondo */
+  background-color: #f9f9f9; 
   border-radius: 6px;
 }
 
 .categoria-section h2 {
   margin-bottom: 1rem;
-  color: #3498db; /* Usamos el color de acento */
+  color: #3498db; 
   font-size: 1.1rem;
   font-weight: 500;
 }
@@ -25,14 +25,14 @@
 .tabla-productos {
   width: 100%;
   border-collapse: collapse;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Sutil sombra */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); 
   border-radius: 6px;
-  overflow: hidden; /* Para que el border-radius funcione en la tabla */
+  overflow: hidden; 
 }
 
 .tabla-productos thead tr {
-  background-color: #ecf0f1; /* Un gris claro para el encabezado */
-  color: #7f8c8d; /* Un gris más suave para el texto del encabezado */
+  background-color: #ecf0f1; 
+  color: #7f8c8d;
 }
 
 .tabla-productos th {
@@ -45,7 +45,7 @@
 .tabla-productos td {
   padding: 0.8rem 1rem;
   font-size: 0.9rem;
-  color: #34495e; /* Otro gris oscuro */
+  color: #34495e; 
 }
 
 .tabla-productos tbody tr {
@@ -57,7 +57,7 @@
 }
 
 .tabla-productos a {
-  color: #3498db; /* Color de acento para los enlaces */
+  color: #3498db; 
   text-decoration: none;
   font-size: 0.85rem;
   font-weight: 500;

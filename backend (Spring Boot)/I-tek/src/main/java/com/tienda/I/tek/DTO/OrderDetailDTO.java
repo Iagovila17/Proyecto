@@ -18,10 +18,8 @@ public class OrderDetailDTO {
         this.quantity = orderDetail.getQuantity();
         this.productImage = orderDetail.getProduct().getImagen();
         this.totalPrice = orderDetail.getTotalPrice();
-        this.talla = orderDetail.getTalla().toString(); // Si `talla` es un Enum, usar toString() para la representación
+        this.talla = orderDetail.getTalla().toString(); 
     }
-
-    // Getters and Setters
 
     public Long getProductId() {
         return productId;

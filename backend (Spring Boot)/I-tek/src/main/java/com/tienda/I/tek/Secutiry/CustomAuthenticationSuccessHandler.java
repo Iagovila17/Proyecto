@@ -20,14 +20,11 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
-        // Obtener el rol del usuario
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
-        // Verificar si el usuario es ADMIN
         if (authorities.stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
             response.sendRedirect("/admin/dashboard");
         } else {
-            // Redirigir a la página de inicio para los usuarios normales
             response.sendRedirect("/inicio");
         }
     }

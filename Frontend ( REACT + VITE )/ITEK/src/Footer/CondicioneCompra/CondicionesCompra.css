@@ -5,28 +5,28 @@
   max-width: 960px;
   margin: 20px auto; 
   color: #333;
-  background-color: #ffffff; /* Fondo más claro */
+  background-color: #ffffff; 
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Sombra sutil */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); 
   margin-bottom: -150px;
 }
 
 .condiciones-compra-title {
-  font-size: 2.2em; /* Ligeramente más pequeño */
-  color: #333; /* Texto principal más oscuro */
+  font-size: 2.2em; 
+  color: #333;
   margin-bottom: 15px;
-  text-align: center; /* Alineación izquierda por defecto */
-  border-bottom: 1px solid #000000; /* Línea sutil inferior */
+  text-align: center; 
+  border-bottom: 1px solid #000000; 
   padding-bottom: 10px;
 }
 
 .condiciones-compra-intro {
   margin-bottom: 15px;
-  color: #555; /* Texto secundario */
+  color: #555; 
 }
 
 .seccion-titulo {
-  font-size: 1.6em; /* Ligeramente más pequeño */
+  font-size: 1.6em; 
   color: #333;
   margin-top: 25px;
   margin-bottom: 10px;
@@ -36,12 +36,12 @@
 .opciones-envio,
 .opciones-devolucion {
   margin-bottom: 15px;
-  padding: 10px; /* Menos padding */
+  padding: 10px; 
 }
 
 .tipo-envio h3,
 .tipo-devolucion h3 {
-  font-size: 1.1em; /* Más pequeño */
+  font-size: 1.1em; 
   color: #555;
   margin-top: 0;
   margin-bottom: 8px;

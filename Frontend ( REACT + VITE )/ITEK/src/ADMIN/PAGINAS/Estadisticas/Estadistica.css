@@ -1,14 +1,7 @@
-/* Contenedor principal */
 .page-container {
   display: flex;
 }
 
-
-
-/* Sidebar (ya debería tener su propio estilo, pero lo dejamos claro) */
-
-
-/* Contenedor de estadísticas */
 .estadisticas-container {
   flex: 1;
   padding: 2rem;
@@ -16,7 +9,6 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Título */
 .estadisticas-container h1 {
   font-size: 2rem;
   margin-bottom: 2rem;
@@ -24,7 +16,6 @@
   text-align: center;
 }
 
-/* Totales */
 .estadisticas-totales {
   display: flex;
   justify-content: center;
@@ -69,7 +60,6 @@
   color: #343a40;
 }
 
-/* Gráficos */
 .graficos-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));

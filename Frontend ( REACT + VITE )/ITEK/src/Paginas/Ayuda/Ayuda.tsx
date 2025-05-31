@@ -31,16 +31,15 @@ const Ayuda = () => {
       }
     };
 
-    window.addEventListener("storage", handleStorageChange); // Escuchar cambios en el localStorage
-    return () => window.removeEventListener("storage", handleStorageChange); // Limpiar el listener al desmontar el componente
+    window.addEventListener("storage", handleStorageChange); 
+    return () => window.removeEventListener("storage", handleStorageChange); 
   }, []);
 
-  // Función para cerrar sesión
   const handleLogout = () => {
-    localStorage.removeItem("user"); // Eliminar el usuario del localStorage
+    localStorage.removeItem("user"); 
     setUserName(null);
-    setIsAuthenticated(false); // Establecer como no autenticado
-    window.location.reload(); // Forzar la recarga de la página
+    setIsAuthenticated(false); 
+    window.location.reload(); 
   };
 
     return(

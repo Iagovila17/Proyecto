@@ -27,7 +27,6 @@ public class FavoritoService {
     @Autowired
     private ProductRepository productoRepository;
 
-    // Obtener lista de favoritos de un usuario por su email
     public List<Product> obtenerFavoritosPorEmail(String email) {
         User usuario = usuarioRepository.findByEmail(email)
             .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
@@ -38,14 +37,12 @@ public class FavoritoService {
             .collect(Collectors.toList());
     }
 
-    // Añadir producto a favoritos
     public void agregarFavorito(String email, Long productoId) {
         User usuario = usuarioRepository.findByEmail(email)
             .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         Product producto = productoRepository.findById(productoId)
             .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
 
-        // Comprobar si ya está añadido
         boolean existe = favoritoRepository.findByUsuarioIdAndProductoId(usuario.getId(), productoId).isPresent();
         if (!existe) {
             Favorito favorito = new Favorito();
@@ -55,7 +52,6 @@ public class FavoritoService {
         }
     }
 
-    // Eliminar producto de favoritos
     public void eliminarFavorito(String email, Long productoId) {
         User usuario = usuarioRepository.findByEmail(email)
             .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));

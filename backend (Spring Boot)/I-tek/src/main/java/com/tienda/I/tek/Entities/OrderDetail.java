@@ -22,20 +22,20 @@ public class OrderDetail {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
-    private Order order;  // Relación con la orden
+    private Order order; 
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id", nullable = false)
-    private Product product;  // Relación con el producto
+    private Product product;  
 
     @Column(nullable = false)
-    private Integer quantity;  // Cantidad de productos en la orden
+    private Integer quantity;  
 
     @Column(nullable = false)
-    private Double unitPrice;  // Precio unitario del producto
+    private Double unitPrice; 
 
     @Column(nullable = false)
-    private Double totalPrice;  // Precio total de ese producto (cantidad * precio unitario)
+    private Double totalPrice; 
 
     private Talla talla;
 
@@ -55,9 +55,6 @@ public class OrderDetail {
         this.talla = talla;
     }
 
-
-
-    // Getters y setters
     public Long getId() {
         return id;
     }
@@ -106,7 +103,6 @@ public class OrderDetail {
         this.totalPrice = totalPrice;
     }
 
-    // Método para calcular el precio total basado en cantidad y precio unitario
     public void calculateTotalPrice() {
         this.totalPrice = this.unitPrice * this.quantity;
     }

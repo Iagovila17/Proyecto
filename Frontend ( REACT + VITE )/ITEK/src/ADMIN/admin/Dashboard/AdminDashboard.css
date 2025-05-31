@@ -1,5 +1,4 @@
 
-/* ... estilos PRUEBA DE MAINN  ... */
 
 .main-content {
   flex-grow: 1;
@@ -47,7 +46,7 @@
 
 .dashboard-charts {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Dos columnas para los gráficos */
+  grid-template-columns: 1fr 1fr;
   gap: 30px;
   margin-bottom: 30px;
 }

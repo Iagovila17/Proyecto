@@ -3,6 +3,8 @@ import axios from 'axios';
 import AdminSidebar from '../../admin/sidebar/Sidebar';
 import './Usuarios.css';
 
+const baseUrl = import.meta.env.VITE_API_URL;
+
 const Usuarios = () => {
   interface Usuario {
     id: number;
@@ -18,7 +20,6 @@ const Usuarios = () => {
   const [paginaActual, setPaginaActual] = useState<number>(1);
   const usuariosPorPagina = 10;
 
-  // Roles permitidos para cambiar
   const rolesDisponibles = ['USER', 'ADMIN'];
 
   useEffect(() => {
@@ -30,7 +31,7 @@ const Usuarios = () => {
       return;
     }
 
-    axios.get('http://localhost:8080/User/list', {
+    axios.get(`${baseUrl}/User/list`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -54,7 +55,7 @@ const Usuarios = () => {
         return;
       }
 
-      axios.delete(`http://localhost:8080/User/delete/${id}`, {
+      axios.delete(`${baseUrl}/User/delete/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -86,7 +87,7 @@ const Usuarios = () => {
     return;
   }
 
-  axios.put(`http://localhost:8080/User/updateRole/${id}`, JSON.stringify(nuevoRol), {
+  axios.put(`${baseUrl}/User/updateRole/${id}`, JSON.stringify(nuevoRol), {
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',

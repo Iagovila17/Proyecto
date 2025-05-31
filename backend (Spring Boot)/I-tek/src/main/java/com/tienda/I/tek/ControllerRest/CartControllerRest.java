@@ -68,20 +68,17 @@ public class CartControllerRest {
     @PostMapping("/checkout")
     public ResponseEntity<?> checkout(@RequestBody CheckoutRequest request,@RequestHeader("Authorization") String token) {
         try {
-            // Obtener email desde el token
             String email = jwtTokenProvider.getEmailFromToken(token.replace("Bearer ", ""));
             System.out.println("Email extraído del token: " + email); 
             User user = userRepo.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-            // Llamar al servicio de checkout
             Order order = orderServi.checkout(user, request);
 
-            // Devolver la orden como respuesta
             return ResponseEntity.ok(order);
 
         } catch (Exception e) {
-        e.printStackTrace(); // 👈 imprime el stacktrace completo en consola
+        e.printStackTrace(); 
 
         Map<String, String> errorResponse = new HashMap<>();
         errorResponse.put("error", "Error al realizar el checkout: " + e.getMessage());
@@ -92,14 +89,10 @@ public class CartControllerRest {
 
     @GetMapping
     public ResponseEntity<Cart> getCart(Principal principal) {
-        // Obtener el usuario a partir del nombre de usuario del Principal
         User user = userRepo.findByEmail(principal.getName())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
     
-        // Obtener el carrito del usuario
-        Cart cart = cartServi.getCartByUser(user); // Usar el objeto User
-    
-        // Retornar el carrito con una respuesta OK
+        Cart cart = cartServi.getCartByUser(user); 
         return ResponseEntity.ok(cart);
     }
 
@@ -112,15 +105,11 @@ public ResponseEntity<String> addProduct(@PathVariable Long productId,
                                          @RequestBody CartItemDTO cartItemDTO, 
                                          Principal principal) {
     try {
-        // Obtener el nombre del usuario actual
         String username = principal.getName();
-
-        // Convertir la talla de String a enum
         Talla tallaEnum = Talla.valueOf(cartItemDTO.getTalla().toUpperCase());
 
         int cantidad = cartItemDTO.getCantidad();
 
-        // Llamar al servicio para agregar el producto al carrito
         cartServi.addProductToCart(username, productId, tallaEnum, cantidad);
 
         return ResponseEntity.ok("Producto añadido a la cesta");
@@ -152,14 +141,13 @@ public ResponseEntity<String> removeProduct(@PathVariable Long productId, Princi
     @DeleteMapping("/clear")
     public ResponseEntity<String> clearCart(Principal principal) {
          try {
-             // Retrieve usuarioId from the Principal object
              User user = userRepo.findByEmail(principal.getName())
                      .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
              Cart cart = CartRepo.findByUsuarioId(user.getId())
                      .orElseThrow(() -> new RuntimeException("Carrito no encontrado"));
              if (cart != null) {
-                 cart.getItems().clear(); // Vacía los productos
-                 CartRepo.save(cart); // Guarda el carrito vacío (no lo borra)
+                 cart.getItems().clear(); 
+                 CartRepo.save(cart); 
              }
              return ResponseEntity.ok("Carrito vaciado correctamente");
          } catch (Exception e) {

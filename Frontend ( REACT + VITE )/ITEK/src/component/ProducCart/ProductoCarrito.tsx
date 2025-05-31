@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './ProductoCarrito.css';
 
+const baseUrl = import.meta.env.VITE_API_URL;
+
 const ResumenCesta = () => {
   const [productos, setProductos] = useState<any[]>([]);
   const [error, setError] = useState<string>('');
@@ -12,7 +14,7 @@ const ResumenCesta = () => {
         const user = JSON.parse(localStorage.getItem("user") || "{}");
         const token = user.token;
 
-        const response = await fetch('http://192.168.68.100:8080/cesta', {
+        const response = await fetch(`${baseUrl}/cesta`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

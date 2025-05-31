@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+const baseUrl = import.meta.env.VITE_API_URL;
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -10,11 +11,11 @@ const handleLogin = async () => {
   console.log("Login → Email:", email);
   console.log("Login → Password:", password);
   try {
-    const response = await fetch('http://192.168.68.100:8080/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    const response = await fetch(`${baseUrl}/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       body: JSON.stringify({ email, password }),
     });
 
@@ -81,12 +82,8 @@ const handleLogin = async () => {
           </button>
         </Link>
       </div>
-      <img 
-        id="imagenlateral" 
-        src="/Imagenes/Sesion.png" 
-        alt="Imagen lateral" 
-      />
-    </div>
+      <img id="imagenlateral"  src="/Imagenes/Sesion.png"  alt="Imagen lateral" />
+ </div>
   );
 };
 export default Login;

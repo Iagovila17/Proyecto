@@ -39,32 +39,30 @@
 .form-group input[type="text"],
 .form-group input[type="tel"],
 .form-group select {
-  width: calc(100% - 12px); /* Ajuste para el padding */
+  width: calc(100% - 12px); 
   padding: 8px;
-  border: none;                /* Quita todos los bordes */
-  border-bottom: 1px solid #000000; /* Solo borde inferior */
+  border: none;                
+  border-bottom: 1px solid #000000;
   box-sizing: border-box;
   font-size: 1em;
-  outline: none;               /* Opcional: quita el borde azul al hacer focus */
+  outline: none;              
 }
 
 
-/* Estilo para agrupar Nombre y Apellido en la misma línea */
-.form-group:nth-child(1), /* Nombre */
-.form-group:nth-child(2)  /* Apellido */
+.form-group:nth-child(1), 
+.form-group:nth-child(2)  
 {
   display: inline-block;
-  width: calc(50% - 10px); /* Ajusta el ancho y el margen según sea necesario */
+  width: calc(50% - 10px); 
   margin-right: 10px;
 }
 
-/* Eliminar el margen derecho del último elemento en la línea */
 .form-group:nth-child(4) {
   margin-right: 0;
 }
 
 .submit-button {
-  background-color: #000000; /* Un color azul similar al de la imagen */
+  background-color: #000000; 
   color: white;
   padding: 10px 15px;
   border: none;
@@ -76,20 +74,11 @@
   margin-left: 450px;
 }
 
-
-
-/* Estilos adicionales para refinar la apariencia */
 .form-group label sup {
-  color: red; /* Para el asterisco de los campos obligatorios */
+  color: red; 
 }
 
 
-
-
-
-
-
-/*  RESUMEN CESTA*/
   .resumen-cesta {
     width: 20%;
     padding: 10px;

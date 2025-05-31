@@ -62,7 +62,6 @@ protected void doFilterInternal(HttpServletRequest request,
         auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(auth);
     } else {
-        // Log para ver si el token es nulo o inválido
         System.out.println("Token no válido o ausente para la solicitud: " + request.getRequestURI());
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         return;

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const baseUrl = import.meta.env.VITE_API_URL;
+
 const ResetPasswordPage = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -23,7 +25,7 @@ const ResetPasswordPage = () => {
       return;
     }
 
-    const response = await fetch('http://localhost:8080/auth/reset-password', {
+    const response = await fetch(`${baseUrl}/auth/reset-password`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token: resetToken, newPassword }),

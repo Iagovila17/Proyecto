@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Payment.css';
+
+const baseUrl = import.meta.env.VITE_API_URL;
+
 const Payment = () => {
   const navigate = useNavigate();
   const [productosDelCarrito, setProductosDelCarrito] = useState<any[]>([]);
@@ -55,7 +58,7 @@ const checkoutData = {
 console.log('Datos de checkout:', checkoutData);
 
 try {
-  const response = await fetch('http://192.168.68.100:8080/cesta/checkout', {
+  const response = await fetch(`${baseUrl}/cesta/checkout`, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${token}`,

@@ -120,10 +120,7 @@
 
 
     .tallas-container{
-        width: 96%;
-        font-size: 16px;
         padding: 2%;
-        font-family: 'Courier New', Courier, monospace;
         background-color: white;
         border: 1px solid black;
         border-top: none;
@@ -146,19 +143,18 @@
 .imagenes-adicionales {
   width: 60%;
   margin-top: 100px;
-  display: flex; /* Coloca los elementos en fila */
-  gap: 100px; /* Espacio entre las imágenes */
-  align-items: flex-start; /* Alinea verticalmente las imágenes al inicio */
-  margin-left: auto; /* Centra horizontalmente */
-  margin-right: auto; /* Centra horizontalmente */
+  display: flex; 
+  gap: 100px;
+  align-items: flex-start; 
+  margin-left: auto; 
+  margin-right: auto; 
  }
  .imagenes-adicionales img {
-  width: 50%; /* Para que cada imagen ocupe la mitad del ancho */
-  height: auto; /* Mantiene la proporción de la imagen */
-  object-fit: contain; /* Asegura que la imagen completa se vea dentro del contenedor sin recortar, manteniendo la proporción */
- }
+  width: 50%; 
+  height: auto; 
+  object-fit: contain; 
+}
 
-    
 .Button-añadir{
     margin-top: 5%;
     width: 100%;

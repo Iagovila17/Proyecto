@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.tienda.I.tek.Entities.Cart;
-
 import com.tienda.I.tek.Entities.User;
 import com.tienda.I.tek.Entities.ValidationToken;
 import com.tienda.I.tek.Enumerated.Rol;
@@ -36,6 +34,7 @@ import com.tienda.I.tek.Repository.VerificationTokenRepository;
 import com.tienda.I.tek.Secutiry.CustomUserDetailsService;
 import com.tienda.I.tek.Secutiry.JwtTokenProvider;
 import com.tienda.I.tek.Service.EmailService;
+import com.tienda.I.tek.Service.ValidationTokenService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -44,7 +43,7 @@ import java.time.OffsetDateTime;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://192.168.68.100:5174") // Permite peticiones desde React
+@CrossOrigin(origins = "http://localhost:5174") 
 public class AuthController {
 
     @Autowired
@@ -59,6 +58,8 @@ public class AuthController {
     @Autowired
     private EmailService emailSenderService;
 
+    @Autowired
+    private ValidationTokenService validationTokenService;
 
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepo;
@@ -67,7 +68,6 @@ public class AuthController {
     private final CartRepository cartRepository;
     private final CustomUserDetailsService userDetailsService;
 
-    
     public AuthController(AuthenticationManager authenticationManager,
                           JwtTokenProvider jwtTokenProvider,
                           CustomUserDetailsService userDetailsService,
@@ -82,117 +82,109 @@ public class AuthController {
         this.cartRepository = cartRepository;
     }
 
-@PostMapping("/login")
-public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-    User user = userRepo.findByEmail(request.getEmail())
-        .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
-
-    if (!user.isEnabled()) {
-        return ResponseEntity
-            .status(HttpStatus.FORBIDDEN)
-            .body("Cuenta no confirmada. Por favor, revisa tu correo para confirmar el registro.");
+    private String buildBackendUrl(HttpServletRequest request) {
+        String scheme = request.getScheme();       
+        String serverName = request.getServerName(); 
+        int serverPort = request.getServerPort();   
+        if ((scheme.equals("http") && serverPort == 80) || (scheme.equals("https") && serverPort == 443)) {
+            return scheme + "://" + serverName;
+        } else {
+            return scheme + "://" + serverName + ":" + serverPort;
+        }
     }
 
-    Authentication authentication = authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(request.getEmail().trim(), request.getPassword())
-    );
-
-    String token = jwtTokenProvider.generateToken(user);
-
-    Map<String, Object> response = new HashMap<>();
-    response.put("nombre", user.getNombre());  
-    response.put("email", user.getEmail());   
-    response.put("telefono", user.getTelefono()); 
-    response.put("id", user.getId());   
-    response.put("direccion", user.getDireccion()); 
-    response.put("role", user.getRol().name()); 
-    response.put("token", token);  
-
-    return ResponseEntity.ok(response);
-}
-
-
-   
-
-@PostMapping("/register")
-public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest, HttpServletRequest request) {
-    if (userRepo.existsByEmail(registerRequest.getEmail())) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Correo ya registrado");
+    private String buildFrontendUrl() {
+        return "http://localhost:5174";  
     }
 
-    User newUser = new User();
-    newUser.setEmail(registerRequest.getEmail());
-    newUser.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
-    newUser.setNombre(registerRequest.getNombre());
-    newUser.setTelefono(registerRequest.getTelefono());
-    newUser.setRol(Rol.USER);
-    newUser.setEnabled(false); // importante: deshabilitado hasta confirmar email
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+        User user = userRepo.findByEmail(request.getEmail())
+            .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 
-    if (registerRequest.getFechaRegistro() != null && !registerRequest.getFechaRegistro().isEmpty()) {
-        OffsetDateTime odt = OffsetDateTime.parse(registerRequest.getFechaRegistro());
-        LocalDateTime ldt = odt.toLocalDateTime();
-        newUser.setFechaRegistro(ldt);
-    } else {
-        newUser.setFechaRegistro(LocalDateTime.now());
+        if (!user.isEnabled()) {
+            return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                .body("Cuenta no confirmada. Por favor, revisa tu correo para confirmar el registro.");
+        }
+
+        Authentication authentication = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(request.getEmail().trim(), request.getPassword())
+        );
+
+        String token = jwtTokenProvider.generateToken(user);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("nombre", user.getNombre());
+        response.put("email", user.getEmail());
+        response.put("telefono", user.getTelefono());
+        response.put("id", user.getId());
+        response.put("direccion", user.getDireccion());
+        response.put("role", user.getRol().name());
+        response.put("token", token);
+
+        return ResponseEntity.ok(response);
     }
 
-    User savedUser = userRepo.save(newUser);
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest, HttpServletRequest request) {
+        if (userRepo.existsByEmail(registerRequest.getEmail())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Correo ya registrado");
+        }
 
-    // Crear carrito para el nuevo usuario
-    Cart newCart = new Cart();
-    newCart.setUsuario(savedUser);
-    cartRepository.save(newCart);
+        User newUser = new User();
+        newUser.setEmail(registerRequest.getEmail());
+        newUser.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+        newUser.setNombre(registerRequest.getNombre());
+        newUser.setTelefono(registerRequest.getTelefono());
+        newUser.setRol(Rol.USER);
+        newUser.setEnabled(false); 
 
-    // Generar token de confirmación
-    String token = UUID.randomUUID().toString();
-    ValidationToken validationToken = new ValidationToken(token, savedUser);
-    validationTokenRepo.save(validationToken);
+        if (registerRequest.getFechaRegistro() != null && !registerRequest.getFechaRegistro().isEmpty()) {
+            OffsetDateTime odt = OffsetDateTime.parse(registerRequest.getFechaRegistro());
+            LocalDateTime ldt = odt.toLocalDateTime();
+            newUser.setFechaRegistro(ldt);
+        } else {
+            newUser.setFechaRegistro(LocalDateTime.now());
+        }
 
-    // Construir enlace al frontend
-    String confirmationUrl = buildFrontendUrl(request) + "/confirmar-cuenta?token=" + token;
+        User savedUser = userRepo.save(newUser);
 
+        Cart newCart = new Cart();
+        newCart.setUsuario(savedUser);
+        cartRepository.save(newCart);
 
-    // Enviar email con enlace de confirmación
-    String message = "Hola " + savedUser.getNombre() + ",\n\n"
-            + "Por favor confirma tu registro haciendo clic en el siguiente enlace:\n"
-            + confirmationUrl + "\n\nGracias.";
-    emailSenderService.sendEmail(savedUser.getEmail(), "Confirmación de Registro", message);
+        ValidationToken validationToken = validationTokenService.createToken(savedUser);
+        String token = validationToken.getToken();
 
-    return ResponseEntity.status(HttpStatus.CREATED).body("Usuario registrado. Por favor revisa tu email para confirmar la cuenta.");
-}
+        String confirmationUrl = buildBackendUrl(request) + "/auth/confirm?token=" + token;
 
+        String message = "Hola " + savedUser.getNombre() + ",\n\n"
+                + "Por favor confirma tu registro haciendo clic en el siguiente enlace:\n"
+                + confirmationUrl + "\n\nGracias.";
+        emailSenderService.sendEmail(savedUser.getEmail(), "Confirmación de Registro", message);
 
-@GetMapping("/confirm")
-public void confirmUser(@RequestParam("token") String token, HttpServletRequest request, HttpServletResponse response) throws IOException {
-    ValidationToken validationToken = validationTokenRepo.findByToken(token);
-    if (validationToken == null || validationToken.getExpiryDate().isBefore(LocalDateTime.now())) {
-        String redirectUrl = buildFrontendUrl(request) + "/error-confirm";
+        return ResponseEntity.status(HttpStatus.CREATED).body("Usuario registrado. Por favor revisa tu email para confirmar la cuenta.");
+    }
+
+    @GetMapping("/confirm")
+    public void confirmUser(@RequestParam("token") String token, HttpServletResponse response) throws IOException {
+        ValidationToken validationToken = validationTokenRepo.findByToken(token);
+
+        if (validationToken == null || validationToken.getExpiryDate().isBefore(LocalDateTime.now())) {
+            String redirectErrorUrl = buildFrontendUrl() + "/error-confirm";
+            response.sendRedirect(redirectErrorUrl);
+            return;
+        }
+
+        User user = validationToken.getUser();
+        user.setEnabled(true);
+        userRepo.save(user);
+        validationTokenRepo.delete(validationToken);
+
+        String jwt = jwtTokenProvider.generateToken(user);
+
+        String redirectUrl = buildFrontendUrl() + "/login?token=" + jwt;
         response.sendRedirect(redirectUrl);
-        return;
     }
-
-    User user = validationToken.getUser();
-    user.setEnabled(true);
-    userRepo.save(user);
-    validationTokenRepo.delete(validationToken);
-
-    String jwt = jwtTokenProvider.generateToken(user);
-
-    String redirectUrl = buildFrontendUrl(request) + "/inicio?token=" + jwt;
-    response.sendRedirect(redirectUrl);
-}
-
-private String buildFrontendUrl(HttpServletRequest request) {
-    String serverName = request.getServerName();
-    if ("localhost".equals(serverName)) {
-        return "http://localhost:5173";
-    } else if ("192.168.68.100".equals(serverName)) {
-        return "http://192.168.68.100:5174";
-    } else {
-        return "http://" + serverName + ":5173";
-    }
-}
-
-
-
 }

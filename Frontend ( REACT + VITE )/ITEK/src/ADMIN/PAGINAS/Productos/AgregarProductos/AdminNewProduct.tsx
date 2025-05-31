@@ -4,6 +4,8 @@ import axios from 'axios';
 import AdminSidebar from '../../../admin/sidebar/Sidebar';
 import './AdminNewProduct.css';
 
+const baseUrl = import.meta.env.VITE_API_URL;
+
 const AgregarProducto = () => {
   const { categoria, familia } = useParams<{ categoria: string; familia: string }>();
 
@@ -67,7 +69,7 @@ const AgregarProducto = () => {
         return;
       }
 
-      await axios.post('http://192.168.68.100:8080/Product/save', data, {
+      await axios.post(`${baseUrl}/Product/save`, data, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -175,7 +177,7 @@ const AgregarProducto = () => {
           </div>
           <input type="text" name="color" placeholder="Color" onChange={handleChange} required />
 
-          <div className="tallas-container">
+          <div className="tallas-container-admin">
             <label>Tallas disponibles:</label>
             <div className="size-selection-container">
               {sizeCategories.map((category) => (

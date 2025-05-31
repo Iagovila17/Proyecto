@@ -14,7 +14,6 @@ public interface IUserService {
     public void updateUser(User user);
     public void deleteUser(Long id);
     
-
     //DTO
     public List<UserDto> listUserDto();
     

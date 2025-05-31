@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './CestaEnvio.css'; // Asegúrate de crear este archivo CSS con los estilos necesarios.
-import { useNavigate } from 'react-router-dom'; // Usamos `useNavigate` para redirigir a otra página
+import './CestaEnvio.css'; 
+import { useNavigate } from 'react-router-dom';
 
 const CestaEnvio = () => {
   const [productosDelCarrito, setProductosDelCarrito] = useState<any[]>([]);
@@ -13,10 +13,9 @@ const CestaEnvio = () => {
     telefono: '',
     direccion_complementaria: '',
   });
-  const navigate = useNavigate(); // Para redirigir al usuario
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Recuperar los productos de la cesta del localStorage
     const productosGuardados = localStorage.getItem('productosCarrito');
     if (productosGuardados) {
       setProductosDelCarrito(JSON.parse(productosGuardados));
@@ -44,15 +43,12 @@ const CestaEnvio = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Guardar la información del formulario en localStorage
     localStorage.setItem('direccionEnvio', JSON.stringify(formData));
 
-    // Redirigir al usuario al método de pago
     navigate('/Payment');
   };
 
   const handleConfirmarEnvioFueraFormulario = () => {
-    // Llamamos a la misma función de envío
     handleSubmit({ preventDefault: () => {} } as React.FormEvent);
   };
 

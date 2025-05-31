@@ -4,6 +4,8 @@ import axios from 'axios';
 import AdminSidebar from '../../../admin/sidebar/Sidebar';
 import './ListaProductos.css';
 
+const baseUrl = import.meta.env.VITE_API_URL;
+
 interface Producto {
   id: number;
   nombre: string;
@@ -38,7 +40,7 @@ const ListadoProductos = () => {
         const token = obtenerToken();
         if (!token) throw new Error('Token no encontrado');
 
-        const response = await axios.get('http://192.168.68.100:8080/Product/listar', {
+        const response = await axios.get(`${baseUrl}/Product/listar`, {
           headers: {
             Authorization: `Bearer ${token}`
           }

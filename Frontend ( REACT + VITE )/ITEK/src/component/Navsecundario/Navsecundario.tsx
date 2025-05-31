@@ -1,6 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import "./Navsecundario.css";
 
+
+
 const Navsecundario: React.FC = () => {
   const location = useLocation();
   const pathParts = location.pathname.split("/");
