@@ -9,7 +9,6 @@ Node.js (LTS) y npm
 (Tu Base de Datos, ej: MySQL) o Docker si usas un contenedor.
 2. Configuración del Backend
 Clona el repositorio:
-Bash
 
 git clone https://github.com/tu-usuario/tu-repositorio.git
 cd tu-repositorio/backend
@@ -28,21 +27,17 @@ Bash
 # o si usas Gradle
 ./gradlew bootRun # Para Gradle
 El backend estará disponible en http://localhost:8080 (o el puerto configurado).
+
 3. Configuración del Frontend
 Navega al directorio del frontend:
-Bash
 
 cd ../frontend
 Instala las dependencias:
-Bash
 
 npm install
-# o si usas Yarn
-yarn install
+
 Inicia la aplicación React:
-Bash
 
 npm run dev
-# o si usas Yarn
-yarn dev
+
 El frontend se abrirá en http://localhost:5173 (o el puerto indicado por Vite).
